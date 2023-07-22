@@ -1,0 +1,99 @@
+﻿@model List<Request_Course.Models.T_Modaresan>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TeacherOfDoreh</title>
+</head>
+<body>
+
+    <div>
+        <h4>T_Modaresan</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <img src="~/images/@Model[i].img" />
+                <br />
+                <p>
+                    Family = @ViewBag.Family[i]
+                </p>
+                <p>
+                    Onvan Shoghli= @Model[i].Onvan_Shoghli
+                </p>
+                <p>
+                    Stars =@ViewBag.stars[i]
+                </p>
+                <p>
+                    Nomreh keyfi =@Model[i].Nomreh_Keyfi
+                </p>
+                <p>
+                    <a asp-controller="Teacher" asp-action="TeacherInfo" asp-route-phone="@Model[i].Phone">
+                        More
+                    </a>
+                </p>
+
+            }
+        </dl>
+        <br />
+        <br />
+        <br />
+        <form asp-action="TeacherOfDoreh" method="post" >
+            <p>Select Teacher priarity</p>
+            <div class="form-group">
+                <label class="control-label">P_1</label>
+                <select name="Teacher" class="form-control" asp-items="@ViewBag.Teacher"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">P_2</label>
+                <select name="Teacher2" class="form-control" asp-items="@ViewBag.Teacher"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">P_3</label>
+                <select name="Teacher3" class="form-control" asp-items="@ViewBag.Teacher"></select>
+            </div>
+            <br />
+            <br />
+            <br />
+            <input type="hidden" name="OnvanDoreh" value="@ViewBag.OnvanDoreh" data="@ViewBag.OnvanDoreh" />
+            <input type="hidden" name="onvanAsli" value="@ViewBag.onvanAsli" data="@ViewBag.onvanAsli" />
+            <input type="hidden" name="DorehDarkhasti_ID" value="@ViewBag.DorehDarkhasti_ID" data="@ViewBag.DorehDarkhasti_ID" />
+            <p>intro New Teacher</p>
+            <label class="control-label">Name :</label>
+            <input name="NewTeacher_Name" class="form-control" />
+            <label class="control-label">Phone :</label>
+            <input name="NewTeacher_Phone" class="form-control" />
+            <br />
+            <label class="control-label">Name2 :</label>
+            <input name="NewTeacher_Name2" class="form-control" />
+            <label class="control-label">Phone2 :</label>
+            <input name="NewTeacher_Phone2" class="form-control" />
+            <br />
+            <label class="control-label">Name3 :</label>
+            <input name="NewTeacher_Name3" class="form-control" />
+            <label class="control-label">Phone3 :</label>
+            <input name="NewTeacher_Phone3" class="form-control" />
+            <input type="submit" value="Send Request" />
+        </form>
+    </div>
+    <br />
+    <br />
+    <br />
+    <a asp-controller="Episod" asp-action="SarFaslDoreh" asp-route-onvanasli="@ViewBag.onvanAsli" asp-route-onvandoreh="@ViewBag.OnvanDoreh">
+        Show Sar False
+    </a>
+    <a>
+        Pishnahad sar fasl
+    </a>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</body>
+</html>

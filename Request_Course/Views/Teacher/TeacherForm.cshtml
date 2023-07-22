@@ -1,0 +1,94 @@
+﻿@model Request_Course.VM.ModaresanVM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TeacherForm</title>
+</head>
+<body>
+
+    <h4>ModaresanVM</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="TeacherForm" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Phone" value="@ViewBag.Phone" data="@ViewBag.Phone" type="hidden" />
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OnvanShoghli" class="control-label"></label>
+                    <input asp-for="OnvanShoghli" class="form-control" />
+                    <span asp-validation-for="OnvanShoghli" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="Phone" type="hidden" value="@ViewBag.Phone" data="@ViewBag.Phone" />
+                    <label asp-for="Daneshgah_Reshteh" class="control-label"></label>
+                    <input asp-for="Daneshgah_Reshteh" class="form-control" />
+                    <span asp-validation-for="Daneshgah_Reshteh" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea asp-for="Description" class="form-control" ></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label"> Maghtae Tahsili</label>
+                    <select name="MaghtaeTahsili" class="form-control" asp-items="@ViewBag.MaghtaeTahsili_Drop"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label"> Reshte </label>
+                    <select name="Reshte" class="form-control" asp-items="@ViewBag.Reshte"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label"> DaragehElmi</label>
+                    <select name="DaragehElmi" class="form-control" asp-items="@ViewBag.DaragehElmi"></select>
+                </div>
+                <div class="form-group">
+                    <input name="img" type="file" class="form-control" />
+                </div>
+                <br />
+                <br />
+                <br />
+                @for (int i = 0; i < 4; i++)
+                {
+                    <div class="form-group">
+                        <label class="control-label"> FildAsli</label>
+                        <select name="FildAsli" class="form-control" asp-items="@ViewBag.FildAsli"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label"> OnvanDoreh</label>
+                        <select name="OnvanDoreh" class="form-control" asp-items="@ViewBag.OnvanDoreh"></select>
+                    </div>
+                        
+                }
+                <br />
+                <br />
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+    </body>
+    </html>
