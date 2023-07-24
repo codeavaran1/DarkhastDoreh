@@ -15,7 +15,7 @@ namespace Request_Course.Models
         public int ID_Semat { get; set; }
 
         [StringLength(50)]
-        public string Titles_Semat { get; set; }
+        public string ?Titles_Semat { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Mokhatebin> T_Mokhatebin { get; set; }

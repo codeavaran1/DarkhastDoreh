@@ -20,6 +20,8 @@
             <form asp-action="SarFasliPishnahadi" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" name="DorehDarkhasti_ID" value="@ViewBag.DarkhastDoreh" data="@ViewBag.DarkhastDoreh" />
+                   <input type="hidden" name="onvanasli" value="@ViewBag.onvanasli" data="@ViewBag.onvanasli" />
+                <input type="hidden" name="onvandoreh" value="@ViewBag.onvandoreh" data="@ViewBag.onvandoreh" />
                 @for (int i = 0; i < 2; i++)
                 {
                     <div class="form-group">

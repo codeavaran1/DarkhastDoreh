@@ -50,6 +50,15 @@ namespace Request_Course.Serivces.Interface
         public Task<int> AddDoreh();
         public Task<int> UpdateDoreh();
         public Task<int> Add_Pishnahad_Modares_Doreh(T_Pishnahad_Modares_Doreh t_Pishnahad_Modares_Doreh);
+        public Task<T_Doreh_Darkhasti> GetDoreh_Darkhasti(int DorehDakhastiId);
+        public Task<T_Pishnahad_Modares_Doreh> GetPishnahad_Modares_Doreh(int DorehDakhastiId);
+        public Task<string> GetOnvanAsli(int OnvanAsliId);
+        public Task<string> GetOnvanDoreh(int OnvanDorehId);
+        public Task<string> GetRavasheAmozeshi(int RaveshAmozeshId);
+        public Task<string> GetMediaAmozeshi(int MediaAmozeshiId);
+        public Task<string> GetMokhatabinDoreh(int MokhatinDoreh);
+        public Task<string> GetSatehkeyfi(int SatehkeyfiId);
+        public Task<string> GetTeacherName(int TeacherId);
         #endregion
 
         #region Doreh Jadid
@@ -58,8 +67,11 @@ namespace Request_Course.Serivces.Interface
         #endregion
 
         #region Sar Fasl Doreh
-        public Task<List<T_Fasl_Doreh>> GetT_Fasl_Dorehs(int onvanasli,int onvandoreh);
+        public Task<List<string>> GetT_Fasl_Dorehs(int onvanasli,int onvandoreh);
+        public Task<List<T_Fasl_Doreh>> GetT_Fasl_Dore(int onvanasli, int onvandoreh);
+        public Task<List<string>> GetT_Fasl_Dorehs_Pishnahadi(int Dorehid);
         public Task<int> Add_sar_Fasle_Doreh_Pishnahadi(List<T_Fasl_Doreh_Pishnahadi> t_Fasl_Doreh_Pishnahadi);
+
         #endregion
 
 

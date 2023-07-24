@@ -15,7 +15,7 @@ namespace Request_Course.Models
         public int ID_MediaAmozeshi { get; set; }
 
         [StringLength(50)]
-        public string Titles_MediaAmozeshi { get; set; }
+        public string ?Titles_MediaAmozeshi { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Doreh_Darkhasti> T_Doreh_Darkhasti { get; set; }

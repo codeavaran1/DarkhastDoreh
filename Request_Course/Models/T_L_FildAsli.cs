@@ -15,7 +15,7 @@ namespace Request_Course.Models
         public int ID_FildAsli { get; set; }
 
         [StringLength(150)]
-        public string Titles_FildAsli { get; set; }
+        public string? Titles_FildAsli { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Modaresan_Fild_Amozeshi> T_Modaresan_Fild_Amozeshi { get; set; }

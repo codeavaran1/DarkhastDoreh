@@ -53,16 +53,16 @@ namespace Request_Course.Models
         public decimal? Avg_Nomreh_Tadris { get; set; }
 
         [Column(TypeName = "ntext")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        public string img { get; set; }
+        public string? img { get; set; }
 
 
         [StringLength(50)]
-        public string Phone { get; set; }
+        public string ?Phone { get; set; }
 
         [StringLength(30)]
-        public string Mobile { get; set; }
+        public string? Mobile { get; set; }
 
         public DateTime? DateCreate { get; set; }
 

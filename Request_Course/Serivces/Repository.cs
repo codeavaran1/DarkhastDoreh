@@ -27,7 +27,7 @@ namespace Request_Course.Serivces
 
         public async Task<T_Activation> GetActivation(string phone)
         {
-            return _context.T_Activation.Single(x => x.Phone == phone);
+            return _context.T_Activation.SingleOrDefault(x => x.Phone == phone);
         }
 
         public async Task UpdateActivation(T_Activation t_Activation)
@@ -112,7 +112,11 @@ namespace Request_Course.Serivces
         }
 
         #region Modaresan Sar Fasl
-        public async Task<List<T_Fasl_Doreh>> GetT_Fasl_Dorehs(int onvanasli, int onvandoreh)
+        public async Task<List<string>> GetT_Fasl_Dorehs(int onvanasli, int onvandoreh)
+        {
+            return _context.T_Fasl_Doreh.Where(x => x.T_L_OnvanDoreh_ID == onvandoreh && x.T_L_OnvanAsli_ID == onvanasli).Select(x=>x.Mohtav).ToList();
+        }
+        public async Task<List<T_Fasl_Doreh>> GetT_Fasl_Dore(int onvanasli, int onvandoreh)
         {
             return _context.T_Fasl_Doreh.Where(x => x.T_L_OnvanDoreh_ID == onvandoreh && x.T_L_OnvanAsli_ID == onvanasli).ToList();
         }
@@ -195,6 +199,42 @@ namespace Request_Course.Serivces
             await _context.SaveChangesAsync();
             return 0;
         }
+        public async Task<T_Doreh_Darkhasti> GetDoreh_Darkhasti(int DorehDakhastiId)
+        {
+            return  _context.T_Doreh_Darkhasti.SingleOrDefault(x => x.ID_Doreh_Darkhasti == DorehDakhastiId);
+        }
+        public async Task<T_Pishnahad_Modares_Doreh> GetPishnahad_Modares_Doreh(int DorehDakhastiId)
+        {
+            return _context.T_Pishnahad_Modares_Doreh.SingleOrDefault(x => x.T_Doreh_Darkhasti_ID == DorehDakhastiId);
+        }
+        public async Task<string> GetOnvanAsli(int OnvanAsliId)
+        {
+            return _context.T_L_OnvanAsli.SingleOrDefault(d => d.ID_L_OnvanAsli == OnvanAsliId).Titles_OnvanAsli;
+        }
+        public async Task<string> GetOnvanDoreh(int OnvanDorehId)
+        {
+            return _context.T_L_OnvanDoreh.SingleOrDefault(x => x.ID_OnvanDoreh == OnvanDorehId).Titles_OnvanDoreh;
+        }
+        public async Task<string> GetRavasheAmozeshi(int RaveshAmozeshId)
+        {
+            return _context.T_L_RaveshAmozeshi.SingleOrDefault(x => x.ID_L_RaveshAmozeshi == RaveshAmozeshId).Titles_RaveshAmozeshi;
+        }
+        public async Task<string> GetMediaAmozeshi(int MediaAmozeshiId)
+        {
+            return _context.T_L_MediaAmozeshi.SingleOrDefault(x => x.ID_MediaAmozeshi == MediaAmozeshiId).Titles_MediaAmozeshi;
+        }
+        public async Task<string> GetMokhatabinDoreh(int MokhatinDoreh)
+        {
+            return _context.T_L_MokhatabanDoreh.SingleOrDefault(x => x.ID_MokhatabanDoreh == MokhatinDoreh).Titles_MokhatabanDoreh;
+        }
+        public async Task<string> GetSatehkeyfi(int SatehkeyfiId)
+        {
+            return _context.T_L_SatheKeyfi_Modares.SingleOrDefault(x => x.ID_L_SatheKeyfi_Modares == SatehkeyfiId).Titles_SatheKeyfi_Modares;
+        }
+        public async Task<string> GetTeacherName(int TeacherId)
+        {
+            return _context.T_Modaresan.SingleOrDefault(x => x.ID_Modaresan == TeacherId).NameFamily;
+        }
         #endregion
 
         #region SarFasl pishnahadi
@@ -203,6 +243,10 @@ namespace Request_Course.Serivces
             await _context.T_Fasl_Doreh_Pishnahadi.AddRangeAsync(t_Fasl_Doreh_Pishnahadi);
             await _context.SaveChangesAsync();
             return 0;
+        }
+        public async Task<List<string>> GetT_Fasl_Dorehs_Pishnahadi(int Dorehid)
+        {
+            return  _context.T_Fasl_Doreh_Pishnahadi.Where(x => x.T_Doreh_Darkhasti_ID == Dorehid).Select(x=>x.Mohtava).ToList();
         }
         #endregion
 
@@ -289,15 +333,6 @@ namespace Request_Course.Serivces
         {
             return _context.T_L_SatheKeyfi_Modares.ToList();
         }
-
-        
-
-
-
-
-
-
-
 
 
 

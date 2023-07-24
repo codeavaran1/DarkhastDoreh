@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "fzmqAowkJrznj7IIFUd0gtAWUiITdMHDJR5Bh59J5ko=",
+  "Hash": "rJPulOHIYlt3cuYsXbiMPX0vRBHMfpkta3IWtGqze5s=",
   "Source": "Request_Course",
   "BasePath": "_content/Request_Course",
   "Mode": "Default",
@@ -13615,6 +13615,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\wwwroot\\images\\408184d8d9b44c0bba8a82152ba2d462.jpg",
+      "SourceId": "Request_Course",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\wwwroot\\",
+      "BasePath": "_content/Request_Course",
+      "RelativePath": "images/408184d8d9b44c0bba8a82152ba2d462.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\408184d8d9b44c0bba8a82152ba2d462.jpg"
+    },
+    {
+      "Identity": "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\wwwroot\\images\\76bfa5c763d847668b8692785974c821.jpg",
+      "SourceId": "Request_Course",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\wwwroot\\",
+      "BasePath": "_content/Request_Course",
+      "RelativePath": "images/76bfa5c763d847668b8692785974c821.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\76bfa5c763d847668b8692785974c821.jpg"
     },
     {
       "Identity": "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\wwwroot\\js\\site.js",

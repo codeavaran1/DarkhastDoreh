@@ -115,7 +115,7 @@ namespace Request_Course.Controllers
                 T_L_SatheKeyfi_Modares_ID = Convert.ToInt16(SatheKeyfi_Modares),
             };
             await _serivecs.AddDorehJadid(t_Doreh_Darkhasti);
-            return RedirectToAction("TeacherOfDoreh", new { onvanAsli = Convert.ToInt16(OnvanAsli), OnvanDoreh = Convert.ToInt16(OnvanDoreh), DorehDarkhasti_ID = t_Doreh_Darkhasti.ID_Doreh_Darkhasti });
+            return RedirectToAction("SarFaslDoreh", "Episod", new { onvanasli = Convert.ToInt16(OnvanAsli), onvandoreh = Convert.ToInt16(OnvanDoreh), DorehDarkhasti_ID = t_Doreh_Darkhasti.ID_Doreh_Darkhasti });
         }
 
         #endregion
@@ -166,7 +166,7 @@ namespace Request_Course.Controllers
             int Userid = _serivecs.GetMokhatebin(model.Phone).Result.ID_Mokhatebin;
             t_Doreh_Darkhasti.T_Mokhatebin_ID = Userid;
             await _serivecs.AddDorehJadid(t_Doreh_Darkhasti);
-            return RedirectToAction("TeacherOfDoreh", new { onvanAsli = Convert.ToInt16(OnvanAsli), OnvanDoreh = Convert.ToInt16(OnvanDoreh), DorehDarkhasti_ID = t_Doreh_Darkhasti.ID_Doreh_Darkhasti });
+            return RedirectToAction("SarFaslDoreh", "Episod", new { onvanasli = Convert.ToInt16(OnvanAsli), DorehDarkhasti_ID = t_Doreh_Darkhasti.ID_Doreh_Darkhasti });
 
         }
 
@@ -229,17 +229,88 @@ namespace Request_Course.Controllers
                 T_Doreh_Darkhasti_ID = DorehDarkhasti_ID,
             };
             await _serivecs.Add_Pishnahad_Modares_Doreh(t_Pishnahad_Modares_Doreh);
-            return RedirectToAction("OK");
-        }
-
-
-        public async Task<IActionResult> OK()
-        {
-            return View();
+            return RedirectToAction("AllAboutDorehMethod", new { DorehId = DorehDarkhasti_ID });
         }
 
 
         #endregion
+
+        #region koldorehDarkhasti
+        public async Task<IActionResult> AllAboutDorehMethod(int DorehId)
+        {
+            string Teacher1 = null;
+            string Teacher2 = null;
+            string Teacher3 = null;
+            T_Doreh_Darkhasti Doreh = await _serivecs.GetDoreh_Darkhasti(DorehId);
+            List<string> t_Fasl_Doreh_Pishnahadis = await _serivecs.GetT_Fasl_Dorehs_Pishnahadi(DorehId);
+            var onvanasli = await _serivecs.GetOnvanAsli(Doreh.T_L_OnvanAsli_ID.Value);
+            var RavasheAmozeshi = await _serivecs.GetRavasheAmozeshi(Doreh.T_L_RaveshAmozeshi_ID.Value);
+            var MediaAmozeshi = await _serivecs.GetMediaAmozeshi(Doreh.T_L_MediaAmozeshi_ID.Value);
+            var MokhatabinDoreh = await _serivecs.GetMokhatabinDoreh(Doreh.T_L_MokhatabanDoreh_ID.Value);
+            var pishnahad_MOdares = await _serivecs.GetPishnahad_Modares_Doreh(Doreh.ID_Doreh_Darkhasti);
+            AllAboutDoreh model = new AllAboutDoreh()
+            {
+                EndDate = Doreh.Date_Ta_Pishnahad,
+                StartDate = Doreh.Date_Az_Pishnahad,
+                MediaAmozeshi = MediaAmozeshi,
+                MokhatabinDoreh = MokhatabinDoreh,
+                OnvanAsli = onvanasli,
+                OnvanDoreh = Doreh.OnvanDoreh_Jadid,
+                RavasheAmozeshi = RavasheAmozeshi,
+                TeacherPshanmdiName1 = pishnahad_MOdares.Pishnahad_Modares_Name1,
+                TeacherPshanmdiName2 = pishnahad_MOdares.Pishnahad_Modares_Name2,
+                TeacherPshanmdiName3 = pishnahad_MOdares.Pishnahad_Modares_Name3,
+            };
+            T_Pishnahad_Modares_Doreh Teachers = await _serivecs.GetPishnahad_Modares_Doreh(DorehId);
+            if (Teachers != null)
+            {
+                if (Teachers.T_Modaresan_ID1 != null)
+                {
+                    Teacher1 = await _serivecs.GetTeacherName(Teachers.T_Modaresan_ID1.Value);
+                    model.Teahcername1 = Teacher1;
+                }
+                if (Teachers.T_Modaresan_ID2 != null)
+                {
+                    Teacher2 = await _serivecs.GetTeacherName(Teachers.T_Modaresan_ID2.Value);
+                    model.Teahcername2 = Teacher2;
+                }
+                if (Teachers.T_Modaresan_ID3 != null)
+                {
+                    Teacher3 = await _serivecs.GetTeacherName(Teachers.T_Modaresan_ID3.Value);
+                    model.Teahcername3 = Teacher3;
+                }
+            }
+            if (Doreh.T_L_SatheKeyfi_Modares_ID != null)
+            {
+                var Satehkeyfi = await _serivecs.GetSatehkeyfi(Doreh.T_L_SatheKeyfi_Modares_ID.Value);
+                model.Satehkeyfi = Satehkeyfi;
+            }
+            if (Doreh.T_L_OnvanDoreh_ID != null)
+            {
+                List<string> t_Fasl_Doreh = await _serivecs.GetT_Fasl_Dorehs(Doreh.T_L_OnvanAsli_ID.Value, Doreh.T_L_OnvanDoreh_ID.Value);
+                ViewBag.t_Fasl_Doreh = t_Fasl_Doreh;
+                var onvanDoreh = await _serivecs.GetOnvanDoreh(Convert.ToInt16(Doreh.T_L_OnvanDoreh_ID));
+                model.OnvanDoreh = onvanDoreh;
+            }
+
+
+
+
+            ViewBag.t_Fasl_Doreh_Pishnahadis = t_Fasl_Doreh_Pishnahadis;
+
+            return View(model);
+        }
+        #endregion
+
+        #region Confirm page
+        public async Task<IActionResult> OK()
+        {
+            return View();
+        }
+        #endregion
+
+
+
 
     }
 }

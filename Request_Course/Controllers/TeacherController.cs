@@ -34,7 +34,7 @@ namespace Request_Course.Controllers
                 Teacher = await _services.GetModaresan(id);
             }
             var teacher_name = _services.GetActivation(Teacher.Phone).Result.NameFamily;
-            var teacher_MaghtaeTahsili =await _services.GetMaghtaeTahsili(Teacher.ID_Modaresan);
+            var teacher_MaghtaeTahsili = Teacher.MadrakTahsili;
             TeacherInfoVM model = new TeacherInfoVM()
             {
                 Name = teacher_name,
@@ -51,8 +51,6 @@ namespace Request_Course.Controllers
             };
             return View(model);
         }
-
-
         #endregion
 
         #region Teacher From

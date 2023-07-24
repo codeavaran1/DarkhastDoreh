@@ -34,12 +34,10 @@ namespace Request_Course.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NameFamily")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -56,7 +54,6 @@ namespace Request_Course.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("code")
-                        .IsRequired()
                         .HasMaxLength(5)
                         .HasColumnType("nchar(5)")
                         .IsFixedLength();
@@ -164,17 +161,14 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Fasl_Doreh"), 1L, 1);
 
                     b.Property<string>("Modate_Ejra")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Mohtav")
-                        .IsRequired()
                         .HasMaxLength(550)
                         .HasColumnType("nvarchar(550)");
 
                     b.Property<string>("Shekle_Ejra")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -202,17 +196,14 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Fasl_Doreh_Pishnahadi"), 1L, 1);
 
                     b.Property<string>("Modate_Ejra")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Mohtava")
-                        .IsRequired()
                         .HasMaxLength(550)
                         .HasColumnType("nvarchar(550)");
 
                     b.Property<string>("Shekle_Ejra")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -235,7 +226,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_DaragehElmi"), 1L, 1);
 
                     b.Property<string>("Titles_DaragehElmi")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -253,7 +243,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_FildAsli"), 1L, 1);
 
                     b.Property<string>("Titles_FildAsli")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -271,7 +260,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_MaghtaeTahsili"), 1L, 1);
 
                     b.Property<string>("Titles_MaghtaeTahsili")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -289,7 +277,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_MediaAmozeshi"), 1L, 1);
 
                     b.Property<string>("Titles_MediaAmozeshi")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -307,7 +294,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_ModateDoreh"), 1L, 1);
 
                     b.Property<string>("Titles_ModateDoreh")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -325,7 +311,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_MokhatabanDoreh"), 1L, 1);
 
                     b.Property<string>("Titles_MokhatabanDoreh")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -343,7 +328,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_L_OnvanAsli"), 1L, 1);
 
                     b.Property<string>("Titles_OnvanAsli")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -361,7 +345,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_OnvanDoreh"), 1L, 1);
 
                     b.Property<string>("Titles_OnvanDoreh")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -379,7 +362,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Ostan"), 1L, 1);
 
                     b.Property<string>("Titles_Ostan")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -397,7 +379,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_L_RaveshAmozeshi"), 1L, 1);
 
                     b.Property<string>("Titles_RaveshAmozeshi")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -418,7 +399,6 @@ namespace Request_Course.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Titles_ReshtehTahsili")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -436,7 +416,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Sathe_Sherkat"), 1L, 1);
 
                     b.Property<string>("Titles_Sathe_Sherkat")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -454,7 +433,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_L_SatheKeyfi_Modares"), 1L, 1);
 
                     b.Property<string>("Titles_SatheKeyfi_Modares")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -472,7 +450,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Semat"), 1L, 1);
 
                     b.Property<string>("Titles_Semat")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -490,7 +467,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_L_Vaziyat_Doreh"), 1L, 1);
 
                     b.Property<string>("Titles_Vaziyat_Doreh")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -557,7 +533,6 @@ namespace Request_Course.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("ntext");
 
                     b.Property<string>("Email")
@@ -571,7 +546,6 @@ namespace Request_Course.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Mobile")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
@@ -590,7 +564,6 @@ namespace Request_Course.Migrations
                         .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -610,7 +583,6 @@ namespace Request_Course.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("img")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID_Modaresan");
@@ -664,7 +636,6 @@ namespace Request_Course.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Mokhatebin"), 1L, 1);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
@@ -684,7 +655,6 @@ namespace Request_Course.Migrations
                         .HasColumnType("nvarchar(150)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 

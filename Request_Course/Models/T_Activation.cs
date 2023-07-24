@@ -9,13 +9,13 @@ namespace Request_Course.Models
         public long ID_Activation { get; set; }
 
         [StringLength(50)]
-        public string Phone { get; set; }
+        public string? Phone { get; set; }
 
         [StringLength(5)]
-        public string code { get; set; }
+        public string? code { get; set; }
 
         [MaxLength(50)]
-        public string NameFamily { get; set; }
+        public string? NameFamily { get; set; }
 
         public bool Teacher { get; set; } = false;
 

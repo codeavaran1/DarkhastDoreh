@@ -8,13 +8,13 @@ namespace Request_Course.Models
         public int ID_Fasl_Doreh { get; set; }
 
         [StringLength(550)]
-        public string Mohtav { get; set; }
+        public string ?Mohtav { get; set; }
 
         [StringLength(50)]
-        public string Modate_Ejra { get; set; }
+        public string ?Modate_Ejra { get; set; }
 
         [StringLength(50)]
-        public string Shekle_Ejra { get; set; }
+        public string ?Shekle_Ejra { get; set; }
 
         public int? T_L_OnvanAsli_ID { get; set; }
 

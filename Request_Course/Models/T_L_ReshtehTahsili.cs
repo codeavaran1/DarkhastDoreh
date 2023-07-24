@@ -15,7 +15,7 @@ namespace Request_Course.Models
         public int ID_ReshtehTahsili { get; set; }
 
         [StringLength(50)]
-        public string Titles_ReshtehTahsili { get; set; }
+        public string ?Titles_ReshtehTahsili { get; set; }
 
         public bool? Active { get; set; }
 

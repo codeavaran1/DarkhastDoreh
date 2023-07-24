@@ -15,7 +15,7 @@ namespace Request_Course.Models
         public int ID_Sathe_Sherkat { get; set; }
 
         [StringLength(50)]
-        public string Titles_Sathe_Sherkat { get; set; }
+        public string? Titles_Sathe_Sherkat { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Mokhatebin> T_Mokhatebin { get; set; }

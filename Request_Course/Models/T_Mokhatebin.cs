@@ -28,10 +28,10 @@ namespace Request_Course.Models
         public string Mobile_Rabet { get; set; }=string.Empty;
 
         [StringLength(50)]
-        public string Phone { get; set; }
+        public string ?Phone { get; set; }
 
         [StringLength(150)]
-        public string Email { get; set; }
+        public string ?Email { get; set; }
 
         public int? T_L_Semat_ID { get; set; }
 

@@ -24,10 +24,10 @@ namespace Request_Course.Controllers
         [HttpPost]
         public async Task<IActionResult> GetPhone(ActivationVM activation, string Persontype = "")
             {
-            if (!ModelState.IsValid)
-            {
-                return View(activation);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(activation);
+            //}
             var user = await _servises.GetActivation(activation.Phone);
             if (user != null)
             {
@@ -79,10 +79,10 @@ namespace Request_Course.Controllers
         [HttpPost]
         public async Task<IActionResult> GetCode(CodeVm codeVm)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(codeVm);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(codeVm);
+            //}
             string Code = await _servises.GetUserCode(codeVm.Phone);
             if (Code.ToString() == codeVm.Code&& Code.ToString()!="")
             {

@@ -15,7 +15,7 @@ namespace Request_Course.Models
         public int ID_MaghtaeTahsili { get; set; }
 
         [StringLength(50)]
-        public string Titles_MaghtaeTahsili { get; set; }
+        public string? Titles_MaghtaeTahsili { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Modaresan> T_Modaresan { get; set; }

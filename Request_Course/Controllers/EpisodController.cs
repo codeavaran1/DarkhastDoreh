@@ -17,21 +17,26 @@ namespace Request_Course.Controllers
         public async Task<IActionResult> SarFaslDoreh(int onvanasli, int onvandoreh, int DorehDarkhasti_ID = 0)
         {
             ViewBag.DorehDarkhasti_ID = DorehDarkhasti_ID;
-            var SarFasleha = await _services.GetT_Fasl_Dorehs(onvanasli, onvandoreh);
+            var SarFasleha = await _services.GetT_Fasl_Dore(onvanasli, onvandoreh);
+            ViewBag.onvanasli = onvanasli;
+            ViewBag.onvandoreh = onvandoreh;
             return View(SarFasleha);
         }
         [HttpGet]
-        public async Task<IActionResult> SarFasliPishnahadi(int DorehDarkhasti_ID = 0)
+        public async Task<IActionResult> SarFasliPishnahadi(int DorehDarkhasti_ID = 0, int onvandoreh = 0, int onvanasli = 0)
         {
             List<SelectListItem> Sheklejra = _services.GetRaveshAmozeshis().Result
                 .Select(x => new SelectListItem { Value = x.Titles_RaveshAmozeshi.ToString(), Text = x.Titles_RaveshAmozeshi }).ToList();
             ViewBag.Sheklejra = Sheklejra;
             ViewBag.DarkhastDoreh = DorehDarkhasti_ID;
+            ViewBag.onvanasli = onvanasli;
+            ViewBag.onvandoreh = onvandoreh;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> SarFasliPishnahadi(List<string> Mohtav, List<string> Modate_Ejra, List<string> shekldoreh, int DorehDarkhasti_ID = 0)
+        public async Task<IActionResult> SarFasliPishnahadi(List<string> Mohtav, List<string> Modate_Ejra,
+            List<string> shekldoreh, int DorehDarkhasti_ID = 0,int onvandoreh=0,int onvanasli=0)
         {
             List<T_Fasl_Doreh_Pishnahadi> List_Fasl = new List<T_Fasl_Doreh_Pishnahadi>();
             for (int i = 0; i < Mohtav.Count; i++)
@@ -47,7 +52,7 @@ namespace Request_Course.Controllers
                 
             }
             await _services.Add_sar_Fasle_Doreh_Pishnahadi(List_Fasl);
-            return View();
+            return RedirectToAction("TeacherOfDoreh", "Request", new { onvanAsli= onvanasli, OnvanDoreh= onvandoreh, DorehDarkhasti_ID=DorehDarkhasti_ID });
         }
            
     }
