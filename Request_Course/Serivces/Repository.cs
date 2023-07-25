@@ -68,7 +68,8 @@ namespace Request_Course.Serivces
         public async Task<List<T_Modaresan>> GetModaresan(int onvnasli, int onvandoreh)
         {
             var OnvanAsli = _context.T_Modaresan_Fild_Amozeshi
-                .Where(x => x.T_L_OnvanDoreh_ID == onvnasli || x.T_L_OnvanDoreh_ID==onvandoreh).Select(x=>x.T_Modaresan_ID).ToList();
+                .Where(x => x.T_L_OnvanDoreh_ID == onvnasli && x.T_L_OnvanDoreh_ID==onvandoreh).Select(x=>x.T_Modaresan_ID).ToList();
+            OnvanAsli=OnvanAsli.Distinct().ToList();
             List<T_Modaresan> result = new List<T_Modaresan>(); 
             foreach (var item in OnvanAsli)
             {
@@ -110,7 +111,20 @@ namespace Request_Course.Serivces
             await _context.SaveChangesAsync();
             return 0;
         }
-
+        #region Teacher doreh
+        public async Task<List<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid)
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_ModateDoreh_ID == Teacherid).ToList();
+        }
+        public async Task<List<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid)
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid && x.T_L_Vaziyat_Doreh_ID == 1).ToList();
+        }
+        public async Task<List<T_Doreh_Darkhasti>> GetDoreh_ghabil(int teacherid)
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid && x.T_L_Vaziyat_Doreh_ID == 2).ToList();
+        }
+        #endregion
         #region Modaresan Sar Fasl
         public async Task<List<string>> GetT_Fasl_Dorehs(int onvanasli, int onvandoreh)
         {
@@ -181,6 +195,22 @@ namespace Request_Course.Serivces
             await _context.SaveChangesAsync();
             return 0;
         }
+
+
+        #region Doreh Mokhatbin
+        public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl(int userid)
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID==userid && x.T_L_Vaziyat_Doreh_ID==2).ToList();
+        }
+        public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabFaal(int userid)
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 1).ToList();
+        }
+        public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid)
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 3).ToList();
+        }
+        #endregion
 
         #endregion
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0g/DwZUua9FT5M8dm7LGaD73GkjMd0wepUCf2qDjF3zM8ZdGoc7pGg3YkoEtmh4cNOAn4g7Vy+j/wgRytMJmcg==",
+  "dgSpecHash": "lpA1oe6NDMSjzIrB7TNupCx8pCFBMM3o7Yce34L3ktw8pVQQ8nDkvHaNSNAox59qbtVdkqHtYhVPIDn8D7Bs7A==",
   "success": true,
-  "projectFilePath": "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\Request_Course.csproj",
+  "projectFilePath": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\Request_Course.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aliii\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\aliii\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

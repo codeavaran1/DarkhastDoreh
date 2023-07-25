@@ -24,7 +24,11 @@ namespace Request_Course.Serivces.Interface
         public Task<T_Modaresan> GetModaresan(int id);
         public Task<List<T_Modaresan>> GetModaresan(int onvnasli, int onvandoreh);
         public Task<List<T_Modaresan>> GetModaresan();
-
+        #region Modaresan Doreh
+        public Task<List<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid);
+        public Task<List<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid);
+        public Task<List<T_Doreh_Darkhasti>> GetDoreh_ghabil(int teacherid);
+        #endregion
         #region Fild Asli Modaresan
         public Task<int> AddModaresanFildAsli(List<T_Modaresan_Fild_Amozeshi> t_Modaresan_Fild_Amozeshi);
         #endregion
@@ -44,7 +48,6 @@ namespace Request_Course.Serivces.Interface
         public Task<int> UpdateMokhatab(T_Mokhatebin t_Mokhatab);
         public Task<T_Mokhatebin> GetMokhatebin(string phone);
         #endregion
-
 
         #region doreh
         public Task<int> AddDoreh();
@@ -66,6 +69,13 @@ namespace Request_Course.Serivces.Interface
         public Task<int> UpdateDorehJadid(T_Doreh_Darkhasti t_Doreh_Darkhasti);
         #endregion
 
+        #region Mohktab
+        public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl(int userid);
+        public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabFaal(int userid);
+        public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid);
+        #endregion
+
+
         #region Sar Fasl Doreh
         public Task<List<string>> GetT_Fasl_Dorehs(int onvanasli,int onvandoreh);
         public Task<List<T_Fasl_Doreh>> GetT_Fasl_Dore(int onvanasli, int onvandoreh);
@@ -73,8 +83,6 @@ namespace Request_Course.Serivces.Interface
         public Task<int> Add_sar_Fasle_Doreh_Pishnahadi(List<T_Fasl_Doreh_Pishnahadi> t_Fasl_Doreh_Pishnahadi);
 
         #endregion
-
-
 
         #region Tools
         public Task<List<T_L_MaghtaeTahsili>> GetMaghtaeTahsili();
@@ -91,7 +99,6 @@ namespace Request_Course.Serivces.Interface
         public Task<List<T_L_MokhatabanDoreh>> GetMokhatabanDorehs();
         public Task<List<T_L_SatheKeyfi_Modares>> GetSatheKeyfi_Modares();
         #endregion
-
 
 
     }

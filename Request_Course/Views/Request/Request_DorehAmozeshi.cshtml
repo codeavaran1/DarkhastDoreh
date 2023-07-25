@@ -19,6 +19,7 @@
         <div class="col-md-4">
             <form asp-action="Request_DorehAmozeshi" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" value="@ViewBag.Phone" data="ViewBag.Phone" name="Phoneing" />
                 <label>@ViewBag.user</label>
                 <label>@ViewBag.Name_Sherkat    </label>
                 <div class="form-group">

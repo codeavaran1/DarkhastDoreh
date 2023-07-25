@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\Request_Course.csproj": {}
+    "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\Request_Course.csproj": {}
   },
   "projects": {
-    "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\Request_Course.csproj": {
+    "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\Request_Course.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\Request_Course.csproj",
+        "projectUniqueName": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\Request_Course.csproj",
         "projectName": "Request_Course",
-        "projectPath": "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\Request_Course.csproj",
+        "projectPath": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\Request_Course.csproj",
         "packagesPath": "C:\\Users\\aliii\\.nuget\\packages\\",
-        "outputPath": "D:\\All Project\\Park Elemo fanavary\\Course-Requestes\\Request_Course\\Request_Course\\obj\\",
+        "outputPath": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",

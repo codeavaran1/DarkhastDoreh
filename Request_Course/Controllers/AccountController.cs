@@ -23,22 +23,20 @@ namespace Request_Course.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> GetPhone(ActivationVM activation, string Persontype = "")
+        {
+            if (!ModelState.IsValid)
             {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(activation);
-            //}
+                return View(activation);
+            }
             var user = await _servises.GetActivation(activation.Phone);
             if (user != null)
             {
-                if (string.IsNullOrWhiteSpace(user.code))
-                {
-                    //Re generate Code
-                    //send SMS Code
-                    user.DateGenerateCode = DateTime.Now;
-                    user.code = "98751";
-                    await _servises.UpdateActivation(user);
-                }
+                //Re generate Code
+                //send SMS Code
+                user.DateGenerateCode = DateTime.Now;
+                user.code = "98751";
+                await _servises.UpdateActivation(user);
+
             }
             else
             {
@@ -49,7 +47,7 @@ namespace Request_Course.Controllers
                     Phone = activation.Phone,
                     code = "12345",
                     DateGenerateCode = DateTime.Now,
-                    NameFamily=activation.NameFamily,
+                    NameFamily = activation.NameFamily,
                 };
                 if (Persontype == "Teacher")
                 {
@@ -69,7 +67,7 @@ namespace Request_Course.Controllers
 
         #region Create and send Code
 
-        
+
         [HttpGet]
         public async Task<IActionResult> GetCode(string phone = "")
         {
@@ -79,12 +77,12 @@ namespace Request_Course.Controllers
         [HttpPost]
         public async Task<IActionResult> GetCode(CodeVm codeVm)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(codeVm);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View(codeVm);
+            }
             string Code = await _servises.GetUserCode(codeVm.Phone);
-            if (Code.ToString() == codeVm.Code&& Code.ToString()!="")
+            if (Code.ToString() == codeVm.Code && Code.ToString() != "")
             {
                 var Activtion = await _servises.GetActivation(codeVm.Phone);
                 if (Activtion.DateGenerateCode >= DateTime.Now.AddMinutes(-5))
@@ -92,24 +90,24 @@ namespace Request_Course.Controllers
                     Activtion.code = "";
                     await _servises.UpdateActivation(Activtion);
                     //Execept Code
-                    if (Activtion.Teacher==true)
+                    if (Activtion.Teacher == true)
                     {
-                        var teacher =await _servises.GetModaresan(codeVm.Phone);
-                        if (teacher==null)
-                        {   
-                            return RedirectToAction("TeacherForm", "Teacher",new { phone =codeVm.Phone});
+                        var teacher = await _servises.GetModaresan(codeVm.Phone);
+                        if (teacher == null)
+                        {
+                            return RedirectToAction("TeacherForm", "Teacher", new { phone = codeVm.Phone });
                         }
                         else
-                        {   
+                        {
                             return RedirectToAction("FollowUpTeacher", "Teacher");
                         }
                     }
                     else
                     {
-                        var Mokhatab =await _servises.GetMokhatebin(codeVm.Phone);
-                        if (Mokhatab==null)
-                        {   
-                            return RedirectToAction("RequestForm", "Request", new { phone =codeVm.Phone, Family =Activtion.NameFamily});
+                        var Mokhatab = await _servises.GetMokhatebin(codeVm.Phone);
+                        if (Mokhatab == null)
+                        {
+                            return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone, Family = Activtion.NameFamily });
                         }
                         else
                         {
@@ -121,13 +119,14 @@ namespace Request_Course.Controllers
                 else
                 {
                     Activtion.code = "";
-                   await _servises.UpdateActivation(Activtion);
+                    await _servises.UpdateActivation(Activtion);
                     //Expired Time of Code
                     return RedirectToAction("ReCode");
                 }
             }
+            //wrong Code
+            return RedirectToAction("ReCode");
 
-            return View();
         }
 
         public async Task<IActionResult> ReCode()

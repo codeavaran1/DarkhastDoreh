@@ -73,9 +73,9 @@
         sar Fasle ha
     </p>
 </div>
-@if (@ViewBag.t_Fasl_Doreh != null)
+@if (ViewData["FasleDoreh"]!= null)
 {
-    @foreach (var item in @ViewBag.t_Fasl_Doreh)
+    @foreach (var item in @ViewData["FasleDoreh"] as List<string>)
     {
         <p>fasle : @item</p>
     }

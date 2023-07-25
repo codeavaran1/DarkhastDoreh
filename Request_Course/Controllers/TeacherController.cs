@@ -16,6 +16,11 @@ namespace Request_Course.Controllers
 
         #region Teacher Schema
 
+        public async Task<IActionResult> Index()
+        {
+            return View();  
+        }
+
         public async Task<IActionResult> FollowUpTeacher()
         {
             return View();
@@ -51,6 +56,27 @@ namespace Request_Course.Controllers
             };
             return View(model);
         }
+        #endregion
+
+        #region Teacher Dore
+        public async Task<IActionResult> DorehTadrisShodeh(int TeacherId)
+        {
+            var model =await _services.GetDoreh_Teacher(TeacherId);
+            return View(model);
+        }
+
+        public async Task<IActionResult> DorehFaal(int teacherid)
+        {
+            var model = await _services.GetDoreh_Faal_Teacher(teacherid);
+            return View(model);
+        }
+
+        public async Task<IActionResult> DorehGhabil(int teacherid)
+        {
+            var model = await _services.GetDoreh_ghabil(teacherid);
+            return View(model);
+        }
+
         #endregion
 
         #region Teacher From
@@ -99,6 +125,7 @@ namespace Request_Course.Controllers
                 T_L_DaragehElmi_ID=Convert.ToInt32(DaragehElmi),
             };
             t_Modaresan.MadrakTahsili = await _services.GetMadraktahsilibyId(Convert.ToInt32(MaghtaeTahsili));
+            t_Modaresan.NameFamily = _services.GetActivation(t_Modaresan.Phone).Result.NameFamily;
             var Modearseid=await _services.AddModares(t_Modaresan, img);
             List<T_Modaresan_Fild_Amozeshi> t_Modaresan_Fild_Amozeshi = new List<T_Modaresan_Fild_Amozeshi>();
             for (int i = 0; i < FildAsli.Count; i++)

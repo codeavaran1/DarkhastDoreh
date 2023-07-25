@@ -14,6 +14,13 @@ namespace Request_Course.Controllers
             _serivecs = repository;
         }
 
+
+        public async Task<IActionResult> Index()
+        {
+            return View();
+        }
+
+
         #region Mokhatabin jadid
         [HttpGet]
         public async Task<IActionResult> RequestForm(string phone = "", string Family = "")
@@ -96,12 +103,14 @@ namespace Request_Course.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> Request_DorehAmozeshi(DarkhastDorehAmozeshiVM model, string OnvanAsli = "", string OnvanDoreh = ""
-            , string MediaAmozeshis = "", string RaveshAmozeshis = "", string ModateDorehs = "", string MokhatabanDorehs = "", string SatheKeyfi_Modares = "")
+            , string MediaAmozeshis = "", string RaveshAmozeshis = "", string ModateDorehs = ""
+            , string MokhatabanDorehs = "", string SatheKeyfi_Modares = "",string Phoneing="")
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
+
             T_Doreh_Darkhasti t_Doreh_Darkhasti = new T_Doreh_Darkhasti()
             {
                 Date_Az_Pishnahad = model.DateStart,
@@ -113,7 +122,10 @@ namespace Request_Course.Controllers
                 T_L_ModateDoreh_ID = Convert.ToInt16(ModateDorehs),
                 T_L_MokhatabanDoreh_ID = Convert.ToInt16(MokhatabanDorehs),
                 T_L_SatheKeyfi_Modares_ID = Convert.ToInt16(SatheKeyfi_Modares),
+                
             };
+            int Userid = _serivecs.GetMokhatebin(Phoneing).Result.ID_Mokhatebin;
+            t_Doreh_Darkhasti.T_Mokhatebin_ID = Userid;
             await _serivecs.AddDorehJadid(t_Doreh_Darkhasti);
             return RedirectToAction("SarFaslDoreh", "Episod", new { onvanasli = Convert.ToInt16(OnvanAsli), onvandoreh = Convert.ToInt16(OnvanDoreh), DorehDarkhasti_ID = t_Doreh_Darkhasti.ID_Doreh_Darkhasti });
         }
@@ -199,8 +211,9 @@ namespace Request_Course.Controllers
                     }
                 }
             }
-            List<SelectListItem> Teacher = _serivecs.GetModaresan().Result
+            List<SelectListItem> Teacher = Teachers
                .Select(x => new SelectListItem { Value = x.ID_Modaresan.ToString(), Text = x.NameFamily }).ToList();
+            Teacher.Insert(0, new SelectListItem { Value=0.ToString(),Text="selelct"});
             ViewBag.stars = Stars;
             ViewBag.Teacher = Teacher;
             ViewBag.Family = FamilyName;
@@ -217,9 +230,9 @@ namespace Request_Course.Controllers
         {
             T_Pishnahad_Modares_Doreh t_Pishnahad_Modares_Doreh = new T_Pishnahad_Modares_Doreh()
             {
-                T_Modaresan_ID1 = Convert.ToInt32(Teacher),
-                T_Modaresan_ID2 = Convert.ToInt32(Teacher2),
-                T_Modaresan_ID3 = Convert.ToInt32(Teacher3),
+                T_Modaresan1=null,
+                T_Modaresan2=null,
+                T_Modaresan3=null,
                 Pishnahad_Modares_Name1 = NewTeacher_Name,
                 Pishnahad_Modares_Name2 = NewTeacher_Name2,
                 Pishnahad_Modares_Name3 = NewTeacher_Name3,
@@ -228,6 +241,18 @@ namespace Request_Course.Controllers
                 Pishnahad_Modares_phone3 = NewTeacher_Phone3,
                 T_Doreh_Darkhasti_ID = DorehDarkhasti_ID,
             };
+            if (Convert.ToInt32(Teacher)!=0)
+            {
+                t_Pishnahad_Modares_Doreh.T_Modaresan_ID1 = Convert.ToInt32(Teacher);
+            }
+            if (Convert.ToInt32(Teacher2)!=0)
+            {
+                t_Pishnahad_Modares_Doreh.T_Modaresan_ID2 = Convert.ToInt32(Teacher2);
+            }
+            if (Convert.ToInt32(Teacher3)!=0)
+            {
+                t_Pishnahad_Modares_Doreh.T_Modaresan_ID3 = Convert.ToInt32(Teacher3);
+            }
             await _serivecs.Add_Pishnahad_Modares_Doreh(t_Pishnahad_Modares_Doreh);
             return RedirectToAction("AllAboutDorehMethod", new { DorehId = DorehDarkhasti_ID });
         }
@@ -288,7 +313,7 @@ namespace Request_Course.Controllers
             if (Doreh.T_L_OnvanDoreh_ID != null)
             {
                 List<string> t_Fasl_Doreh = await _serivecs.GetT_Fasl_Dorehs(Doreh.T_L_OnvanAsli_ID.Value, Doreh.T_L_OnvanDoreh_ID.Value);
-                ViewBag.t_Fasl_Doreh = t_Fasl_Doreh;
+                ViewData["FasleDoreh"] = t_Fasl_Doreh;
                 var onvanDoreh = await _serivecs.GetOnvanDoreh(Convert.ToInt16(Doreh.T_L_OnvanDoreh_ID));
                 model.OnvanDoreh = onvanDoreh;
             }
