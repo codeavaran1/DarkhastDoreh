@@ -4,7 +4,7 @@
 
 namespace Request_Course.Migrations
 {
-    public partial class NullableForData : Migration
+    public partial class DB_DarkhastDoreh1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

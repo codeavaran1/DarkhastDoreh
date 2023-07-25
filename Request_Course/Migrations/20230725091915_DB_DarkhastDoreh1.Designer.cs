@@ -12,8 +12,8 @@ using Request_Course.Data;
 namespace Request_Course.Migrations
 {
     [DbContext(typeof(ReqContexts))]
-    [Migration("20230724073209_NullableForData")]
-    partial class NullableForData
+    [Migration("20230725091915_DB_DarkhastDoreh1")]
+    partial class DB_DarkhastDoreh1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

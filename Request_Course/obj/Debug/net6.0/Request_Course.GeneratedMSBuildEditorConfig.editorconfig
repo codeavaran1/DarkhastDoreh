@@ -8,89 +8,89 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Request_Course
 build_property.RootNamespace = Request_Course
-build_property.ProjectDir = D:\All Project\Park Elemo fanavary\Course-Requestes\Request_Course\Request_Course\
+build_property.ProjectDir = C:\MeysamFile\Pro_DarkhastDoreh\App\DarkhastDoreh\Request_Course\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\All Project\Park Elemo fanavary\Course-Requestes\Request_Course\Request_Course
+build_property.MSBuildProjectDirectory = C:\MeysamFile\Pro_DarkhastDoreh\App\DarkhastDoreh\Request_Course
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Account/GetCode.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Account/GetCode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxHZXRDb2RlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Account/GetPhone.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Account/GetPhone.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxHZXRQaG9uZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Account/ReCode.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Account/ReCode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZUNvZGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Episod/SarFaslDoreh.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Episod/SarFaslDoreh.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXBpc29kXFNhckZhc2xEb3JlaC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Episod/SarFasliPishnahadi.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Episod/SarFasliPishnahadi.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXBpc29kXFNhckZhc2xpUGlzaG5haGFkaS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Home/Index.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Home/Privacy.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Request/AllAboutDorehMethod.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Request/AllAboutDorehMethod.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVxdWVzdFxBbGxBYm91dERvcmVoTWV0aG9kLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Request/OK.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Request/OK.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVxdWVzdFxPSy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Request/RequestForm.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Request/RequestForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVxdWVzdFxSZXF1ZXN0Rm9ybS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Request/Request_DorehAmozeshi.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Request/Request_DorehAmozeshi.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVxdWVzdFxSZXF1ZXN0X0RvcmVoQW1vemVzaGkuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Request/Request_New_DorehAmozeshi.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Request/Request_New_DorehAmozeshi.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVxdWVzdFxSZXF1ZXN0X05ld19Eb3JlaEFtb3plc2hpLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Request/TeacherOfDoreh.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Request/TeacherOfDoreh.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVxdWVzdFxUZWFjaGVyT2ZEb3JlaC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Shared/Error.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Teacher/TeacherForm.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Teacher/TeacherForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVhY2hlclxUZWFjaGVyRm9ybS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Teacher/TeacherInfo.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Teacher/TeacherInfo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVhY2hlclxUZWFjaGVySW5mby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/_ViewImports.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/_ViewStart.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/All Project/Park Elemo fanavary/Course-Requestes/Request_Course/Request_Course/Views/Shared/_Layout.cshtml]
+[C:/MeysamFile/Pro_DarkhastDoreh/App/DarkhastDoreh/Request_Course/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-oc42wd3svc
