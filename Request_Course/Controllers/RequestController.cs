@@ -122,6 +122,7 @@ namespace Request_Course.Controllers
                 T_L_ModateDoreh_ID = Convert.ToInt16(ModateDorehs),
                 T_L_MokhatabanDoreh_ID = Convert.ToInt16(MokhatabanDorehs),
                 T_L_SatheKeyfi_Modares_ID = Convert.ToInt16(SatheKeyfi_Modares),
+                T_L_Vaziyat_Doreh_ID=3
                 
             };
             int Userid = _serivecs.GetMokhatebin(Phoneing).Result.ID_Mokhatebin;
@@ -174,6 +175,7 @@ namespace Request_Course.Controllers
                 T_L_ModateDoreh_ID = Convert.ToInt16(ModateDorehs),
                 T_L_MokhatabanDoreh_ID = Convert.ToInt16(MokhatabanDorehs),
                 T_L_RaveshAmozeshi_ID = Convert.ToInt16(RaveshAmozeshis),
+                T_L_Vaziyat_Doreh_ID=3
             };
             int Userid = _serivecs.GetMokhatebin(model.Phone).Result.ID_Mokhatebin;
             t_Doreh_Darkhasti.T_Mokhatebin_ID = Userid;

@@ -4,6 +4,24 @@ namespace Request_Course.Serivces.Interface
 {
     public interface IRepository
     {
+
+        #region Admin
+        #region Modaresan
+        public Task<List<T_Doreh_Darkhasti>> GetDorehforBinding();
+        public Task<int> BindModresToDoreh(int dorehid,int modaresid);
+        #endregion
+        #region Doreh
+        public Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh);
+        public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabFaal();
+        public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry();
+        public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl();
+        #endregion
+        #region requster
+        public Task<List<T_Mokhatebin>> GetSherkatha();
+        #endregion
+        #endregion
+
+
         #region Activation
         public Task AddActivation(T_Activation t_Activation);
         public Task UpdateActivation(T_Activation t_Activation);
@@ -20,6 +38,7 @@ namespace Request_Course.Serivces.Interface
         #region Modaresin
         public Task<int> AddModares(T_Modaresan t_Modaresan,IFormFile img);
         public Task<int> UpdateModaresan(T_Modaresan _Modaresan);
+        public Task<int> UpdateModaresan(T_Modaresan _Modaresan,IFormFile img);
         public Task<T_Modaresan> GetModaresan(string phone);
         public Task<T_Modaresan> GetModaresan(int id);
         public Task<List<T_Modaresan>> GetModaresan(int onvnasli, int onvandoreh);

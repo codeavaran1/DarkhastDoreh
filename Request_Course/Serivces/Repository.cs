@@ -12,6 +12,61 @@ namespace Request_Course.Serivces
             _context = reqContexts;
         }
 
+
+        #region Admin
+        #region Modaresan
+        public async Task<List<T_Doreh_Darkhasti>> GetDorehforBinding()
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3).ToList();
+        }
+        public async Task<int> BindModresToDoreh(int dorehid, int modaresid)
+        {
+            var result =await GetDoreh_Darkhasti(dorehid);
+            result.T_Modaresan_ID=modaresid;
+            result.T_L_Vaziyat_Doreh_ID = 1;
+            _context.T_Doreh_Darkhasti.Update(result);
+            await _context.SaveChangesAsync();
+            return 0;
+        }
+        #endregion
+        #region Doreh
+        public async Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh)
+        {
+            T_L_OnvanAsli t_L_OnvanAsli = new T_L_OnvanAsli()
+            {
+                Titles_OnvanAsli = onvanAsli,
+            };
+            T_L_OnvanDoreh t_L_OnvanDoreh = new T_L_OnvanDoreh()
+            {
+                Titles_OnvanDoreh = onvanDoreh,
+            };
+            _context.T_L_OnvanAsli.Add(t_L_OnvanAsli);
+            _context.T_L_OnvanDoreh.Add(t_L_OnvanDoreh);
+            await _context.SaveChangesAsync();
+            return 0;
+        }
+        public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabFaal()
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 1).ToList();
+        }
+        public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry()
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3).ToList();
+        }
+        public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl()
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 2).ToList();
+        }
+        #endregion
+        #region Requester
+        public async Task<List<T_Mokhatebin>> GetSherkatha()
+        {
+            return _context.T_Mokhatebin.ToList();
+        }
+        #endregion
+        #endregion
+
+
         #region Activation
         public async Task AddActivation(T_Activation t_Activation)
         {
@@ -107,6 +162,30 @@ namespace Request_Course.Serivces
         }
         public async Task<int> UpdateModaresan(T_Modaresan _Modaresan)
         {
+            _context.T_Modaresan.Update(_Modaresan);
+            await _context.SaveChangesAsync();
+            return 0;
+        }
+        public async Task<int> UpdateModaresan(T_Modaresan _Modaresan, IFormFile img)
+        {
+            if (img != null)
+            {
+                if (_Modaresan.img!=null)
+                {
+                    string Deletimg = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", _Modaresan.img);
+                    if (File.Exists(Deletimg))
+                    {
+                        File.Delete(Deletimg);
+                    }
+                }
+                _Modaresan.img= Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(img.FileName);
+
+                string ImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", _Modaresan.img);
+                using (var Stream = new FileStream(ImgPath, FileMode.Create))
+                {
+                    img.CopyTo(Stream);
+                }
+            }
             _context.T_Modaresan.Update(_Modaresan);
             await _context.SaveChangesAsync();
             return 0;
