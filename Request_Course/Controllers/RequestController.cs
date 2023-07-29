@@ -27,9 +27,11 @@ namespace Request_Course.Controllers
         {
             List<SelectListItem> Ostan = _serivecs.GetOstans().Result
                 .Select(x => new SelectListItem { Value = x.ID_Ostan.ToString(), Text = x.Titles_Ostan }).ToList();
+            Ostan.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتحاب کنید" });
             List<SelectListItem> Semat = _serivecs.GetSemats().Result
                 .Select(x => new SelectListItem { Value = x.ID_Semat.ToString(), Text = x.Titles_Semat }).ToList();
-            ViewBag.Ostan = Ostan;
+            Semat.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتحاب کنید" });
+            ViewBag.ostany = Ostan;
             ViewBag.Semat = Semat;
             ViewBag.phone = phone;
             ViewBag.family = Family;
@@ -49,25 +51,29 @@ namespace Request_Course.Controllers
                 Phone = model.Phone,
                 Name_Sherkat = model.Name_Sherkat,
                 NamFamily_Rabet = model.Family,
-                T_L_Ostan_ID = Convert.ToInt16(Ostan),
-                T_L_Semat_ID = Convert.ToInt16(Semat)
+                T_L_Ostan_ID = null,
+                T_L_Semat_ID = null
             };
+            if (Ostan!="0")
+            {
+                t_Mokhatebin.T_L_Ostan_ID = Convert.ToInt16(Ostan);
+            }
+            if (Semat != "0")
+            {
+                t_Mokhatebin.T_L_Semat_ID=Convert.ToInt16(Semat);
+            }
             await _serivecs.AddMokhatab(t_Mokhatebin);
 
             return RedirectToAction("Request_DorehAmozeshi", new { Family = model.Family, Name_Sherkat = model.Name_Sherkat, Phone = model.Phone });
 
         }
-
-
         #endregion
 
         #region Mokhatin Old
-
         public async Task<IActionResult> FollowUpRequest()
         {
             return View();
         }
-
         #endregion
 
         #region DarkhastDoreh
@@ -77,18 +83,25 @@ namespace Request_Course.Controllers
         {
             List<SelectListItem> OnvanAsli = _serivecs.GetOnvanAslis().Result
               .Select(x => new SelectListItem { Value = x.ID_L_OnvanAsli.ToString(), Text = x.Titles_OnvanAsli }).ToList();
+            OnvanAsli.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             List<SelectListItem> OnvanDoreh = _serivecs.GetOnvanDorehs().Result
               .Select(x => new SelectListItem { Value = x.ID_OnvanDoreh.ToString(), Text = x.Titles_OnvanDoreh }).ToList();
+            OnvanDoreh.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             List<SelectListItem> MediaAmozeshis = _serivecs.GetMediaAmozeshis().Result
               .Select(x => new SelectListItem { Value = x.ID_MediaAmozeshi.ToString(), Text = x.Titles_MediaAmozeshi }).ToList();
+            MediaAmozeshis.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             List<SelectListItem> RaveshAmozeshis = _serivecs.GetRaveshAmozeshis().Result
               .Select(x => new SelectListItem { Value = x.ID_L_RaveshAmozeshi.ToString(), Text = x.Titles_RaveshAmozeshi }).ToList();
+            RaveshAmozeshis.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             List<SelectListItem> ModateDorehs = _serivecs.GetModateDorehs().Result
               .Select(x => new SelectListItem { Value = x.ID_ModateDoreh.ToString(), Text = x.Titles_ModateDoreh }).ToList();
+            ModateDorehs.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             List<SelectListItem> MokhatabanDorehs = _serivecs.GetMokhatabanDorehs().Result
               .Select(x => new SelectListItem { Value = x.ID_MokhatabanDoreh.ToString(), Text = x.Titles_MokhatabanDoreh }).ToList();
+            MokhatabanDorehs.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             List<SelectListItem> SatheKeyfi_Modares = _serivecs.GetSatheKeyfi_Modares().Result
               .Select(x => new SelectListItem { Value = x.ID_L_SatheKeyfi_Modares.ToString(), Text = x.Titles_SatheKeyfi_Modares }).ToList();
+            SatheKeyfi_Modares.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             ViewBag.OnvanAsli = OnvanAsli;
             ViewBag.OnvanDoreh = OnvanDoreh;
             ViewBag.MediaAmozeshis = MediaAmozeshis;
@@ -110,21 +123,48 @@ namespace Request_Course.Controllers
             {
                 return View();
             }
-
             T_Doreh_Darkhasti t_Doreh_Darkhasti = new T_Doreh_Darkhasti()
             {
                 Date_Az_Pishnahad = model.DateStart,
                 Date_Ta_Pishnahad = model.DateEnd,
-                T_L_OnvanAsli_ID = Convert.ToInt16(OnvanAsli),
-                T_L_OnvanDoreh_ID = Convert.ToInt16(OnvanDoreh),
-                T_L_MediaAmozeshi_ID = Convert.ToInt16(MediaAmozeshis),
-                T_L_RaveshAmozeshi_ID = Convert.ToInt16(RaveshAmozeshis),
-                T_L_ModateDoreh_ID = Convert.ToInt16(ModateDorehs),
-                T_L_MokhatabanDoreh_ID = Convert.ToInt16(MokhatabanDorehs),
-                T_L_SatheKeyfi_Modares_ID = Convert.ToInt16(SatheKeyfi_Modares),
+                T_L_OnvanAsli_ID = null,
+                T_L_OnvanDoreh_ID = null,
+                T_L_MediaAmozeshi_ID = null,
+                T_L_RaveshAmozeshi_ID = null,
+                T_L_ModateDoreh_ID = null,
+                T_L_MokhatabanDoreh_ID = null,
+                T_L_SatheKeyfi_Modares_ID = null,
                 T_L_Vaziyat_Doreh_ID=3
                 
             };
+            if (OnvanAsli!="0")
+            {
+                t_Doreh_Darkhasti.T_L_OnvanAsli_ID = Convert.ToInt16(OnvanAsli);
+            }
+            if (OnvanDoreh!="0")
+            {
+                t_Doreh_Darkhasti.T_L_OnvanDoreh_ID = Convert.ToInt16(OnvanDoreh);
+            }
+            if (MediaAmozeshis!="0")
+            {
+                t_Doreh_Darkhasti.T_L_MediaAmozeshi_ID = Convert.ToInt16(MediaAmozeshis);
+            }
+            if (RaveshAmozeshis!="0")
+            {
+                t_Doreh_Darkhasti.T_L_RaveshAmozeshi_ID = Convert.ToInt16(RaveshAmozeshis);
+            }
+            if (ModateDorehs!="0")
+            {
+                t_Doreh_Darkhasti.T_L_ModateDoreh_ID = Convert.ToInt16(ModateDorehs);
+            }
+            if (MokhatabanDorehs!="0")
+            {
+                t_Doreh_Darkhasti.T_L_MokhatabanDoreh_ID = Convert.ToInt16(MokhatabanDorehs);
+            }
+            if (SatheKeyfi_Modares!="0")
+            {
+                t_Doreh_Darkhasti.T_L_SatheKeyfi_Modares_ID = Convert.ToInt16(SatheKeyfi_Modares);
+            }
             int Userid = _serivecs.GetMokhatebin(Phoneing).Result.ID_Mokhatebin;
             t_Doreh_Darkhasti.T_Mokhatebin_ID = Userid;
             await _serivecs.AddDorehJadid(t_Doreh_Darkhasti);
@@ -140,14 +180,19 @@ namespace Request_Course.Controllers
         {
             List<SelectListItem> OnvanAsli = _serivecs.GetOnvanAslis().Result
             .Select(x => new SelectListItem { Value = x.ID_L_OnvanAsli.ToString(), Text = x.Titles_OnvanAsli }).ToList();
+            OnvanAsli.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             List<SelectListItem> RaveshAmozeshis = _serivecs.GetRaveshAmozeshis().Result
             .Select(x => new SelectListItem { Value = x.ID_L_RaveshAmozeshi.ToString(), Text = x.Titles_RaveshAmozeshi }).ToList();
+            RaveshAmozeshis.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             List<SelectListItem> MediaAmozeshis = _serivecs.GetMediaAmozeshis().Result
             .Select(x => new SelectListItem { Value = x.ID_MediaAmozeshi.ToString(), Text = x.Titles_MediaAmozeshi }).ToList();
+            MediaAmozeshis.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             List<SelectListItem> ModateDorehs = _serivecs.GetModateDorehs().Result
             .Select(x => new SelectListItem { Value = x.ID_ModateDoreh.ToString(), Text = x.Titles_ModateDoreh }).ToList();
+            ModateDorehs.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             List<SelectListItem> MokhatabanDorehs = _serivecs.GetMokhatabanDorehs().Result
             .Select(x => new SelectListItem { Value = x.ID_MokhatabanDoreh.ToString(), Text = x.Titles_MokhatabanDoreh }).ToList();
+            MokhatabanDorehs.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
             ViewBag.phone = phone;
             ViewBag.OnvanAsli = OnvanAsli;
             ViewBag.MediaAmozeshis = MediaAmozeshis;
@@ -170,13 +215,33 @@ namespace Request_Course.Controllers
                 OnvanDoreh_Jadid = model.OnvanDoreh,
                 Date_Az_Pishnahad = model.DateStart,
                 Date_Ta_Pishnahad = model.DateEnd,
-                T_L_OnvanAsli_ID = Convert.ToInt16(OnvanAsli),
-                T_L_MediaAmozeshi_ID = Convert.ToInt16(MediaAmozeshis),
-                T_L_ModateDoreh_ID = Convert.ToInt16(ModateDorehs),
-                T_L_MokhatabanDoreh_ID = Convert.ToInt16(MokhatabanDorehs),
-                T_L_RaveshAmozeshi_ID = Convert.ToInt16(RaveshAmozeshis),
+                T_L_OnvanAsli_ID = null,
+                T_L_MediaAmozeshi_ID = null,
+                T_L_ModateDoreh_ID =null,
+                T_L_MokhatabanDoreh_ID = null,
+                T_L_RaveshAmozeshi_ID = null,
                 T_L_Vaziyat_Doreh_ID=3
             };
+            if (OnvanAsli!="0")
+            {
+                t_Doreh_Darkhasti.T_L_OnvanAsli_ID = Convert.ToInt16(OnvanAsli);
+            }
+            if (MediaAmozeshis!="0")
+            {
+                t_Doreh_Darkhasti.T_L_MediaAmozeshi_ID = Convert.ToInt16(MediaAmozeshis);
+            }
+            if (ModateDorehs!="0")
+            {
+                t_Doreh_Darkhasti.T_L_ModateDoreh_ID = Convert.ToInt16(ModateDorehs);
+            }
+            if (MokhatabanDorehs!="0")
+            {
+                t_Doreh_Darkhasti.T_L_MokhatabanDoreh_ID = Convert.ToInt16(MokhatabanDorehs);
+            }
+            if (RaveshAmozeshis!="0")
+            {
+                t_Doreh_Darkhasti.T_L_RaveshAmozeshi_ID = Convert.ToInt16(RaveshAmozeshis);
+            }
             int Userid = _serivecs.GetMokhatebin(model.Phone).Result.ID_Mokhatebin;
             t_Doreh_Darkhasti.T_Mokhatebin_ID = Userid;
             await _serivecs.AddDorehJadid(t_Doreh_Darkhasti);
@@ -215,7 +280,7 @@ namespace Request_Course.Controllers
             }
             List<SelectListItem> Teacher = Teachers
                .Select(x => new SelectListItem { Value = x.ID_Modaresan.ToString(), Text = x.NameFamily }).ToList();
-            Teacher.Insert(0, new SelectListItem { Value=0.ToString(),Text="selelct"});
+            Teacher.Insert(0, new SelectListItem { Value=0.ToString(),Text="اتخاب کنید"});
             ViewBag.stars = Stars;
             ViewBag.Teacher = Teacher;
             ViewBag.Family = FamilyName;
@@ -235,6 +300,9 @@ namespace Request_Course.Controllers
                 T_Modaresan1=null,
                 T_Modaresan2=null,
                 T_Modaresan3=null,
+                T_Modaresan_ID1=null,
+                T_Modaresan_ID2=null,
+                T_Modaresan_ID3=null,
                 Pishnahad_Modares_Name1 = NewTeacher_Name,
                 Pishnahad_Modares_Name2 = NewTeacher_Name2,
                 Pishnahad_Modares_Name3 = NewTeacher_Name3,

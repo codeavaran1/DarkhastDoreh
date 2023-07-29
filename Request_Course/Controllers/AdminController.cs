@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Request_Course.Models;
 using Request_Course.Serivces.Interface;
 using Request_Course.VM;
 
@@ -10,7 +11,7 @@ namespace Request_Course.Controllers
         private IRepository _services;
         public AdminController(IRepository repository)
         {
-            _services=repository;   
+            _services = repository;
         }
         public IActionResult Index()
         {
@@ -36,7 +37,7 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> UpdateModares(int modaresId)
         {
-            var Modares =await _services.GetModaresan(modaresId);
+            var Modares = await _services.GetModaresan(modaresId);
             ModaresanUpdateVM model = new ModaresanUpdateVM()
             {
                 Active = Modares.Active,
@@ -52,7 +53,7 @@ namespace Request_Course.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateModares(ModaresanUpdateVM model,int modaresId,IFormFile image)
+        public async Task<IActionResult> UpdateModares(ModaresanUpdateVM model, int modaresId, IFormFile image)
         {
             if (!ModelState.IsValid)
             {
@@ -67,13 +68,13 @@ namespace Request_Course.Controllers
             Modares.NameFamily = model.NameFamily;
             Modares.Onvan_Shoghli = model.Onvan_Shoghli;
             Modares.Phone = model.Phone;
-            await _services.UpdateModaresan(Modares ,image); 
+            await _services.UpdateModaresan(Modares, image);
             return View();
         }
 
         public async Task<IActionResult> BindModaresToDoreh()
         {
-            var Doreh=await _services.GetDorehforBinding();
+            var Doreh = await _services.GetDorehforBinding();
             return View();
         }
         [HttpPost]
@@ -83,7 +84,7 @@ namespace Request_Course.Controllers
             return View(Modares);
         }
         [HttpPost]
-        public async Task<IActionResult> FinalBindModares(int dorehid,int modaresid)
+        public async Task<IActionResult> FinalBindModares(int dorehid, int modaresid)
         {
             await _services.BindModresToDoreh(dorehid, modaresid);
             return RedirectToAction("BindModaresToDoreh");
@@ -103,7 +104,7 @@ namespace Request_Course.Controllers
             return View();
         }
 
-        public async Task<IActionResult> DefineOnvanAsliAndOnvanDoreh(string OnvanAsli,string OnvanDoreh)
+        public async Task<IActionResult> DefineOnvanAsliAndOnvanDoreh(string OnvanAsli, string OnvanDoreh)
         {
             await _services.AddOnvanAsliAndOnvanDoreh(OnvanAsli, OnvanDoreh);
             return RedirectToAction("DefineOnvanAsliAndOnvanDoreh");
@@ -111,13 +112,13 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> DorehFaal()
         {
-            var model=await _services.GetDorehMokhatabFaal();
+            var model = await _services.GetDorehMokhatabFaal();
             return View(model);
         }
 
         public async Task<IActionResult> DorehPygiry()
         {
-            var model=await _services.GetDorehMokhatabPygiry();
+            var model = await _services.GetDorehMokhatabPygiry();
             return View();
         }
 
@@ -136,7 +137,94 @@ namespace Request_Course.Controllers
         }
         #endregion
 
+        #region Adimn & User
+        public async Task<IActionResult> AddAdmin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddAdmin(AdminCreateVM model, IFormFile img)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            T_Admin t_Admin = new T_Admin()
+            {
+                Admin = model.IsAdmin,
+                Code = "",
+                Name = model.Name,
+                Password = model.Password,
+                Phone = model.Phone,
+                User = model.IsUser,
+                UserName = model.Username,
+            };
+            await _services.AddAdmin(t_Admin, img);
+            return RedirectToAction("Admins");
+        }
+        public async Task<IActionResult> UpdateAdmin(int id)
+        {
+            var Model = _services.GetAdmin(id);
+            return View(Model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateAdmin(AdminUpdateVM model, IFormFile img)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var Admin = await _services.GetAdmin(model.id);
+            if (Admin!=null)
+            {
+                Admin.Phone = model.Phone;
+                Admin.Admin = model.IsAdmin;
+                Admin.User = model.IsUser;
+                Admin.Name = model.Name;
+                Admin.Password = model.Password;
+                await _services.EditAdmin(Admin, img);
+            }
+            return RedirectToAction("Admins");
+        }
+        public async Task<IActionResult> RmoveAdmin(int adminId)
+        {
+            await _services.RemoveAdmin(adminId);
+            return RedirectToAction("Admins");
+        }
+        public async Task<IActionResult> Admins()
+        {
+            var Model = await _services.GetAdminsList();
+            return View(Model);
+        }
+        public async Task<IActionResult> UpdateUser(int id)
+        {
+            var Model = _services.GetAdmin(id);
+            return View(Model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser(UserUpdateVM model, IFormFile img)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var User = await _services.GetAdmin(model.id);
+            if (User != null)
+            {
+                User.Name = model.Name;
+                User.Password = model.Password;
+                User.Phone = model.Phone;
+                await _services.EditAdmin(User, img);
+            }
+            return RedirectToAction("Users");
+        }
+        public async Task<IActionResult> Users()
+        {
+            var model = await _services.GetUsersList();
+            return View();
+        }
 
+        #endregion
 
     }
 }

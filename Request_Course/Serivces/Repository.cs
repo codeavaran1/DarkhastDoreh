@@ -64,6 +64,12 @@ namespace Request_Course.Serivces
             return _context.T_Mokhatebin.ToList();
         }
         #endregion
+        #region User
+        public async Task<List<T_Activation>> GetActivations()
+        {
+            return _context.T_Activation.ToList();
+        }
+        #endregion
         #endregion
 
 
@@ -123,7 +129,7 @@ namespace Request_Course.Serivces
         public async Task<List<T_Modaresan>> GetModaresan(int onvnasli, int onvandoreh)
         {
             var OnvanAsli = _context.T_Modaresan_Fild_Amozeshi
-                .Where(x => x.T_L_OnvanDoreh_ID == onvnasli && x.T_L_OnvanDoreh_ID==onvandoreh).Select(x=>x.T_Modaresan_ID).ToList();
+                .Where(x => x.T_L_FildAsli_ID == onvnasli && x.T_L_OnvanDoreh_ID==onvandoreh).Select(x=>x.T_Modaresan_ID).ToList();
             OnvanAsli=OnvanAsli.Distinct().ToList();
             List<T_Modaresan> result = new List<T_Modaresan>(); 
             foreach (var item in OnvanAsli)
@@ -446,5 +452,35 @@ namespace Request_Course.Serivces
 
 
         #endregion
+
+
+        #region Adimns
+        public async Task<List<T_Admin>> GetAdminsList()
+        {
+            throw new Exception();
+        }
+        public async Task<T_Admin> GetAdmin(int id)
+        {
+            throw new Exception();
+        }
+        public Task<List<T_Admin>> GetUsersList()
+        {
+            throw new Exception();
+        }
+        public async Task<int> AddAdmin(T_Admin t_Admin, IFormFile img)
+        {
+            throw new Exception();
+        }
+        public async Task<int> EditAdmin(T_Admin t_Admin, IFormFile img)
+        {
+            throw new Exception();  
+        }
+        public async Task<int> RemoveAdmin(int id)
+        {
+            throw new Exception();
+        }
+        #endregion
+
+
     }
 }

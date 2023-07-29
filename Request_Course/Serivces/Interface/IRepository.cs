@@ -19,6 +19,9 @@ namespace Request_Course.Serivces.Interface
         #region requster
         public Task<List<T_Mokhatebin>> GetSherkatha();
         #endregion
+        #region User
+        public Task<List<T_Activation>> GetActivations();
+        #endregion
         #endregion
 
 
@@ -94,7 +97,6 @@ namespace Request_Course.Serivces.Interface
         public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid);
         #endregion
 
-
         #region Sar Fasl Doreh
         public Task<List<string>> GetT_Fasl_Dorehs(int onvanasli,int onvandoreh);
         public Task<List<T_Fasl_Doreh>> GetT_Fasl_Dore(int onvanasli, int onvandoreh);
@@ -119,6 +121,15 @@ namespace Request_Course.Serivces.Interface
         public Task<List<T_L_SatheKeyfi_Modares>> GetSatheKeyfi_Modares();
         #endregion
 
+        #region Admins
+        public Task<List<T_Admin>> GetAdminsList();
+        public Task<List<T_Admin>> GetUsersList();
+        public Task<T_Admin> GetAdmin(int id);
+        public Task<int> AddAdmin(T_Admin t_Admin,IFormFile img);
+        public Task<int> EditAdmin(T_Admin t_Admin, IFormFile img);
+        public Task<int> RemoveAdmin(int id);
+        
+        #endregion
 
     }
 }

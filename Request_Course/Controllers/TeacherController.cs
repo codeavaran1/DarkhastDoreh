@@ -86,14 +86,19 @@ namespace Request_Course.Controllers
             List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs = new List<Modaresan_Fild_AsliVM>();
             List<SelectListItem> Reshte = _services.GetReshtehTahsilis().Result
                 .Select(x => new SelectListItem { Value = x.ID_ReshtehTahsili.ToString(), Text = x.Titles_ReshtehTahsili }).ToList();
+            Reshte.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
             List<SelectListItem> MaghtaeTahsili_Drop = _services.GetMaghtaeTahsili().Result
                 .Select(x => new SelectListItem { Value = x.ID_MaghtaeTahsili.ToString(), Text = x.Titles_MaghtaeTahsili }).ToList();
+            MaghtaeTahsili_Drop.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
             List<SelectListItem> DaragehElmi = _services.GetDaragehElmis().Result
                 .Select(x => new SelectListItem { Value = x.ID_DaragehElmi.ToString(), Text = x.Titles_DaragehElmi }).ToList();
+            DaragehElmi.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
             List<SelectListItem> FildAsli = _services.GetFildAslis().Result
                 .Select(x => new SelectListItem { Value = x.ID_FildAsli.ToString(), Text = x.Titles_FildAsli }).ToList();
+            FildAsli.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
             List<SelectListItem> OnvanDoreh = _services.GetOnvanDorehs().Result
                 .Select(x => new SelectListItem { Value = x.ID_OnvanDoreh.ToString(),Text=x.Titles_OnvanDoreh}).ToList();
+            OnvanDoreh.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
             ViewBag.MaghtaeTahsili_Drop = MaghtaeTahsili_Drop;
             ViewBag.Reshte = Reshte;
             ViewBag.FildAsli = FildAsli;
@@ -120,12 +125,24 @@ namespace Request_Course.Controllers
                 Phone = model.Phone,
                 Onvan_Shoghli=model.OnvanShoghli,
                 Description = model.Description,
-                T_L_MaghtaeTahsili_ID= Convert.ToInt32(MaghtaeTahsili),
-                T_L_ReshtehTahsili_ID=Convert.ToInt32(Reshte),
-                T_L_DaragehElmi_ID=Convert.ToInt32(DaragehElmi),
+                T_L_MaghtaeTahsili_ID= null,
+                T_L_ReshtehTahsili_ID=null,
+                T_L_DaragehElmi_ID=null,
             };
-            t_Modaresan.MadrakTahsili = await _services.GetMadraktahsilibyId(Convert.ToInt32(MaghtaeTahsili));
-            t_Modaresan.NameFamily = _services.GetActivation(t_Modaresan.Phone).Result.NameFamily;
+            if (MaghtaeTahsili!="0")
+            {
+                t_Modaresan.T_L_MaghtaeTahsili_ID = Convert.ToInt32(MaghtaeTahsili);           
+                t_Modaresan.MadrakTahsili = await _services.GetMadraktahsilibyId(Convert.ToInt32(MaghtaeTahsili));
+            }
+            if (Reshte!="0")
+            {
+                t_Modaresan.T_L_ReshtehTahsili_ID = Convert.ToInt32(Reshte);
+            }
+            if (DaragehElmi!="0")
+            {
+                t_Modaresan.T_L_DaragehElmi_ID = Convert.ToInt32(DaragehElmi);
+            }
+            t_Modaresan.NameFamily =  _services.GetActivation(t_Modaresan.Phone).Result.NameFamily;
             var Modearseid=await _services.AddModares(t_Modaresan, img);
             List<T_Modaresan_Fild_Amozeshi> t_Modaresan_Fild_Amozeshi = new List<T_Modaresan_Fild_Amozeshi>();
             for (int i = 0; i < FildAsli.Count; i++)

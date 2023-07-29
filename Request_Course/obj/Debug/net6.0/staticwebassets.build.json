@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qeOUZAyyAVP6CKT2Z6f+mLoLvHMjzAxq5Tn7ss2S7LQ=",
+  "Hash": "cmawaZk27JmBOlazcRNuP9lvuFgaPKzwTZ4aihM7B+s=",
   "Source": "Request_Course",
   "BasePath": "_content/Request_Course",
   "Mode": "Default",
@@ -13617,6 +13617,23 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\images\\10949fee7c494e75bddc4d529e6395ef.jpg",
+      "SourceId": "Request_Course",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\",
+      "BasePath": "_content/Request_Course",
+      "RelativePath": "images/10949fee7c494e75bddc4d529e6395ef.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\10949fee7c494e75bddc4d529e6395ef.jpg"
+    },
+    {
       "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\images\\408184d8d9b44c0bba8a82152ba2d462.jpg",
       "SourceId": "Request_Course",
       "SourceType": "Discovered",
@@ -13632,6 +13649,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\408184d8d9b44c0bba8a82152ba2d462.jpg"
+    },
+    {
+      "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\images\\509e2737621f44b28ccdbfb92bf5afc6.jpg",
+      "SourceId": "Request_Course",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\",
+      "BasePath": "_content/Request_Course",
+      "RelativePath": "images/509e2737621f44b28ccdbfb92bf5afc6.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\509e2737621f44b28ccdbfb92bf5afc6.jpg"
     },
     {
       "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\images\\76bfa5c763d847668b8692785974c821.jpg",
@@ -13666,6 +13700,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\9e14c7ea5d794a01a7e0d9f6ea590652.jpg"
+    },
+    {
+      "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\images\\c81b2d3db7b047258a1377fb94560194.jpg",
+      "SourceId": "Request_Course",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\",
+      "BasePath": "_content/Request_Course",
+      "RelativePath": "images/c81b2d3db7b047258a1377fb94560194.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\c81b2d3db7b047258a1377fb94560194.jpg"
+    },
+    {
+      "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\images\\defalut.jpg",
+      "SourceId": "Request_Course",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\",
+      "BasePath": "_content/Request_Course",
+      "RelativePath": "images/defalut.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\defalut.jpg"
     },
     {
       "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\js\\site.js",
