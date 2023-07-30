@@ -5,7 +5,7 @@ namespace Request_Course.Models
     public class T_Admin
     {
         [Key]
-        public int id { get; set; }
+        public int ID_Admin { get; set; }
 
         public string? Name { get; set; } = string.Empty;
 

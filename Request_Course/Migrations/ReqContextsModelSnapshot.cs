@@ -67,6 +67,43 @@ namespace Request_Course.Migrations
                     b.ToTable("T_Activation");
                 });
 
+            modelBuilder.Entity("Request_Course.Models.T_Admin", b =>
+                {
+                    b.Property<int>("ID_Admin")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID_Admin"), 1L, 1);
+
+                    b.Property<bool>("Admin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("User")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("img")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID_Admin");
+
+                    b.ToTable("T_Admins");
+                });
+
             modelBuilder.Entity("Request_Course.Models.T_Doreh_Darkhasti", b =>
                 {
                     b.Property<int>("ID_Doreh_Darkhasti")

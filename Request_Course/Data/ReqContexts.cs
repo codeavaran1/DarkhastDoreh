@@ -35,6 +35,7 @@ namespace Request_Course.Data
         public virtual DbSet<T_Nazarsanji> T_Nazarsanji { get; set; }
         public virtual DbSet<T_Pishnahad_Modares_Doreh> T_Pishnahad_Modares_Doreh { get; set; }
         public virtual DbSet<T_Activation> T_Activation { get; set; }
+        public virtual DbSet<T_Admin> T_Admins { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
