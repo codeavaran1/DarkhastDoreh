@@ -1928,8 +1928,4 @@
     <None Include="wwwroot\bower_components\jvectormap\tests\assets\us\jquery-jvectormap-data-us-wy-lcc-en.js" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
-
 </Project>

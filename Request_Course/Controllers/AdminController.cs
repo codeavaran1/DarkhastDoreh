@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Request_Course.Models;
+using Request_Course.Serivces;
 using Request_Course.Serivces.Interface;
 using Request_Course.VM;
 using System.Security.Claims;
@@ -11,6 +13,7 @@ using System.Text;
 
 namespace Request_Course.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private IRepository _services;
@@ -20,6 +23,7 @@ namespace Request_Course.Controllers
         }
         public IActionResult Index()
         {
+
             return View();
         }
 
@@ -27,7 +31,7 @@ namespace Request_Course.Controllers
         public async Task<IActionResult> Modaresan()
         {
             var model = await _services.GetModaresan();
-            return View();
+            return View(model);
         }
 
         public async Task<IActionResult> CreateModares()
@@ -108,7 +112,6 @@ namespace Request_Course.Controllers
         {
             return View();
         }
-
         public async Task<IActionResult> DefineOnvanAsliAndOnvanDoreh(string OnvanAsli, string OnvanDoreh)
         {
             await _services.AddOnvanAsliAndOnvanDoreh(OnvanAsli, OnvanDoreh);
@@ -143,6 +146,11 @@ namespace Request_Course.Controllers
         #endregion
 
         #region Adimn & User
+        public async Task<IActionResult> Admins()
+        {
+            var Model = await _services.GetAdminsList();
+            return View(Model);
+        }
         public async Task<IActionResult> AddAdmin()
         {
             return View();
@@ -154,12 +162,17 @@ namespace Request_Course.Controllers
             {
                 return View(model);
             }
+            var Admin = await _services.GetAdmin(model.Username);
+            if (Admin!=null)
+            {
+                return View();
+            } 
             T_Admin t_Admin = new T_Admin()
             {
                 Admin = model.IsAdmin,
                 Code = "",
                 Name = model.Name,
-                Password = SHA256.HashData(Encoding.UTF8.GetBytes(model.Password)).ToString(),
+                Password = Encreption.MD5Hash(model.Password),
                 Phone = model.Phone,
                 User = model.IsUser,
                 UserName = model.Username,
@@ -186,21 +199,46 @@ namespace Request_Course.Controllers
                 Admin.Admin = model.IsAdmin;
                 Admin.User = model.IsUser;
                 Admin.Name = model.Name;
-                Admin.Password = SHA256.HashData(Encoding.UTF8.GetBytes(model.Password)).ToString();
+                Admin.Password = Encreption.MD5Hash(model.Password);
                 await _services.EditAdmin(Admin, img);
             }
             return RedirectToAction("Admins");
         }
-        public async Task<IActionResult> RmoveAdmin(int adminId)
+        public async Task<IActionResult> RmoveAdmin(string username)
         {
-            await _services.RemoveAdmin(adminId);
+            await _services.RemoveAdmin(username);
             return RedirectToAction("Admins");
         }
-        public async Task<IActionResult> Admins()
+        public async Task<IActionResult> AddUser()
         {
-            var Model = await _services.GetAdminsList();
-            return View(Model);
+            return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> AddUser(AdminCreateVM model,IFormFile img)
+        {
+            // use AdminCreateVM beacuse user and Admin the same
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var User = await _services.GetAdmin(model.Username);
+            if (User!= null)
+            {
+                return View();
+            }
+            T_Admin t_Admin = new T_Admin()
+            {
+                Admin = model.IsAdmin,
+                Code = "",
+                Name = model.Name,
+                Password = Encreption.MD5Hash(model.Password),
+                Phone = model.Phone,
+                User = model.IsUser,
+                UserName = model.Username,
+            };
+            return View();
+        }
+
         public async Task<IActionResult> UpdateUser(string username)
         {
             var Model = _services.GetAdmin(username);
@@ -217,7 +255,7 @@ namespace Request_Course.Controllers
             if (User != null)
             {
                 User.Name = model.Name;
-                User.Password = SHA256.HashData(Encoding.UTF8.GetBytes(model.Password)).ToString();
+                User.Password = Encreption.MD5Hash(model.Password);
                 User.Phone = model.Phone;
                 await _services.EditAdmin(User, img);
             }
@@ -228,15 +266,15 @@ namespace Request_Course.Controllers
             var model = await _services.GetUsersList();
             return View();
         }
-
         #endregion
 
         #region Login logout
-
+        [AllowAnonymous]
         public async Task<IActionResult> Login()
         {
             return View();
         }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVM)
         {
@@ -244,9 +282,9 @@ namespace Request_Course.Controllers
             {
                 return View(loginVM);
             }
-            string password = SHA256.HashData(Encoding.UTF8.GetBytes(loginVM.Password)).ToString();
+            string password = Encreption.MD5Hash(loginVM.Password);
             var user = await _services.GetAdmin(loginVM.UserName, password);
-            if (user != null)
+            if (user == null)
             {
                 ModelState.AddModelError("UserName", "ورود غیر مجاز شما ثبت شد");
                 return View(loginVM);
@@ -255,6 +293,7 @@ namespace Request_Course.Controllers
             {
                 new Claim(ClaimTypes.NameIdentifier,user.ID_Admin.ToString()),
                 new Claim(ClaimTypes.Name,user.UserName),
+
             };
             var identity = new ClaimsIdentity(clm, CookieAuthenticationDefaults.AuthenticationScheme);
             var principle = new ClaimsPrincipal(identity);
@@ -264,13 +303,12 @@ namespace Request_Course.Controllers
             };
             await HttpContext.SignInAsync(principle, properties);
 
-            return RedirectToAction("Admins");
+            return RedirectToAction("Index");
         }
-
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return View("Login");
+            return View("Login","Home");
         }
         #endregion
     }

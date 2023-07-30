@@ -484,3 +484,4 @@ D:\All Project\Park Elemo fanavary\coures_Request2\Request_Course\Request_Course
 D:\All Project\Park Elemo fanavary\coures_Request2\Request_Course\Request_Course\obj\Debug\net6.0\Request_Course.pdb
 D:\All Project\Park Elemo fanavary\coures_Request2\Request_Course\Request_Course\obj\Debug\net6.0\Request_Course.genruntimeconfig.cache
 D:\All Project\Park Elemo fanavary\coures_Request2\Request_Course\Request_Course\obj\Debug\net6.0\ref\Request_Course.dll
+D:\All Project\Park Elemo fanavary\coures_Request2\Request_Course\Request_Course\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout2.cshtml.rz.scp.css

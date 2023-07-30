@@ -128,7 +128,7 @@ namespace Request_Course.Serivces.Interface
         public Task<T_Admin> GetAdmin(string username);
         public Task<int> AddAdmin(T_Admin t_Admin,IFormFile img);
         public Task<int> EditAdmin(T_Admin t_Admin, IFormFile img);
-        public Task<int> RemoveAdmin(int id);
+        public Task<int> RemoveAdmin(string username);
         
         #endregion
 

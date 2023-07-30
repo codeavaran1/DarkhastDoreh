@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Request_Course.Data;
 using Request_Course.Serivces;
@@ -11,7 +12,13 @@ builder.Services.AddDbContext<ReqContexts>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("Requrseing"));
 });
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                  .AddCookie(option =>
+                  {
+                      option.LoginPath = "/Admin/Login";
+                      option.LogoutPath = "/Admin/Logout";
+                      option.ExpireTimeSpan = TimeSpan.FromDays(30);
+                  });
 builder.Services.AddScoped<IRepository, Repository>();
 
 var app = builder.Build();
@@ -28,7 +35,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "cmawaZk27JmBOlazcRNuP9lvuFgaPKzwTZ4aihM7B+s=",
+  "Hash": "7uaNkE6gCjZxpxHtILy8WK+05/br0GXFbUo7YUcAVbM=",
   "Source": "Request_Course",
   "BasePath": "_content/Request_Course",
   "Mode": "Default",
@@ -13700,6 +13700,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\9e14c7ea5d794a01a7e0d9f6ea590652.jpg"
+    },
+    {
+      "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\images\\Admins\\defalut.jpg",
+      "SourceId": "Request_Course",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\",
+      "BasePath": "_content/Request_Course",
+      "RelativePath": "images/Admins/defalut.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Admins\\defalut.jpg"
     },
     {
       "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\images\\c81b2d3db7b047258a1377fb94560194.jpg",
