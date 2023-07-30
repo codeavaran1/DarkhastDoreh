@@ -124,7 +124,8 @@ namespace Request_Course.Serivces.Interface
         #region Admins
         public Task<List<T_Admin>> GetAdminsList();
         public Task<List<T_Admin>> GetUsersList();
-        public Task<T_Admin> GetAdmin(int id);
+        public Task<T_Admin> GetAdmin(string username, string password);
+        public Task<T_Admin> GetAdmin(string username);
         public Task<int> AddAdmin(T_Admin t_Admin,IFormFile img);
         public Task<int> EditAdmin(T_Admin t_Admin, IFormFile img);
         public Task<int> RemoveAdmin(int id);

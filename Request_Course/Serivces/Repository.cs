@@ -457,27 +457,73 @@ namespace Request_Course.Serivces
         #region Adimns
         public async Task<List<T_Admin>> GetAdminsList()
         {
-            throw new Exception();
+            return _context.T_Admins.Where(x => x.Admin == true).ToList();
         }
-        public async Task<T_Admin> GetAdmin(int id)
+        public async Task<T_Admin> GetAdmin(string username,string password)
         {
-            throw new Exception();
+            return  _context.T_Admins.SingleOrDefault(x => x.UserName == username&& x.Password==password);
         }
-        public Task<List<T_Admin>> GetUsersList()
+        public async Task<T_Admin> GetAdmin(string username)
         {
-            throw new Exception();
+            return _context.T_Admins.SingleOrDefault(x => x.UserName == username);
+        }
+        public async Task<List<T_Admin>> GetUsersList()
+        {
+            return _context.T_Admins.Where(x => x.User == true).ToList();
         }
         public async Task<int> AddAdmin(T_Admin t_Admin, IFormFile img)
         {
-            throw new Exception();
+            if (img != null)
+            {
+                t_Admin.img = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(img.FileName);
+                string ImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Admins", t_Admin.img);
+                using (var Stream = new FileStream(ImgPath, FileMode.Create))
+                {
+                    img.CopyTo(Stream);
+                }
+            }
+            else
+            {
+                t_Admin.img = "defalut.jpg";
+            }
+            await _context.T_Admins.AddAsync(t_Admin);
+            await _context.SaveChangesAsync();
+            return 0;
+
         }
         public async Task<int> EditAdmin(T_Admin t_Admin, IFormFile img)
         {
-            throw new Exception();  
+            if (img != null)
+            {
+                if (t_Admin.img != null)
+                {
+                    string Deletimg = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Admins", t_Admin.img);
+                    if (File.Exists(Deletimg))
+                    {
+                        File.Delete(Deletimg);
+                    }
+                }
+                t_Admin.img = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(img.FileName);
+
+                string ImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Admins", t_Admin.img);
+                using (var Stream = new FileStream(ImgPath, FileMode.Create))
+                {
+                    img.CopyTo(Stream);
+                }
+            }
+            _context.T_Admins.Update(t_Admin);
+            await _context.SaveChangesAsync();
+            return 0;
         }
-        public async Task<int> RemoveAdmin(int id)
+        public async Task<int> RemoveAdmin(string username)
         {
-            throw new Exception();
+            var t_Admin = _context.T_Admins.SingleOrDefault(x=>x.UserName==username);
+            if (t_Admin!=null)
+            {
+                _context.T_Admins.Remove(t_Admin);
+                return 0;
+            }
+            return 1;            
         }
         #endregion
 
