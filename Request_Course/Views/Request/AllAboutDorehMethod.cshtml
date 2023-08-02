@@ -1,0 +1,89 @@
+﻿@model Request_Course.VM.AllAboutDoreh
+
+
+<p>Info of Doreh Darkhasti</p>
+
+<div>
+    <p>OnvanAsli: @Model.OnvanAsli</p>
+</div>
+<div>
+    <p>OnvanDoreh : @Model.OnvanDoreh</p>
+</div>
+<div>
+    <p>staer date : @Model.StartDate</p>
+    <p>End date : @Model.EndDate</p>
+</div>
+<div>
+    <p>RavasheAmozeshi : @Model.RavasheAmozeshi</p>
+</div>
+<div>
+    <p>MediaAmozeshi : @Model.MediaAmozeshi </p>
+</div>
+<div>
+    <p>MokhatabinDoreh : @Model.MokhatabinDoreh</p>
+</div>
+<div>
+    <p>Satehkeyfi : @Model.Satehkeyfi </p>
+</div>
+<br />
+<br />
+<br />
+<br />
+
+<div>
+    <p>
+        Teachers Info
+    </p>
+</div>
+<div>
+    <p>
+        Teahcername1:@Model.Teahcername1
+    </p>
+</div>
+<div>
+    <p>
+        Teahcername2:@Model.Teahcername2
+    </p>
+</div>
+<div>
+    <p>
+        Teahcername3: @Model.Teahcername3
+    </p>
+</div>
+<div>
+    <p>
+        TeacherPshanmdiName1 : @Model.TeacherPshanmdiName1
+    </p>
+</div>
+<div>
+    <p>
+        TeacherPshanmdiName2 : @Model.TeacherPshanmdiName2
+    </p>
+</div>
+<div>
+    <p>
+        TeacherPshanmdiName3 : @Model.TeacherPshanmdiName3
+    </p>
+</div>
+<br />
+<br />
+<br />
+<div>
+    <p>
+        sar Fasle ha
+    </p>
+</div>
+@if (ViewData["FasleDoreh"]!= null)
+{
+    @foreach (var item in @ViewData["FasleDoreh"] as List<string>)
+    {
+        <p>fasle : @item</p>
+    }
+}
+<br />
+<br />
+@foreach (var item in @ViewBag.t_Fasl_Doreh_Pishnahadis)
+{
+    <p>fasle pishnahadi : @item</p>
+}
+

@@ -1,0 +1,43 @@
+﻿@model Request_Course.VM.CodeVm
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetCode</title>
+</head>
+<body>
+
+<h4>CodeVm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="GetCode" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+                <input asp-for="Phone" name="Phone" type="hidden" value="@ViewBag.Phone" data="@ViewBag.Phone" class="form-control" />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+</body>
+</html>
