@@ -27,6 +27,38 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZUNvZGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/AddAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRkQWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/Admins.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQWRtaW5zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/BindModaresToDoreh.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQmluZE1vZGFyZXNUb0RvcmVoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/BindModaresToDorehFindModare.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQmluZE1vZGFyZXNUb0RvcmVoRmluZE1vZGFyZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/Doreh.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRG9yZWguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/DorehFaal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRG9yZWhGYWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/DorehGhabl.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRG9yZWhHaGFibC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/DorehPygiry.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRG9yZWhQeWdpcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -37,6 +69,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/Modaresan.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTW9kYXJlc2FuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/ModarsanPishnadiDoreh.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cTW9kYXJzYW5QaXNobmFkaURvcmVoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/Sherkatha.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cU2hlcmthdGhhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/UpdateAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXBkYXRlQWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Admin/Users.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXNlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/All Project/Park Elemo fanavary/coures_Request2/Request_Course/Request_Course/Views/Episod/SarFaslDoreh.cshtml]

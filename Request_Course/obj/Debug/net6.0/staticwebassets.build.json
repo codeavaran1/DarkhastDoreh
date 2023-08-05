@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7uaNkE6gCjZxpxHtILy8WK+05/br0GXFbUo7YUcAVbM=",
+  "Hash": "Jcy90ZepBoZTuhSmwV4v+OCteq58xOwCJ1mn+kGj/sY=",
   "Source": "Request_Course",
   "BasePath": "_content/Request_Course",
   "Mode": "Default",
@@ -13700,6 +13700,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\9e14c7ea5d794a01a7e0d9f6ea590652.jpg"
+    },
+    {
+      "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\images\\Admins\\1d1caa95da524faeac293bc30ac58f2c.jpg",
+      "SourceId": "Request_Course",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\",
+      "BasePath": "_content/Request_Course",
+      "RelativePath": "images/Admins/1d1caa95da524faeac293bc30ac58f2c.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\Admins\\1d1caa95da524faeac293bc30ac58f2c.jpg"
     },
     {
       "Identity": "D:\\All Project\\Park Elemo fanavary\\coures_Request2\\Request_Course\\Request_Course\\wwwroot\\images\\Admins\\defalut.jpg",

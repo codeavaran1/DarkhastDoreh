@@ -2,7 +2,6 @@
 {
     public class AdminUpdateVM
     {
-        public int id { get; set; }
 
         public string UsreName { get; set; } = string.Empty;
 

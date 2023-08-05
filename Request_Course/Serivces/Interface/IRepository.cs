@@ -7,17 +7,18 @@ namespace Request_Course.Serivces.Interface
 
         #region Admin
         #region Modaresan
-        public Task<List<T_Doreh_Darkhasti>> GetDorehforBinding();
+        public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehforBinding(int pageid=0);
         public Task<int> BindModresToDoreh(int dorehid,int modaresid);
         #endregion
         #region Doreh
+        public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDoreh(int pageid=0);
         public Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh);
-        public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabFaal();
-        public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry();
-        public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl();
+        public Task<Tuple<List<T_Doreh_Darkhasti>,int>> GetDorehMokhatabFaalAdmin(int paegid=0);
+        public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabPygiryAdmin(int paegid = 0);
+        public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabGhablAdmin(int paegid = 0);
         #endregion
         #region requster
-        public Task<List<T_Mokhatebin>> GetSherkatha();
+        public Task<Tuple<List<T_Mokhatebin>, int>> GetSherkatha(int pageid = 0);
         #endregion
         #region User
         public Task<List<T_Activation>> GetActivations();
@@ -45,7 +46,8 @@ namespace Request_Course.Serivces.Interface
         public Task<T_Modaresan> GetModaresan(string phone);
         public Task<T_Modaresan> GetModaresan(int id);
         public Task<List<T_Modaresan>> GetModaresan(int onvnasli, int onvandoreh);
-        public Task<List<T_Modaresan>> GetModaresan();
+        public Task<Tuple<List<T_Modaresan>, int>> GetModaresan(int pageid=0,string all="");
+        public Task<int> GetModaresanPage();
         #region Modaresan Doreh
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid);
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid);
@@ -122,8 +124,8 @@ namespace Request_Course.Serivces.Interface
         #endregion
 
         #region Admins
-        public Task<List<T_Admin>> GetAdminsList();
-        public Task<List<T_Admin>> GetUsersList();
+        public Task<Tuple<List<T_Admin>, int>> GetAdminsList(int pageid=0);
+        public Task<Tuple<List<T_Admin>, int>> GetUsersList(int pageid=0);
         public Task<T_Admin> GetAdmin(string username, string password);
         public Task<T_Admin> GetAdmin(string username);
         public Task<int> AddAdmin(T_Admin t_Admin,IFormFile img);

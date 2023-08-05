@@ -15,9 +15,17 @@ namespace Request_Course.Serivces
 
         #region Admin
         #region Modaresan
-        public async Task<List<T_Doreh_Darkhasti>> GetDorehforBinding()
+        public async Task<Tuple<List<T_Doreh_Darkhasti>,int>> GetDorehforBinding(int pageid=0)
         {
-            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3).ToList();
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti;
+            result=result.Where(x => x.T_L_Vaziyat_Doreh_ID == 3);
+            result=result.OrderByDescending(c => c.Date_Create);
+
+            int skip = (pageid - 1) * 4;
+            int pageCount = result.Count() / 4;
+            List<T_Doreh_Darkhasti> query = result.Skip(skip).Take(4).ToList();
+
+            return Tuple.Create(query, pageCount);
         }
         public async Task<int> BindModresToDoreh(int dorehid, int modaresid)
         {
@@ -30,6 +38,17 @@ namespace Request_Course.Serivces
         }
         #endregion
         #region Doreh
+        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDoreh(int pageid=0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti;
+            result = result.OrderByDescending(c => c.Date_Create);
+
+            int skip = (pageid - 1) * 4;
+            int pageCount = result.Count() / 4;
+            List<T_Doreh_Darkhasti> query = result.Skip(skip).Take(4).ToList();
+
+            return Tuple.Create(query, pageCount);
+        }
         public async Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh)
         {
             T_L_OnvanAsli t_L_OnvanAsli = new T_L_OnvanAsli()
@@ -45,23 +64,51 @@ namespace Request_Course.Serivces
             await _context.SaveChangesAsync();
             return 0;
         }
-        public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabFaal()
+        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabFaalAdmin(int pageId=0)
         {
-            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 1).ToList();
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 1);
+            result = result.OrderByDescending(x => x.Date_Create);
+
+            int skip = (pageId - 1) * 4;
+            int pageCount = result.Count() / 4;
+            List<T_Doreh_Darkhasti> query = result.Skip(skip).Take(4).ToList();
+
+            return Tuple.Create(query, pageCount);
+
         }
-        public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry()
+        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabPygiryAdmin(int pageId=0)
         {
-            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3).ToList();
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3);
+            result = result.OrderByDescending(x => x.Date_Create);
+
+            int skip = (pageId - 1) * 4;
+            int pageCount = result.Count() / 4;
+            List<T_Doreh_Darkhasti> query = result.Skip(skip).Take(4).ToList();
+
+            return Tuple.Create(query, pageCount);
         }
-        public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl()
+        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabGhablAdmin(int pageId=0)
         {
-            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 2).ToList();
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 2);
+            result = result.OrderByDescending(x => x.Date_Create);
+
+            int skip = (pageId - 1) * 4;
+            int pageCount = result.Count() / 4;
+            List<T_Doreh_Darkhasti> query = result.Skip(skip).Take(4).ToList();
+
+            return Tuple.Create(query, pageCount);
         }
         #endregion
         #region Requester
-        public async Task<List<T_Mokhatebin>> GetSherkatha()
+        public async Task<Tuple<List<T_Mokhatebin>,int>> GetSherkatha(int pageid = 0)
         {
-            return _context.T_Mokhatebin.ToList();
+            IQueryable<T_Mokhatebin> result = _context.T_Mokhatebin;
+
+            int skip = (pageid - 1) * 4;
+            int pageCount = result.Count() / 4;
+            List<T_Mokhatebin> query = result.Skip(skip).Take(4).ToList();
+
+            return Tuple.Create(query, pageCount);
         }
         #endregion
         #region User
@@ -143,9 +190,24 @@ namespace Request_Course.Serivces
         {
             return _context.T_Modaresan.SingleOrDefault(x => x.ID_Modaresan == id);
         }
-        public async Task<List<T_Modaresan>> GetModaresan()
+        public async Task<Tuple<List<T_Modaresan>, int>> GetModaresan(int pageid = 0, string all = "")
         {
-            return _context.T_Modaresan.ToList();
+            IQueryable<T_Modaresan> result = _context.T_Modaresan;
+
+            result = result.OrderByDescending(c => c.DateCreate);
+
+            int skip = (pageid - 1) * 4;
+            int pageCount = result.Count() / 4;
+
+
+            List<T_Modaresan> query = result.Skip(skip).Take(4).ToList();
+
+            return Tuple.Create(query, pageCount);
+        }
+        public async Task<int> GetModaresanPage()
+        {
+            int pageCount = _context.T_Modaresan.Count() / 4;
+            return pageCount;
         }
         public async Task<int> AddModares(T_Modaresan t_Modaresan, IFormFile img)
         {
@@ -340,7 +402,7 @@ namespace Request_Course.Serivces
         }
         public async Task<string> GetMokhatabinDoreh(int MokhatinDoreh)
         {
-            return _context.T_L_MokhatabanDoreh.SingleOrDefault(x => x.ID_MokhatabanDoreh == MokhatinDoreh).Titles_MokhatabanDoreh;
+            return _context.T_Mokhatebin.SingleOrDefault(d => d.ID_Mokhatebin == MokhatinDoreh).NamFamily_Rabet;
         }
         public async Task<string> GetSatehkeyfi(int SatehkeyfiId)
         {
@@ -455,9 +517,15 @@ namespace Request_Course.Serivces
 
 
         #region Adimns
-        public async Task<List<T_Admin>> GetAdminsList()
+        public async Task<Tuple<List<T_Admin>,int>> GetAdminsList(int pageid=0)
         {
-            return _context.T_Admins.Where(x => x.Admin == true).ToList();
+            IQueryable<T_Admin> result = _context.T_Admins.Where(x => x.Admin == true);
+
+            int skip = (pageid - 1) * 4;
+            int pageCount = result.Count() / 4;
+            List<T_Admin> query = result.Skip(skip).Take(4).ToList();
+
+            return Tuple.Create(query, pageCount);
         }
         public async Task<T_Admin> GetAdmin(string username,string password)
         {
@@ -467,9 +535,13 @@ namespace Request_Course.Serivces
         {
             return _context.T_Admins.SingleOrDefault(x => x.UserName == username);
         }
-        public async Task<List<T_Admin>> GetUsersList()
+        public async Task<Tuple<List<T_Admin>, int>> GetUsersList(int pageid=0)
         {
-            return _context.T_Admins.Where(x => x.User == true).ToList();
+            IQueryable<T_Admin> result = _context.T_Admins.Where(x => x.User == true);
+            int skip = (pageid - 1) * 4;
+            int pageCount = result.Count() / 4;
+            List<T_Admin> query = result.Skip(skip).Take(4).ToList();
+            return Tuple.Create(query, pageCount);
         }
         public async Task<int> AddAdmin(T_Admin t_Admin, IFormFile img)
         {
@@ -520,7 +592,16 @@ namespace Request_Course.Serivces
             var t_Admin = _context.T_Admins.SingleOrDefault(x=>x.UserName==username);
             if (t_Admin!=null)
             {
-                _context.T_Admins.Remove(t_Admin);
+                if (t_Admin.img != null)
+                {
+                    string Deletimg = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Admins", t_Admin.img);
+                    if (File.Exists(Deletimg))
+                    {
+                        File.Delete(Deletimg);
+                    }
+                }
+                 _context.T_Admins.Remove(t_Admin);
+                await _context.SaveChangesAsync();
                 return 0;
             }
             return 1;            

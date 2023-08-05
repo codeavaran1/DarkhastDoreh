@@ -28,11 +28,15 @@ namespace Request_Course.Controllers
         }
 
         #region Modaresan
-        public async Task<IActionResult> Modaresan()
+        public async Task<IActionResult> Modaresan(int pageId = 1)
         {
-            var model = await _services.GetModaresan();
+            var reslut = await _services.GetModaresan(pageId, "ali");
+            var model = reslut.Item1;
+            ViewBag.pagecount = reslut.Item2;
+            ViewBag.pageid = pageId;
             return View(model);
         }
+
 
         public async Task<IActionResult> CreateModares()
         {
@@ -81,18 +85,89 @@ namespace Request_Course.Controllers
             return View();
         }
 
-        public async Task<IActionResult> BindModaresToDoreh()
+        public async Task<IActionResult> BindModaresToDoreh(int pageid = 1)
         {
-            var Doreh = await _services.GetDorehforBinding();
-            return View();
+            var result = await _services.GetDoreh(pageid);
+            List<string> OnvanDoreh = new List<string>();
+            List<string> Mokhatab = new List<string>();
+            List<int> DorehId = new List<int>();
+            foreach (var item in result.Item1)
+            {
+                string onvandoreh = "";
+                if (item.T_L_OnvanDoreh_ID != null)
+                {
+                    onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
+                }
+                else
+                {
+                    onvandoreh = item.OnvanDoreh_Jadid;
+                }
+                string mokhatab = await _services.GetMokhatabinDoreh(item.T_Mokhatebin_ID.Value);
+                DorehId.Add(item.ID_Doreh_Darkhasti);
+                OnvanDoreh.Add(onvandoreh);
+                Mokhatab.Add(mokhatab);
+            }
+            var Model = result.Item1.Count();
+            ViewBag.pagecount = result.Item2;
+            ViewBag.pageid = pageid;
+            ViewBag.mokhatab = Mokhatab;
+            ViewBag.onvandoreh = OnvanDoreh;
+            ViewBag.Dorehid = DorehId;
+            return View(Model);
         }
-        [HttpPost]
-        public async Task<IActionResult> BindModaresToDoreh(int dorehId)
+
+        public async Task<IActionResult> ModarsanPishnadiDoreh(int dorehId)
         {
-            var Modares = await _services.GetModaresan();
-            return View(Modares);
+            string Teacher1 = null;
+            string Teacher2 = null;
+            string Teacher3 = null;
+            T_Doreh_Darkhasti Doreh = await _services.GetDoreh_Darkhasti(dorehId);
+            var pishnahad_MOdares = await _services.GetPishnahad_Modares_Doreh(dorehId);
+            ModaresanPishnahadi model = new ModaresanPishnahadi();
+            if (pishnahad_MOdares!=null)
+            {
+                model.TeacherPshanmdiName1 = pishnahad_MOdares.Pishnahad_Modares_Name1;
+                model.TeacherPshanmdiName2 = pishnahad_MOdares.Pishnahad_Modares_Name2;
+                model.TeacherPshanmdiName3 = pishnahad_MOdares.Pishnahad_Modares_Name3;
+            }
+           
+            T_Pishnahad_Modares_Doreh Teachers = await _services.GetPishnahad_Modares_Doreh(dorehId);
+            if (Teachers != null)
+            {
+                if (Teachers.T_Modaresan_ID1 != null)
+                {
+                    Teacher1 = await _services.GetTeacherName(Teachers.T_Modaresan_ID1.Value);
+                    model.ID_Teahcername1 =Teachers.T_Modaresan_ID1.Value;
+                    model.Teahcername1 = Teacher1;
+                }
+                if (Teachers.T_Modaresan_ID2 != null)
+                {
+                    Teacher2 = await _services.GetTeacherName(Teachers.T_Modaresan_ID2.Value);
+                    model.ID_Teahcername2 = Teachers.T_Modaresan_ID2.Value;
+                    model.Teahcername2 = Teacher2;
+                }
+                if (Teachers.T_Modaresan_ID3 != null)
+                {
+                    Teacher3 = await _services.GetTeacherName(Teachers.T_Modaresan_ID3.Value);
+                    model.Teahcername3 = Teacher3;
+                    model.ID_Teahcername3 = Teachers.T_Modaresan_ID3.Value;
+                }
+            }
+            ViewBag.DorehId=dorehId;
+            return View(model);
         }
-        [HttpPost]
+
+        public async Task<IActionResult> BindModaresToDorehFindModare(int dorehId, int pageId = 1)
+        {
+            var reslut = await _services.GetModaresan(pageId, "ali");
+            var model = reslut.Item1;
+            ViewBag.pagecount = reslut.Item2;
+            ViewBag.pageid = pageId;
+            ViewBag.dorehid = dorehId;
+            return View(model);
+
+        }
+
         public async Task<IActionResult> FinalBindModares(int dorehid, int modaresid)
         {
             await _services.BindModresToDoreh(dorehid, modaresid);
@@ -102,9 +177,32 @@ namespace Request_Course.Controllers
         #endregion
 
         #region Doreh
-        public async Task<IActionResult> Doreh()
+        public async Task<IActionResult> Doreh(int pageid = 1)
         {
-            var Model = await _services.GetDorehforBinding();
+            var result = await _services.GetDoreh(pageid);
+            List<string> OnvanDoreh = new List<string>();
+            List<string> Mokhatab = new List<string>();
+            foreach (var item in result.Item1)
+            {
+                string onvandoreh = "";
+                if (item.T_L_OnvanDoreh_ID != null)
+                {
+                    onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
+                }
+                else
+                {
+                    onvandoreh = item.OnvanDoreh_Jadid;
+                }
+                string mokhatab = await _services.GetMokhatabinDoreh(item.T_Mokhatebin_ID.Value);
+
+                OnvanDoreh.Add(onvandoreh);
+                Mokhatab.Add(mokhatab);
+            }
+            var Model = result.Item1.Count();
+            ViewBag.pagecount = result.Item2;
+            ViewBag.pageid = pageid;
+            ViewBag.mokhatab = Mokhatab;
+            ViewBag.onvandoreh = OnvanDoreh;
             return View(Model);
         }
 
@@ -118,38 +216,115 @@ namespace Request_Course.Controllers
             return RedirectToAction("DefineOnvanAsliAndOnvanDoreh");
         }
 
-        public async Task<IActionResult> DorehFaal()
+        public async Task<IActionResult> DorehFaal(int pageid = 1)
         {
-            var model = await _services.GetDorehMokhatabFaal();
-            return View(model);
+            var result = await _services.GetDorehMokhatabFaalAdmin(pageid);
+            List<string> OnvanDoreh = new List<string>();
+            List<string> Mokhatab = new List<string>();
+            foreach (var item in result.Item1)
+            {
+                string onvandoreh = "";
+                if (item.T_L_OnvanDoreh_ID != null)
+                {
+                    onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
+                }
+                else
+                {
+                    onvandoreh = item.OnvanDoreh_Jadid;
+                }
+                string mokhatab = await _services.GetMokhatabinDoreh(item.T_Mokhatebin_ID.Value);
+
+                OnvanDoreh.Add(onvandoreh);
+                Mokhatab.Add(mokhatab);
+            }
+            var Model = result.Item1.Count();
+            ViewBag.pagecount = result.Item2;
+            ViewBag.pageid = pageid;
+            ViewBag.mokhatab = Mokhatab;
+            ViewBag.onvandoreh = OnvanDoreh;
+            return View(Model);
         }
 
-        public async Task<IActionResult> DorehPygiry()
+        public async Task<IActionResult> DorehPygiry(int pageid = 1)
         {
-            var model = await _services.GetDorehMokhatabPygiry();
-            return View();
+            var result = await _services.GetDorehMokhatabPygiryAdmin(pageid);
+            List<string> OnvanDoreh = new List<string>();
+            List<string> Mokhatab = new List<string>();
+            foreach (var item in result.Item1)
+            {
+                string onvandoreh = "";
+                if (item.T_L_OnvanDoreh_ID != null)
+                {
+                    onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
+                }
+                else
+                {
+                    onvandoreh = item.OnvanDoreh_Jadid;
+                }
+                string mokhatab = await _services.GetMokhatabinDoreh(item.T_Mokhatebin_ID.Value);
+
+                OnvanDoreh.Add(onvandoreh);
+                Mokhatab.Add(mokhatab);
+            }
+            var Model = result.Item1.Count();
+            ViewBag.pagecount = result.Item2;
+            ViewBag.pageid = pageid;
+            ViewBag.mokhatab = Mokhatab;
+            ViewBag.onvandoreh = OnvanDoreh;
+            return View(Model);
         }
 
-        public async Task<IActionResult> DorehGhabl()
+        public async Task<IActionResult> DorehGhabl(int pageid = 1)
         {
-            var model = await _services.GetDorehMokhatabGhabl();
-            return View(model);
+            var result = await _services.GetDorehMokhatabGhablAdmin(pageid);
+            List<string> OnvanDoreh = new List<string>();
+            List<string> Mokhatab = new List<string>();
+            foreach (var item in result.Item1)
+            {
+                string onvandoreh = "";
+                if (item.T_L_OnvanDoreh_ID != null)
+                {
+                    onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
+                }
+                else
+                {
+                    onvandoreh = item.OnvanDoreh_Jadid;
+                }
+                string mokhatab = await _services.GetMokhatabinDoreh(item.T_Mokhatebin_ID.Value);
+
+                OnvanDoreh.Add(onvandoreh);
+                Mokhatab.Add(mokhatab);
+            }
+            var Model = result.Item1.Count();
+            ViewBag.pagecount = result.Item2;
+            ViewBag.pageid = pageid;
+            ViewBag.mokhatab = Mokhatab;
+            ViewBag.onvandoreh = OnvanDoreh;
+            return View(Model);
         }
         #endregion
 
         #region Requster
-        public async Task<IActionResult> Sherkatha()
+        public async Task<IActionResult> Sherkatha(int pageid = 1)
         {
-            var model = await _services.GetSherkatha();
+            var reslut = await _services.GetSherkatha(pageid);
+            var model = reslut.Item1;
+            ViewBag.pagecount = reslut.Item2;
+            ViewBag.pageid = pageid;
             return View(model);
         }
         #endregion
 
         #region Adimn & User
-        public async Task<IActionResult> Admins()
+        public async Task<IActionResult> Admins(int pageid = 1)
         {
-            var Model = await _services.GetAdminsList();
-            return View(Model);
+            var result = await _services.GetAdminsList(pageid);
+            var model = result.Item1;
+            ViewBag.pagecount = result.Item2;
+            ViewBag.pageid = pageid;
+            return View(model);
+
+
         }
         public async Task<IActionResult> AddAdmin()
         {
@@ -163,10 +338,10 @@ namespace Request_Course.Controllers
                 return View(model);
             }
             var Admin = await _services.GetAdmin(model.Username);
-            if (Admin!=null)
+            if (Admin != null)
             {
                 return View();
-            } 
+            }
             T_Admin t_Admin = new T_Admin()
             {
                 Admin = model.IsAdmin,
@@ -178,93 +353,110 @@ namespace Request_Course.Controllers
                 UserName = model.Username,
             };
             await _services.AddAdmin(t_Admin, img);
-            return RedirectToAction("Admins");
+            return RedirectToAction("Index");
         }
         public async Task<IActionResult> UpdateAdmin(string username)
         {
-            var Model = _services.GetAdmin(username);
-            return View(Model);
+            var result = await _services.GetAdmin(username);
+            AdminUpdateVM model = new AdminUpdateVM()
+            {
+                IsAdmin = result.Admin,
+                IsUser = result.User,
+                Name = result.Name,
+                UsreName = result.UserName,
+                Password = "",
+                Phone = result.Phone
+            };
+            ViewBag.username = username;
+            return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateAdmin(AdminUpdateVM model, IFormFile img)
+        public async Task<IActionResult> UpdateAdmin(AdminUpdateVM model, IFormFile img, string username)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var Admin = await _services.GetAdmin(model.UsreName);
+            //if (!ModelState.IsValid&&ModelState.)
+            //{
+            //    return View(model);
+            //}
+            var Admin = await _services.GetAdmin(username);
             if (Admin != null)
             {
                 Admin.Phone = model.Phone;
                 Admin.Admin = model.IsAdmin;
                 Admin.User = model.IsUser;
                 Admin.Name = model.Name;
-                Admin.Password = Encreption.MD5Hash(model.Password);
+                if (!string.IsNullOrEmpty(model.Password))
+                {
+                    Admin.Password = Encreption.MD5Hash(model.Password);
+                }
                 await _services.EditAdmin(Admin, img);
             }
-            return RedirectToAction("Admins");
+            return RedirectToAction("Index");
         }
         public async Task<IActionResult> RmoveAdmin(string username)
         {
             await _services.RemoveAdmin(username);
-            return RedirectToAction("Admins");
+            return RedirectToAction("Index");
         }
-        public async Task<IActionResult> AddUser()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> AddUser(AdminCreateVM model,IFormFile img)
-        {
-            // use AdminCreateVM beacuse user and Admin the same
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var User = await _services.GetAdmin(model.Username);
-            if (User!= null)
-            {
-                return View();
-            }
-            T_Admin t_Admin = new T_Admin()
-            {
-                Admin = model.IsAdmin,
-                Code = "",
-                Name = model.Name,
-                Password = Encreption.MD5Hash(model.Password),
-                Phone = model.Phone,
-                User = model.IsUser,
-                UserName = model.Username,
-            };
-            return View();
-        }
+        //public async Task<IActionResult> AddUser()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public async Task<IActionResult> AddUser(AdminCreateVM model,IFormFile img)
+        //{
+        //    // use AdminCreateVM beacuse user and Admin the same
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+        //    var User = await _services.GetAdmin(model.Username);
+        //    if (User!= null)
+        //    {
+        //        return View();
+        //    }
+        //    T_Admin t_Admin = new T_Admin()
+        //    {
+        //        Admin = model.IsAdmin,
+        //        Code = "",
+        //        Name = model.Name,
+        //        Password = Encreption.MD5Hash(model.Password),
+        //        Phone = model.Phone,
+        //        User = model.IsUser,
+        //        UserName = model.Username,
+        //    };
+        //    return View();
+        //}
 
-        public async Task<IActionResult> UpdateUser(string username)
+        //public async Task<IActionResult> UpdateUser(string username)
+        //{
+        //    var Model = _services.GetAdmin(username);
+        //    return View(Model);
+        //}
+        //[HttpPost]
+        //public async Task<IActionResult> UpdateUser(UserUpdateVM model, IFormFile img)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(model);
+        //    }
+        //    var User = await _services.GetAdmin(model.Usename);
+        //    if (User != null)
+        //    {
+        //        User.Name = model.Name;
+        //        User.Password = Encreption.MD5Hash(model.Password);
+        //        User.Phone = model.Phone;
+        //        await _services.EditAdmin(User, img);
+        //    }
+        //    return RedirectToAction("Users");
+        //}
+        public async Task<IActionResult> Users(int pageid = 1)
         {
-            var Model = _services.GetAdmin(username);
-            return View(Model);
-        }
-        [HttpPost]
-        public async Task<IActionResult> UpdateUser(UserUpdateVM model, IFormFile img)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var User = await _services.GetAdmin(model.Usename);
-            if (User != null)
-            {
-                User.Name = model.Name;
-                User.Password = Encreption.MD5Hash(model.Password);
-                User.Phone = model.Phone;
-                await _services.EditAdmin(User, img);
-            }
-            return RedirectToAction("Users");
-        }
-        public async Task<IActionResult> Users()
-        {
-            var model = await _services.GetUsersList();
-            return View();
+            var result = await _services.GetUsersList(pageid);
+            var model = result.Item1;
+            ViewBag.pagecount = result.Item2;
+            ViewBag.pageid = pageid;
+            return View(model);
+
         }
         #endregion
 
@@ -308,7 +500,7 @@ namespace Request_Course.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return View("Login","Home");
+            return View("Login", "Home");
         }
         #endregion
     }
