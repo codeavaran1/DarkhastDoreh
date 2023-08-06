@@ -12,6 +12,7 @@ namespace Request_Course.Serivces.Interface
         #endregion
         #region Doreh
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDoreh(int pageid=0);
+        public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehWithoutModares(int pageid=0);
         public Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh);
         public Task<Tuple<List<T_Doreh_Darkhasti>,int>> GetDorehMokhatabFaalAdmin(int paegid=0);
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabPygiryAdmin(int paegid = 0);

@@ -49,6 +49,18 @@ namespace Request_Course.Serivces
 
             return Tuple.Create(query, pageCount);
         }
+        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehWithoutModares(int pageid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID != null);
+
+            result = result.OrderByDescending(c => c.Date_Create);
+
+            int skip = (pageid - 1) * 4;
+            int pageCount = result.Count() / 4;
+            List<T_Doreh_Darkhasti> query = result.Skip(skip).Take(4).ToList();
+            return Tuple.Create(query, pageCount);
+
+        }
         public async Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh)
         {
             T_L_OnvanAsli t_L_OnvanAsli = new T_L_OnvanAsli()
@@ -412,6 +424,7 @@ namespace Request_Course.Serivces
         {
             return _context.T_Modaresan.SingleOrDefault(x => x.ID_Modaresan == TeacherId).NameFamily;
         }
+
         #endregion
 
         #region SarFasl pishnahadi

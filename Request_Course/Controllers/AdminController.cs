@@ -87,7 +87,7 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> BindModaresToDoreh(int pageid = 1)
         {
-            var result = await _services.GetDoreh(pageid);
+            var result = await _services.GetDorehWithoutModares(pageid);
             List<string> OnvanDoreh = new List<string>();
             List<string> Mokhatab = new List<string>();
             List<int> DorehId = new List<int>();
