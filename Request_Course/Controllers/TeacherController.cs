@@ -108,6 +108,8 @@ namespace Request_Course.Controllers
             ViewBag.Fild_Asli = modaresan_Fild_AsliVMs;
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> TeacherForm(ModaresanVM model, IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili=""
             ,string Reshte="",string DaragehElmi="")

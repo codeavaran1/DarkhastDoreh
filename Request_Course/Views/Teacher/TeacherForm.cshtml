@@ -1,21 +1,161 @@
 ﻿@model Request_Course.VM.ModaresanVM
 
-@{
+@*@{
     Layout = null;
-}
+}*@
 
 <!DOCTYPE html>
 
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>TeacherForm ali l</title>
-
+    <title>TeacherForm</title>
 </head>
 <body>
+    <section class="content-header">
+            <h1>
+                داشبرد
+                <small>ورژن ۲</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> خانه</a></li>
+                <li class="active">داشبرد</li>
+            </ol>
+        </section>
 
-    <h4>ModaresanVM استاد1</h4>
+        <!-- Main content -->
+        <section class="content">
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات استاد</p></div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <form asp-action="TeacherForm" method="post" enctype="multipart/form-data">
 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-8">
+                                    <div class="titrfild">
+                                        <p style="font-family:WYekan;font-size:large">
+                                            <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
+                                            <strong>اطلاعات کلی:</strong>
+                                        </p>
+                                    </div>
+                                </div> <div class="col-4"></div>
+                                <div class="col-md-10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Phone" value="@ViewBag.Phone" data="@ViewBag.Phone" type="hidden" />
+                
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6"> 
+                                    <label asp-for="Email" class="control-label"></label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6"> 
+                                    <label asp-for="Email" class="control-label"></label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="row">
+
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                     <label class="control-label"> Maghtae Tahsili</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                      <select name="MaghtaeTahsili" class="form-control" asp-items="@ViewBag.MaghtaeTahsili_Drop"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> Maghtae Tahsili</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                   <select name="MaghtaeTahsili" class="form-control" asp-items="@ViewBag.MaghtaeTahsili_Drop"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+            
+
+
+
+
+                    
+                    <hr />
+
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+
+                        </div>
+
+                        <div class="col-md-3">
+                        </div>
+
+                        <div class="col-md-3">
+                            @if (@ViewBag._NoeRoydad == 7)
+                            {
+                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                            }
+                            @if (@ViewBag._NoeRoydad != 7)
+                            {
+                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                            }
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+       
+
+        </div>
+            
+        </section>
+    <h4>ModaresanVM</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
@@ -38,7 +178,6 @@
                     <input asp-for="Daneshgah_Reshteh" class="form-control" />
                     <span asp-validation-for="Daneshgah_Reshteh" class="text-danger"></span>
                 </div>
-
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
                     <textarea asp-for="Description" class="form-control" ></textarea>
