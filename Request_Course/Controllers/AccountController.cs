@@ -13,8 +13,6 @@ namespace Request_Course.Controllers
             _servises = servises;
         }
 
-
-
         #region Arrvie Users
 
         [HttpGet]

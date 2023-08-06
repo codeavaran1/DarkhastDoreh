@@ -13,7 +13,7 @@ using System.Text;
 
 namespace Request_Course.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AdminController : Controller
     {
         private IRepository _services;

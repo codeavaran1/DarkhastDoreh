@@ -1,7 +1,8 @@
 ﻿@model Request_Course.VM.ActivationVM
 
 @{
-    Layout = null;
+    //Layout = null;
+    Layout = "~/Views/Shared/_LayoutAfterPanel.cshtml";
 }
 
 <!DOCTYPE html>
@@ -9,42 +10,129 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>GetPhone</title>
+    <title>ثبت شماره تماس</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/dist/css/loginAndRigester/fontawesome/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="~/dist/css/loginAndRigester/logo.png">
+    <link rel="stylesheet" href="~/dist/css/loginAndRigester/main.css">
 </head>
-<body>
-
-    <h4>ActivationVM</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="GetPhone" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<body class="baccover" style="background-image: url(~/dist/css/loginAndRigester/bk.jpg);">
+    @*<div class="box box-primary shadow p-3 mb-5 bg-body rounded-3" style="margin-top:8%;">
+            <div class="box-header with-border">
+              <h3 class="box-title">ثبت شماره تماس</h3>
+            </div>
+            <form role="form" >
+              <div class="box-body" >
                 <div class="form-group">
-                    <label asp-for="Phone" class="control-label"></label>
+                    <label asp-for="Phone" class="control-label"> شماره تماس</label>
                     <input asp-for="Phone" class="form-control" />
                     <span asp-validation-for="Phone" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="NameFamily" class="control-label"></label>
+                  <label asp-for="NameFamily" class="control-label">نام و نام خانوادگی</label>
                     <input asp-for="NameFamily" class="form-control" />
                     <span asp-validation-for="NameFamily" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="radio" id="Teacher" name="Persontype" value="Teacher">
-                    <label for="html">Teacher</label><br>
+                    <label for="html">مدرس</label><br>
                     <input type="radio" id="student" name="Persontype" value="Student">
-                    <label for="css">Student</label><br>
+                    <label for="css">خدمت گیرنده</label><br>
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </form>
-        </div>
-    </div>
+                
+              </div>
 
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+              <div class="box-footer"> 
+                <button class="btn btn-primary btn-lg btn-block" type="submit">ارسال کد</button>
+              </div>
+            </form>
+          </div>*@
+
+           <div class="col-12 col-m-12 col-p-12 " style="margin-top: 7px; margin-bottom: 60px;">
+            <div class="col-4 col-m-2"></div>
+            <div class="col-4 col-m-8" style="padding: 15px;">
+                <div class="col-12 col-m-12 login_box" style="padding-bottom: 5px;">
+
+
+                    <form>
+                        <div class="col-12 col-m-12 arrowbox22" style="font-size: 17px;">
+                            ورود
+                        </div>
+
+                        <div class="col-12 col-m-12" style="padding: 15px;margin-top: 15px;">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-12 col-m-12" style="padding: 10px;"></div><!--space-->
+                            <div class="form-group">
+                                <div class="col-12 col-m-12 inputtitr"><i class="fa fa-phone"></i>&nbsp; شماره موبایل </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-m-12" style=" padding: 5px;"></div><!--space-->
+                            <div class="form-group">
+                                <div class="col-12 col-m-12 inputtitr"><i class="fa fa-user"></i>&nbsp; نام و نام خانوادگی </div>
+                                <div class="col-md-10">
+                                    <input asp-for="NameFamily" class="form-control" />
+                    <span asp-validation-for="NameFamily" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12 col-m-12" style=" padding: 5px;"></div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10" style="text-align: right;">
+                                    <div class="checkbox">
+                                        <input type="radio" id="Teacher" name="Persontype" value="Teacher">
+                    <label for="html">مدرس</label><br>
+                    <input type="radio" id="student" name="Persontype" value="Student">
+                    <label for="css">خدمت گیرنده</label><br>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-m-12" style="padding: 10px;"></div><!--space-->
+                            <input type="submit" class="logregbtn" value="دریافت کد">
+                            <div class="col-12 col-m-12" style="padding: 5px;"></div><!--space-->
+  
+
+                            <div class="col-12 col-m-12" style="padding: 5px;"></div><!--space-->
+                            <div style="font-size: 14px;">
+                                <a href="#" onclick="location.href='@Url.Action("Login", "Account")'" style="color: #692db7;font-size: 13px;">
+                                    <p>
+                                        @Html.ActionLink("قبلا ثبت نام کرده ام", "Login")
+                                    </p>
+
+                                </a>
+                            </div>
+
+                            <div class="col-12 col-m-12" style="padding: 5px;"></div><!--space-->
+                            <div style="font-size: 14px;">
+                                <a href="#" onclick="location.href='@Url.Action("Contact", "Home")'" style="color: #888888;font-size: 13px;">
+                                    <p>
+                                        @Html.ActionLink("  راهنمای سامانه", "Contact", "Home")
+                                    </p>
+
+                                </a>
+                            </div>
+
+                            <div class="col-12 col-m-12" style="padding: 20px;"></div><!--space-->
+
+                        </div>
+                    </form>
+                </div>
+                <div class="col-12 col-m-12" style="padding: 3px; margin-top: 3px; padding-right:7px;padding-left: 5px;">
+                        <a href="#" onclick="location.href='@Url.Action("Index", "Home")'" style="color: #ffffff;font-size: 13px;">
+                            <i class="fa fa-home"></i>&nbsp;
+                            صفحه اصلی
+                        </a>
+                </div>
+            </div>
+            <div class="col-4 col-m-2"></div>
+        </div>
+        
 
     @section Scripts {
         @{
