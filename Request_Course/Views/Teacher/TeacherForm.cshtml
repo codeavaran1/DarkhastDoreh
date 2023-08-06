@@ -25,64 +25,135 @@
 
         <!-- Main content -->
         <section class="content">
-            <!-- Info boxes -->
-            <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات استاد</p></div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <form asp-action="TeacherForm" method="post" enctype="multipart/form-data">
 
-                        <div class="info-box-content">
-                            <span class="info-box-text">قدرت سرور</span>
-                            <span class="info-box-number">90<small>%</small></span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-8">
+                                    <div class="titrfild">
+                                        <p style="font-family:WYekan;font-size:large">
+                                            <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
+                                            <strong>اطلاعات کلی:</strong>
+                                        </p>
+                                    </div>
+                                </div> <div class="col-4"></div>
+                                <div class="col-md-10">
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
-
-                        <div class="info-box-content">
-                            <span class="info-box-text">لایک ها</span>
-                            <span class="info-box-number">41,410</span>
+                        <div class="col-md-6">
                         </div>
-                        <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-                <!-- fix for small devices only -->
-                <div class="clearfix visible-sm-block"></div>
 
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+                    <div class="row">
 
-                        <div class="info-box-content">
-                            <span class="info-box-text">فروش</span>
-                            <span class="info-box-number">760</span>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Phone" value="@ViewBag.Phone" data="@ViewBag.Phone" type="hidden" />
+                
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6"> 
+                                    <label asp-for="Email" class="control-label"></label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
                         </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
 
-                        <div class="info-box-content">
-                            <span class="info-box-text">کاربران جدید</span>
-                            <span class="info-box-number">2,000</span>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6"> 
+                                    <label asp-for="Email" class="control-label"></label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
                         </div>
-                        <!-- /.info-box-content -->
                     </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- /.col -->
+
+                    <br />
+                    <div class="row">
+
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                     <label class="control-label"> Maghtae Tahsili</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                      <select name="MaghtaeTahsili" class="form-control" asp-items="@ViewBag.MaghtaeTahsili_Drop"></select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> Maghtae Tahsili</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                   <select name="MaghtaeTahsili" class="form-control" asp-items="@ViewBag.MaghtaeTahsili_Drop"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+            
+
+
+
+
+                    
+                    <hr />
+
+                    <br />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+
+                        </div>
+
+                        <div class="col-md-3">
+                        </div>
+
+                        <div class="col-md-3">
+                            @if (@ViewBag._NoeRoydad == 7)
+                            {
+                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                            }
+                            @if (@ViewBag._NoeRoydad != 7)
+                            {
+                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                            }
+                        </div>
+
+                    </div>
+                </form>
             </div>
+
+       
+
+        </div>
+            
         </section>
     <h4>ModaresanVM</h4>
     <hr />
