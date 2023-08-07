@@ -19,7 +19,7 @@
         <dl class="dl-horizontal">
             @for (int i = 0; i < Model.Count(); i++)
             {
-                <img  src="~/images/@Model[i].img"  style="width:50px!important"/>
+                <img src="~/images/@Model[i].img" style="width:50px!important" />
                 <br />
                 <p>
                     Family = @ViewBag.Family[i]
@@ -44,56 +44,240 @@
         <br />
         <br />
         <br />
-        <form asp-action="TeacherOfDoreh" method="post" >
-            <p>Select Teacher priarity</p>
-            <div class="form-group">
-                <label class="control-label">P_1</label>
-                <select name="Teacher" class="form-control" asp-items="@ViewBag.Teacher"></select>
+
+
+
+        <section class="content">
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات دوره</p></div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="panel-body">
+                    <form asp-action="Request_DorehAmozeshi" method="post">
+                        <input type="hidden" name="OnvanDoreh" value="@ViewBag.OnvanDoreh" data="@ViewBag.OnvanDoreh" />
+                        <input type="hidden" name="onvanAsli" value="@ViewBag.onvanAsli" data="@ViewBag.onvanAsli" />
+                        <input type="hidden" name="DorehDarkhasti_ID" value="@ViewBag.DorehDarkhasti_ID" data="@ViewBag.DorehDarkhasti_ID" />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-8">
+                                        <div class="titrfild">
+                                            <p style="font-family:WYekan;font-size:large">
+                                                <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
+                                                <strong>اطلاعات کلی دوره</strong>
+                                            </p>
+                                        </div>
+                                    </div> <div class="col-4"></div>
+                                    <div class="col-md-10">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <label class="control-label"> استاد 1</label>
+                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <select name="Teacher" class="form-control" asp-items="@ViewBag.Teacher"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <label class="control-label">استاد 2</label>
+                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <select name="Teacher2" class="form-control" asp-items="@ViewBag.Teacher"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <label class="control-label">استاد 3</label>
+                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <select name="Teacher3" class="form-control" asp-items="@ViewBag.Teacher"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="control-label">پیشنهاد استاد 1</label>
+                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input name="NewTeacher_Name" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="control-label">شماره استاد</label>
+                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input name="NewTeacher_Phone" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="control-label">پیشنهاد استاد 2</label>
+                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input name="NewTeacher_Name2" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="control-label">شماره استاد 2</label>
+                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input name="NewTeacher_Phone2" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="control-label">پیشنهاد استاد 3</label>
+                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input name="NewTeacher_Name3" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <label class="control-label">شماره استاد 3 </label>
+                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input name="NewTeacher_Phone3" class="form-control" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-6">
+                            </div>
+
+                            <div class="col-md-3">
+                            </div>
+
+                            <div class="col-md-3">
+                                @if (@ViewBag._NoeRoydad == 7)
+                                {
+                                    <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                                }
+                                @if (@ViewBag._NoeRoydad != 7)
+                                {
+                                    <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                                }
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label class="control-label">P_2</label>
-                <select name="Teacher2" class="form-control" asp-items="@ViewBag.Teacher"></select>
-            </div>
-            <div class="form-group">
-                <label class="control-label">P_3</label>
-                <select name="Teacher3" class="form-control" asp-items="@ViewBag.Teacher"></select>
-            </div>
-            <br />
-            <br />
-            <br />
-            <input type="hidden" name="OnvanDoreh" value="@ViewBag.OnvanDoreh" data="@ViewBag.OnvanDoreh" />
-            <input type="hidden" name="onvanAsli" value="@ViewBag.onvanAsli" data="@ViewBag.onvanAsli" />
-            <input type="hidden" name="DorehDarkhasti_ID" value="@ViewBag.DorehDarkhasti_ID" data="@ViewBag.DorehDarkhasti_ID" />
-            <p>intro New Teacher</p>
-            <label class="control-label">Name :</label>
-            <input name="NewTeacher_Name" class="form-control" />
-            <label class="control-label">Phone :</label>
-            <input name="NewTeacher_Phone" class="form-control" />
-            <br />
-            <label class="control-label">Name2 :</label>
-            <input name="NewTeacher_Name2" class="form-control" />
-            <label class="control-label">Phone2 :</label>
-            <input name="NewTeacher_Phone2" class="form-control" />
-            <br />
-            <label class="control-label">Name3 :</label>
-            <input name="NewTeacher_Name3" class="form-control" />
-            <label class="control-label">Phone3 :</label>
-            <input name="NewTeacher_Phone3" class="form-control" />
-            <input type="submit" value="Send Request" />
+        </section>
+
+
+
+
+
+
+
+
+
+
+        @*<form asp-action="TeacherOfDoreh" method="post">
+        <p>Select Teacher priarity</p>
+        <div class="form-group">
+        <label class="control-label">P_1</label>
+        <select name="Teacher" class="form-control" asp-items="@ViewBag.Teacher"></select>
+        </div>
+        <div class="form-group">
+        <label class="control-label">P_2</label>
+        <select name="Teacher2" class="form-control" asp-items="@ViewBag.Teacher"></select>
+        </div>
+        <div class="form-group">
+        <label class="control-label">P_3</label>
+        <select name="Teacher3" class="form-control" asp-items="@ViewBag.Teacher"></select>
+        </div>
+        <br />
+        <br />
+        <br />
+        <input type="hidden" name="OnvanDoreh" value="@ViewBag.OnvanDoreh" data="@ViewBag.OnvanDoreh" />
+        <input type="hidden" name="onvanAsli" value="@ViewBag.onvanAsli" data="@ViewBag.onvanAsli" />
+        <input type="hidden" name="DorehDarkhasti_ID" value="@ViewBag.DorehDarkhasti_ID" data="@ViewBag.DorehDarkhasti_ID" />
+        <p>intro New Teacher</p>
+        <label class="control-label">Name :</label>
+        <input name="NewTeacher_Name" class="form-control" />
+        <label class="control-label">Phone :</label>
+        <input name="NewTeacher_Phone" class="form-control" />
+        <br />
+
+        <label class="control-label">Name2 :</label>
+        <input name="NewTeacher_Name2" class="form-control" />
+        <label class="control-label">Phone2 :</label>
+        <input name="NewTeacher_Phone2" class="form-control" />
+        <br />
+
+        <label class="control-label">Name3 :</label>
+        <input name="NewTeacher_Name3" class="form-control" />
+        <label class="control-label">Phone3 :</label>
+        <input name="NewTeacher_Phone3" class="form-control" />
+        <input type="submit" value="Send Request" />
         </form>
-    </div>
-    <br />
-    <br />
-    <br />
-    <a asp-controller="Episod" asp-action="SarFaslDoreh" asp-route-onvanasli="@ViewBag.onvanAsli" asp-route-onvandoreh="@ViewBag.OnvanDoreh">
-        Show Sar False
-    </a>
-    <a>
-        Pishnahad sar fasl
-    </a>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-        <a asp-action="Index">Back to List</a>
+        </div>
+        <br />
+        <br />
+        <br />*@
+        <a asp-controller="Episod" asp-action="SarFaslDoreh" asp-route-onvanasli="@ViewBag.onvanAsli" asp-route-onvandoreh="@ViewBag.OnvanDoreh">
+            Show Sar False
+        </a>
+        <a>
+            Pishnahad sar fasl
+        </a>
+        <div>
+            @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+            <a asp-action="Index">Back to List</a>
+        </div>
     </div>
 </body>
 </html>

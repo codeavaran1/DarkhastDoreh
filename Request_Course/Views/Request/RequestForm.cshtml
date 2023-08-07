@@ -1,7 +1,7 @@
 ﻿@model Request_Course.VM.RequesterVM
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutMokhatabin.cshtml";
 }
 
 <!DOCTYPE html>
@@ -13,50 +13,185 @@
 </head>
 <body>
 
-<h4>RequesterVM</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="RequestForm">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name_Sherkat" class="control-label"></label>
-                <input asp-for="Name_Sherkat" class="form-control" />
-                <span asp-validation-for="Name_Sherkat" class="text-danger"></span>
+    <section class="content">
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات استاد</p></div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <form asp-action="RequestForm" method="post" >
+                    <input type="hidden" asp-for="Phone" value="@ViewBag.phone" data="@ViewBag.phones" />
+                    <input type="hidden" asp-for="Family" value="@ViewBag.family" data="@ViewBag.family" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-8">
+                                    <div class="titrfild">
+                                        <p style="font-family:WYekan;font-size:large">
+                                            <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
+                                            <strong>اطلاعات کلی:</strong>
+                                        </p>
+                                    </div>
+                                </div> <div class="col-4"></div>
+                                <div class="col-md-10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">شرکت</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Name_Sherkat" class="form-control" />
+                                    <span asp-validation-for="Name_Sherkat" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">تلفن</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Phone" class="form-control" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">ایمیل </label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label">استان</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="Ostan" class="form-control" asp-items="@ViewBag.ostany"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> سمت درخواست کننده</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="Semat" class="form-control" asp-items="@ViewBag.Semat"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+
+                        <div class="col-md-3">
+                        </div>
+
+                        <div class="col-md-3">
+                            @if (@ViewBag._NoeRoydad == 7)
+                            {
+                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                            }
+                            @if (@ViewBag._NoeRoydad != 7)
+                            {
+                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                            }
+                        </div>
+
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-             <div class="form-group">
-                <label  class="control-label"> Ostan</label>
-                <select name="Ostan" class="form-control" asp-items="@ViewBag.ostany"></select>
-            </div>
-             <div class="form-group">
-                <label  class="control-label"> Semat</label>
-                <select name="Semat" class="form-control" asp-items="@ViewBag.Semat"></select>
-            </div>
-            <input type="hidden" asp-for="Phone" value="@ViewBag.phone" data="@ViewBag.phones" /> 
-            <input type="hidden" asp-for="Family" value="@ViewBag.family" data="@ViewBag.family" />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+        </div>
+    </section>
+
+
+
+
+
+
+
+@*
+    <br />
+    <br />
+    <h4>RequesterVM</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="RequestForm">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name_Sherkat" class="control-label"></label>
+                    <input asp-for="Name_Sherkat" class="form-control" />
+                    <span asp-validation-for="Name_Sherkat" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Phone" class="control-label"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label"> Ostan</label>
+                    <select name="Ostan" class="form-control" asp-items="@ViewBag.ostany"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label"> Semat</label>
+                    <select name="Semat" class="form-control" asp-items="@ViewBag.Semat"></select>
+                </div>
+                <input type="hidden" asp-for="Phone" value="@ViewBag.phone" data="@ViewBag.phones" />
+                <input type="hidden" asp-for="Family" value="@ViewBag.family" data="@ViewBag.family" />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-</body>
-</html>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+*@
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+    </body>
+    </html>

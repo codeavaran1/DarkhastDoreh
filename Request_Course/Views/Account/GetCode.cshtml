@@ -1,43 +1,77 @@
 ﻿@model Request_Course.VM.CodeVm
 
+
 @{
-    Layout = null;
+    //Layout = null;
+    Layout = "~/Views/Shared/_LayoutAfterPanel.cshtml";
 }
-
-<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>GetCode</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/dist/css/loginAndRigester/fontawesome/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="~/dist/css/loginAndRigester/logo.png">
+    <link rel="stylesheet" href="~/dist/css/loginAndRigester/main.css">
+    <title>دریافت کد</title>
 </head>
-<body>
+<body class="baccover" style="background-image: url(~/dist/css/loginAndRigester/bk.jpg);">
+    <div class="col-12 col-m-12 col-p-12 " style="margin-top: 7px; margin-bottom: 60px;">
+        <div class="col-4 col-m-2"></div>
+        <div class="col-4 col-m-8" style="padding: 15px;">
+            <div class="col-12 col-m-12 login_box" style="padding-bottom: 5px;">
 
-<h4>CodeVm</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="GetCode" method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Code" class="control-label"></label>
-                <input asp-for="Code" class="form-control" />
-                <span asp-validation-for="Code" class="text-danger"></span>
+
+                <form asp-action="GetCode" method="post">
+                    <div class="col-12 col-m-12 arrowbox22" style="font-size: 17px;">
+                        دریافت کد
+                    </div>
+
+                    <div class="col-12 col-m-12" style="padding: 15px;margin-top: 15px;">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="col-12 col-m-12" style="padding: 10px;"></div><!--space-->
+                        <div class="form-group">
+                            <div class="col-12 col-m-12 inputtitr"><i class="fa fa-phone"></i>&nbsp; کد  </div>
+                            <div class="col-md-10">
+                                <input asp-for="Code" class="form-control" />
+                                <span asp-validation-for="Code" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <input asp-for="Phone" name="Phone" type="hidden" value="@ViewBag.Phone" data="@ViewBag.Phone" class="form-control" />
+                        <div class="col-12 col-m-12" style=" padding: 5px;"></div><!--space-->
+                        <div class="col-12 col-m-12" style=" padding: 5px;"></div>
+                        <div class="col-12 col-m-12" style="padding: 10px;"></div><!--space-->
+                        <input type="submit" class="logregbtn" value="تایید">
+                        <div class="col-12 col-m-12" style="padding: 5px;"></div><!--space-->
+                        <div class="col-12 col-m-12" style="padding: 5px;"></div><!--space-->
+                        <div style="font-size: 14px;">
+                            <a href="#" onclick="location.href='@Url.Action("ReCode", "Account")'" style="color: #692db7;font-size: 13px;">
+                                <p>
+                                    @Html.ActionLink("ارسال مجدد کد", "ReCode","Account",new{phone=@ViewBag.Phone})
+                                </p>
+
+                            </a>
+                        </div>
+                        <div class="col-12 col-m-12" style="padding: 20px;"></div><!--space-->
+                    </div>
+                </form>
             </div>
-                <input asp-for="Phone" name="Phone" type="hidden" value="@ViewBag.Phone" data="@ViewBag.Phone" class="form-control" />
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-12 col-m-12" style="padding: 3px; margin-top: 3px; padding-right:7px;padding-left: 5px;">
+                <a href="#" onclick="location.href='@Url.Action("Index", "Home")'" style="color: #ffffff;font-size: 13px;">
+                    <i class="fa fa-home"></i>&nbsp;
+                    صفحه اصلی
+                </a>
             </div>
-        </form>
+        </div>
+        <div class="col-4 col-m-2"></div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
-</body>
-</html>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+    </body>
+    </html>

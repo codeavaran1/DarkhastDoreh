@@ -121,18 +121,33 @@ namespace Request_Course.Controllers
                     Activtion.code = "";
                     await _servises.UpdateActivation(Activtion);
                     //Expired Time of Code
-                    return RedirectToAction("ReCode");
+                    return RedirectToAction("ReCode", new { phone =codeVm.Phone});
                 }
             }
             //wrong Code
-            return RedirectToAction("ReCode");
+            return RedirectToAction("ReCode", new { phone = codeVm.Phone });
 
         }
 
-        public async Task<IActionResult> ReCode()
+        public async Task<IActionResult> ReCode(string phone)
         {
-            //For undertanding user for Re Generate Code 
+            ViewBag.Phone = phone;
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ReCodeConfrim(string phone)
+        {
+            var user = await _servises.GetActivation(phone);
+            if (user != null)
+            {
+                //Re generate Code
+                //send SMS Code
+                user.DateGenerateCode = DateTime.Now;
+                user.code = "21212";
+                await _servises.UpdateActivation(user);
+
+            }
+            return RedirectToAction("GetCode", new { phone = phone });
         }
 
         #endregion

@@ -1,7 +1,7 @@
 ﻿@model Request_Course.VM.DarkhasDorheNewVM
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutMokhatabin.cshtml";
 }
 
 <!DOCTYPE html>
@@ -13,7 +13,168 @@
 </head>
 <body>
 
-    <h4>DarkhasDorheNewVM</h4>
+
+    <section class="content">
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات دوره جدید</p></div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <form asp-action="Request_New_DorehAmozeshi" method="post">
+                    <input type="hidden" asp-for="Phone" value="@ViewBag.phone" data="@ViewBag.phone" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-8">
+                                    <div class="titrfild">
+                                        <p style="font-family:WYekan;font-size:large">
+                                            <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
+                                            <strong>اطلاعات کلی دوره</strong>
+                                        </p>
+                                    </div>
+                                </div> <div class="col-4"></div>
+                                <div class="col-md-10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">عنوان دوره </label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="OnvanDoreh" class="form-control" />
+                                    <span asp-validation-for="OnvanDoreh" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> عنوان اصلی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="OnvanAsli" class="form-control" asp-items="@ViewBag.OnvanAsli"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">زمان شروع</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="DateStart" class="form-control" />
+                                    <span asp-validation-for="DateStart" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">زمان اتمام</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="DateEnd" class="form-control" />
+                                    <span asp-validation-for="DateEnd" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> مدیا آموزشی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="MediaAmozeshis" class="form-control" asp-items="@ViewBag.MediaAmozeshis"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> روش آموزش</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="RaveshAmozeshis" class="form-control" asp-items="@ViewBag.RaveshAmozeshis"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> مدت دوره</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="ModateDorehs" class="form-control" asp-items="@ViewBag.ModateDorehs"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> مخاطبین دوره</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="MokhatabanDorehs" class="form-control" asp-items="@ViewBag.MokhatabanDorehs"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+
+                        <div class="col-md-3">
+                        </div>
+
+                        <div class="col-md-3">
+                            @if (@ViewBag._NoeRoydad == 7)
+                            {
+                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                            }
+                            @if (@ViewBag._NoeRoydad != 7)
+                            {
+                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                            }
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+
+
+@*    <h4>DarkhasDorheNewVM</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
@@ -65,7 +226,7 @@
     <div>
         <a asp-action="Index">Back to List</a>
     </div>
-
+*@
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
