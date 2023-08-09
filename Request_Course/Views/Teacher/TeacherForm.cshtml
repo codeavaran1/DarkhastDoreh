@@ -21,7 +21,7 @@
             <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات استاد</p></div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="panel-body">
-                <form asp-action="TeacherForm" method="post" enctype="multipart/form-data">
+                <form id="myForm" asp-action="TeacherForm" method="post" enctype="multipart/form-data">
 
                     <div class="row">
                         <div class="col-md-6">
@@ -157,7 +157,7 @@
                     <div class="row">
                         @for (int i = 0; i < 2; i++)
                         {
-                             <br />
+                            <br />
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="col-md-10">
@@ -165,7 +165,7 @@
                                         <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                     </div>
                                     <div class="col-md-10">
-                                       <select name="FildAsli" class="form-control" asp-items="@ViewBag.FildAsli"></select>
+                                        <select name="FildAsli" class="form-control" asp-items="@ViewBag.FildAsli"></select>
                                     </div>
                                 </div>
                             </div>
@@ -176,12 +176,32 @@
                                         <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                     </div>
                                     <div class="col-md-10">
-                                         <select name="OnvanDoreh" class="form-control" asp-items="@ViewBag.OnvanDoreh"></select>
+                                        <select name="OnvanDoreh" class="form-control" asp-items="@ViewBag.OnvanDoreh"></select>
                                     </div>
                                 </div>
                             </div>
                             <br />
                         }
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                    <div class="col-sm-12">
+                        <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">عنوان اصلی </th>
+                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">عنوان دوره</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr role="row" class="odd">
+                                    <td class="sorting_1"></td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
                     </div>
                     <br />
                     <hr />
@@ -196,11 +216,11 @@
                         <div class="col-md-3">
                             @if (@ViewBag._NoeRoydad == 7)
                             {
-                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                                <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
                             }
                             @if (@ViewBag._NoeRoydad != 7)
                             {
-                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                                <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
                             }
                         </div>
 
@@ -213,76 +233,76 @@
 
 
 
-  @*  <h4>ModaresanVM</h4>
+    @*  <h4>ModaresanVM</h4>
     <hr />
     <div class="row">
-        <div class="col-md-4">
-            <form asp-action="TeacherForm" method="post" enctype="multipart/form-data">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="Phone" value="@ViewBag.Phone" data="@ViewBag.Phone" type="hidden" />
-                <div class="form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="OnvanShoghli" class="control-label"></label>
-                    <input asp-for="OnvanShoghli" class="form-control" />
-                    <span asp-validation-for="OnvanShoghli" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input asp-for="Phone" type="hidden" value="@ViewBag.Phone" data="@ViewBag.Phone" />
-                    <label asp-for="Daneshgah_Reshteh" class="control-label"></label>
-                    <input asp-for="Daneshgah_Reshteh" class="form-control" />
-                    <span asp-validation-for="Daneshgah_Reshteh" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <textarea asp-for="Description" class="form-control"></textarea>
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> Maghtae Tahsili</label>
-                    <select name="MaghtaeTahsili" class="form-control" asp-items="@ViewBag.MaghtaeTahsili_Drop"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> Reshte </label>
-                    <select name="Reshte" class="form-control" asp-items="@ViewBag.Reshte"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> DaragehElmi</label>
-                    <select name="DaragehElmi" class="form-control" asp-items="@ViewBag.DaragehElmi"></select>
-                </div>
-                <div class="form-group">
-                    <input name="img" type="file" class="form-control" />
-                </div>
-                <br />
-                <br />
-                <br />
-                @for (int i = 0; i < 4; i++)
-                {
-                    <div class="form-group">
-                        <label class="control-label"> FildAsli</label>
-                        <select name="FildAsli" class="form-control" asp-items="@ViewBag.FildAsli"></select>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label"> OnvanDoreh</label>
-                        <select name="OnvanDoreh" class="form-control" asp-items="@ViewBag.OnvanDoreh"></select>
-                    </div>
+    <div class="col-md-4">
+    <form asp-action="TeacherForm" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input asp-for="Phone" value="@ViewBag.Phone" data="@ViewBag.Phone" type="hidden" />
+    <div class="form-group">
+    <label asp-for="Email" class="control-label"></label>
+    <input asp-for="Email" class="form-control" />
+    <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="OnvanShoghli" class="control-label"></label>
+    <input asp-for="OnvanShoghli" class="form-control" />
+    <span asp-validation-for="OnvanShoghli" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <input asp-for="Phone" type="hidden" value="@ViewBag.Phone" data="@ViewBag.Phone" />
+    <label asp-for="Daneshgah_Reshteh" class="control-label"></label>
+    <input asp-for="Daneshgah_Reshteh" class="form-control" />
+    <span asp-validation-for="Daneshgah_Reshteh" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="Description" class="control-label"></label>
+    <textarea asp-for="Description" class="form-control"></textarea>
+    <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> Maghtae Tahsili</label>
+    <select name="MaghtaeTahsili" class="form-control" asp-items="@ViewBag.MaghtaeTahsili_Drop"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> Reshte </label>
+    <select name="Reshte" class="form-control" asp-items="@ViewBag.Reshte"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> DaragehElmi</label>
+    <select name="DaragehElmi" class="form-control" asp-items="@ViewBag.DaragehElmi"></select>
+    </div>
+    <div class="form-group">
+    <input name="img" type="file" class="form-control" />
+    </div>
+    <br />
+    <br />
+    <br />
+    @for (int i = 0; i < 4; i++)
+    {
+    <div class="form-group">
+    <label class="control-label"> FildAsli</label>
+    <select name="FildAsli" class="form-control" asp-items="@ViewBag.FildAsli"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> OnvanDoreh</label>
+    <select name="OnvanDoreh" class="form-control" asp-items="@ViewBag.OnvanDoreh"></select>
+    </div>
 
-                }
-                <br />
-                <br />
-                <br />
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </form>
-        </div>
+    }
+    <br />
+    <br />
+    <br />
+    <div class="form-group">
+    <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+    </form>
+    </div>
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to List</a>
     </div>*@
 
     @section Scripts {
@@ -290,5 +310,33 @@
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
     }
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function myFunction() {
+                Swal.fire({
+                    title: 'آیا از اطلاعات خود مطمئن هستید ',
+                    icon: 'question',
+                    imageWidth: 350,
+                    imageHeight: 300,
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: 'ok',
+                    cancelButtonText: 'عدم تایید',
+                }).then(res => {
+                    if (res.isConfirmed) {
+
+                        document.getElementById("myForm").onsubmit();
+                    } else {
+                        Swal.fire({
+                            title: 'عدم تایید',
+                            text: 'عدم ارسال اطلاعات',
+                            icon: 'error'
+                        })
+                    }
+                });
+            }
+        </script>
+
     </body>
     </html>

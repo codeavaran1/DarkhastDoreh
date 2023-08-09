@@ -42,6 +42,15 @@ namespace Request_Course.Controllers
         {
             if (!ModelState.IsValid)
             {
+                List<SelectListItem> Ostan1 = _serivecs.GetOstans().Result
+               .Select(x => new SelectListItem { Value = x.ID_Ostan.ToString(), Text = x.Titles_Ostan }).ToList();
+                Ostan1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتحاب کنید" });
+                List<SelectListItem> Semat1 = _serivecs.GetSemats().Result
+                    .Select(x => new SelectListItem { Value = x.ID_Semat.ToString(), Text = x.Titles_Semat }).ToList();
+                Semat1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتحاب کنید" });
+
+                ViewBag.ostany = Ostan1;
+                ViewBag.Semat = Semat1;
                 return View(model);
             }
 

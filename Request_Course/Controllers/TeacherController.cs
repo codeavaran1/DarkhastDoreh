@@ -114,10 +114,64 @@ namespace Request_Course.Controllers
         public async Task<IActionResult> TeacherForm(ModaresanVM model, IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili=""
             ,string Reshte="",string DaragehElmi="")
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(model);
-            //}
+            ModelState.Remove("img");
+            if (!ModelState.IsValid)
+            {
+                List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs1 = new List<Modaresan_Fild_AsliVM>();
+                List<SelectListItem> Reshte1 = _services.GetReshtehTahsilis().Result
+                    .Select(x => new SelectListItem { Value = x.ID_ReshtehTahsili.ToString(), Text = x.Titles_ReshtehTahsili }).ToList();
+                Reshte1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> MaghtaeTahsili_Drop1 = _services.GetMaghtaeTahsili().Result
+                    .Select(x => new SelectListItem { Value = x.ID_MaghtaeTahsili.ToString(), Text = x.Titles_MaghtaeTahsili }).ToList();
+                MaghtaeTahsili_Drop1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> DaragehElmi1 = _services.GetDaragehElmis().Result
+                    .Select(x => new SelectListItem { Value = x.ID_DaragehElmi.ToString(), Text = x.Titles_DaragehElmi }).ToList();
+                DaragehElmi1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> FildAsli1 = _services.GetFildAslis().Result
+                    .Select(x => new SelectListItem { Value = x.ID_FildAsli.ToString(), Text = x.Titles_FildAsli }).ToList();
+                FildAsli1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> OnvanDoreh1= _services.GetOnvanDorehs().Result
+                    .Select(x => new SelectListItem { Value = x.ID_OnvanDoreh.ToString(), Text = x.Titles_OnvanDoreh }).ToList();
+                OnvanDoreh1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+
+                ViewBag.MaghtaeTahsili_Drop = MaghtaeTahsili_Drop1;
+                ViewBag.Reshte = Reshte1;
+                ViewBag.FildAsli = FildAsli1;
+                ViewBag.DaragehElmi = DaragehElmi1;
+                ViewBag.OnvanDoreh = OnvanDoreh1;
+                ViewBag.Fild_Asli = modaresan_Fild_AsliVMs1;
+
+                return View(model);
+            }
+            if (Reshte=="0"||MaghtaeTahsili=="0"||DaragehElmi=="0")
+            {
+                List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs1 = new List<Modaresan_Fild_AsliVM>();
+                List<SelectListItem> Reshte1 = _services.GetReshtehTahsilis().Result
+                    .Select(x => new SelectListItem { Value = x.ID_ReshtehTahsili.ToString(), Text = x.Titles_ReshtehTahsili }).ToList();
+                Reshte1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> MaghtaeTahsili_Drop1 = _services.GetMaghtaeTahsili().Result
+                    .Select(x => new SelectListItem { Value = x.ID_MaghtaeTahsili.ToString(), Text = x.Titles_MaghtaeTahsili }).ToList();
+                MaghtaeTahsili_Drop1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> DaragehElmi1 = _services.GetDaragehElmis().Result
+                    .Select(x => new SelectListItem { Value = x.ID_DaragehElmi.ToString(), Text = x.Titles_DaragehElmi }).ToList();
+                DaragehElmi1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> FildAsli1 = _services.GetFildAslis().Result
+                    .Select(x => new SelectListItem { Value = x.ID_FildAsli.ToString(), Text = x.Titles_FildAsli }).ToList();
+                FildAsli1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> OnvanDoreh1 = _services.GetOnvanDorehs().Result
+                    .Select(x => new SelectListItem { Value = x.ID_OnvanDoreh.ToString(), Text = x.Titles_OnvanDoreh }).ToList();
+                OnvanDoreh1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+
+                ViewBag.MaghtaeTahsili_Drop = MaghtaeTahsili_Drop1;
+                ViewBag.Reshte = Reshte1;
+                ViewBag.FildAsli = FildAsli1;
+                ViewBag.DaragehElmi = DaragehElmi1;
+                ViewBag.OnvanDoreh = OnvanDoreh1;
+                ViewBag.Fild_Asli = modaresan_Fild_AsliVMs1;
+
+                return View(model);
+            }
+
             T_Modaresan t_Modaresan = new T_Modaresan()
             {
                 Email = model.Email,

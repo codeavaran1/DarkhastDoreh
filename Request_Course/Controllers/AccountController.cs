@@ -99,6 +99,10 @@ namespace Request_Course.Controllers
                         }
                         else
                         {
+                            if (string.IsNullOrEmpty(teacher.Email))
+                            {
+                                return RedirectToAction("TeacherForm", "Teacher", new { phone = codeVm.Phone });
+                            }
                             return RedirectToAction("FollowUpTeacher", "Teacher");
                         }
                     }
@@ -111,6 +115,10 @@ namespace Request_Course.Controllers
                         }
                         else
                         {
+                            if (string.IsNullOrEmpty(Mokhatab.Email))
+                            {
+                                return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone, Family = Activtion.NameFamily });
+                            }
                             return RedirectToAction("FollowUpRequest", "Request");
                         }
 
