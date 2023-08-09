@@ -10,7 +10,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
 
-  
+
     <title>علی Ran فرم اساتید</title>
 
 </head>
@@ -217,14 +217,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            @if (@ViewBag._NoeRoydad == 7)
-                            {
-                                <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
-                            }
-                            @if (@ViewBag._NoeRoydad != 7)
-                            {
-                                <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
-                            }
+                            <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
                         </div>
 
                     </div>
@@ -314,27 +307,32 @@
         }
     }
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <script>
             function myFunction() {
+                event.preventDefault();
                 Swal.fire({
                     title: 'آیا از اطلاعات خود مطمئن هستید ',
                     icon: 'question',
                     imageWidth: 350,
                     imageHeight: 300,
-                    showCloseButton: true,
+                    showCloseButton: false,
                     showCancelButton: true,
                     focusConfirm: false,
-                    confirmButtonText: 'ok',
-                    cancelButtonText: 'عدم تایید',
+                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'تایید',
+                    cancelButtonText: 'رد',
                 }).then(res => {
                     if (res.isConfirmed) {
-
-                        document.getElementById("myForm").onsubmit();
+                        document.getElementById("myForm").submit();
                     } else {
                         Swal.fire({
                             title: 'عدم تایید',
                             text: 'عدم ارسال اطلاعات',
-                            icon: 'error'
+                            icon: 'error',
+                            confirmButtonText: 'اوکی',
+                            cancelButtonText: 'اوکی',
                         })
                     }
                 });

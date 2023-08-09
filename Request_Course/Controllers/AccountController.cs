@@ -103,7 +103,7 @@ namespace Request_Course.Controllers
                             {
                                 return RedirectToAction("TeacherForm", "Teacher", new { phone = codeVm.Phone });
                             }
-                            return RedirectToAction("FollowUpTeacher", "Teacher");
+                            return RedirectToAction("Index", "Teacher");
                         }
                     }
                     else
@@ -119,7 +119,7 @@ namespace Request_Course.Controllers
                             {
                                 return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone, Family = Activtion.NameFamily });
                             }
-                            return RedirectToAction("FollowUpRequest", "Request");
+                            return RedirectToAction("Index", "Request");
                         }
 
                     }

@@ -19,7 +19,7 @@
             <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات دوره جدید</p></div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="panel-body">
-                <form asp-action="Request_New_DorehAmozeshi" method="post">
+                <form id="myForm" asp-action="Request_New_DorehAmozeshi" method="post">
                     <input type="hidden" asp-for="Phone" value="@ViewBag.phone" data="@ViewBag.phone" />
                     <div class="row">
                         <div class="col-md-6">
@@ -155,14 +155,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            @if (@ViewBag._NoeRoydad == 7)
-                            {
-                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
-                            }
-                            @if (@ViewBag._NoeRoydad != 7)
-                            {
-                                <button type="submit" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
-                            }
+                           <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
                         </div>
 
                     </div>
@@ -174,63 +167,96 @@
 
 
 
-@*    <h4>DarkhasDorheNewVM</h4>
+    @*    <h4>DarkhasDorheNewVM</h4>
     <hr />
     <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Request_New_DorehAmozeshi" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Phone" value="@ViewBag.phone" data="@ViewBag.phone" />
-                <div class="form-group">
-                    <label asp-for="OnvanDoreh" class="control-label"></label>
-                    <input asp-for="OnvanDoreh" class="form-control" />
-                    <span asp-validation-for="OnvanDoreh" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateStart" class="control-label"></label>
-                    <input asp-for="DateStart" class="form-control" />
-                    <span asp-validation-for="DateStart" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateEnd" class="control-label"></label>
-                    <input asp-for="DateEnd" class="form-control" />
-                    <span asp-validation-for="DateEnd" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> OnvanAsli</label>
-                    <select name="OnvanAsli" class="form-control" asp-items="@ViewBag.OnvanAsli"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> MediaAmozeshis</label>
-                    <select name="MediaAmozeshis" class="form-control" asp-items="@ViewBag.MediaAmozeshis"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> RaveshAmozeshis</label>
-                    <select name="RaveshAmozeshis" class="form-control" asp-items="@ViewBag.RaveshAmozeshis"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> ModateDorehs</label>
-                    <select name="ModateDorehs" class="form-control" asp-items="@ViewBag.ModateDorehs"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> MokhatabanDorehs</label>
-                    <select name="MokhatabanDorehs" class="form-control" asp-items="@ViewBag.MokhatabanDorehs"></select>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </form>
-        </div>
+    <div class="col-md-4">
+    <form asp-action="Request_New_DorehAmozeshi" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Phone" value="@ViewBag.phone" data="@ViewBag.phone" />
+    <div class="form-group">
+    <label asp-for="OnvanDoreh" class="control-label"></label>
+    <input asp-for="OnvanDoreh" class="form-control" />
+    <span asp-validation-for="OnvanDoreh" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="DateStart" class="control-label"></label>
+    <input asp-for="DateStart" class="form-control" />
+    <span asp-validation-for="DateStart" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="DateEnd" class="control-label"></label>
+    <input asp-for="DateEnd" class="form-control" />
+    <span asp-validation-for="DateEnd" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> OnvanAsli</label>
+    <select name="OnvanAsli" class="form-control" asp-items="@ViewBag.OnvanAsli"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> MediaAmozeshis</label>
+    <select name="MediaAmozeshis" class="form-control" asp-items="@ViewBag.MediaAmozeshis"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> RaveshAmozeshis</label>
+    <select name="RaveshAmozeshis" class="form-control" asp-items="@ViewBag.RaveshAmozeshis"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> ModateDorehs</label>
+    <select name="ModateDorehs" class="form-control" asp-items="@ViewBag.ModateDorehs"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> MokhatabanDorehs</label>
+    <select name="MokhatabanDorehs" class="form-control" asp-items="@ViewBag.MokhatabanDorehs"></select>
+    </div>
+    <div class="form-group">
+    <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+    </form>
+    </div>
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to List</a>
     </div>
-*@
+    *@
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
     }
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function myFunction() {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'آیا از اطلاعات خود مطمئن هستید ',
+                    icon: 'question',
+                    imageWidth: 350,
+                    imageHeight: 300,
+                    showCloseButton: false,
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'تایید',
+                    cancelButtonText: 'رد',
+                }).then(res => {
+                    if (res.isConfirmed) {
+                       document.getElementById("myForm").submit();
+                    } else {
+                        Swal.fire({
+                            title: 'عدم تایید',
+                            text: 'عدم ارسال اطلاعات',
+                            icon: 'error',
+                             confirmButtonText: 'اوکی',
+                              cancelButtonText: 'اوکی',
+                        })
+                    }
+                });
+            }
+        </script>
+
     </body>
     </html>

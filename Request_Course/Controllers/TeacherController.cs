@@ -18,7 +18,7 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View();  
+            return View();
         }
 
         public async Task<IActionResult> FollowUpTeacher()
@@ -27,12 +27,12 @@ namespace Request_Course.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> TeacherInfo(string phone="",int id=0)
+        public async Task<IActionResult> TeacherInfo(string phone = "", int id = 0)
         {
             T_Modaresan Teacher = new T_Modaresan();
-            if (phone!="")
+            if (phone != "")
             {
-                Teacher =await _services.GetModaresan(phone);
+                Teacher = await _services.GetModaresan(phone);
             }
             else
             {
@@ -61,7 +61,7 @@ namespace Request_Course.Controllers
         #region Teacher Dore
         public async Task<IActionResult> DorehTadrisShodeh(int TeacherId)
         {
-            var model =await _services.GetDoreh_Teacher(TeacherId);
+            var model = await _services.GetDoreh_Teacher(TeacherId);
             return View(model);
         }
 
@@ -83,6 +83,11 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> TeacherForm(string phone = "")
         {
+            var teacher = await _services.GetModaresan(phone);
+            if (teacher!=null)
+            {
+               return RedirectToAction("Index");
+            }
             List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs = new List<Modaresan_Fild_AsliVM>();
             List<SelectListItem> Reshte = _services.GetReshtehTahsilis().Result
                 .Select(x => new SelectListItem { Value = x.ID_ReshtehTahsili.ToString(), Text = x.Titles_ReshtehTahsili }).ToList();
@@ -97,7 +102,7 @@ namespace Request_Course.Controllers
                 .Select(x => new SelectListItem { Value = x.ID_FildAsli.ToString(), Text = x.Titles_FildAsli }).ToList();
             FildAsli.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
             List<SelectListItem> OnvanDoreh = _services.GetOnvanDorehs().Result
-                .Select(x => new SelectListItem { Value = x.ID_OnvanDoreh.ToString(),Text=x.Titles_OnvanDoreh}).ToList();
+                .Select(x => new SelectListItem { Value = x.ID_OnvanDoreh.ToString(), Text = x.Titles_OnvanDoreh }).ToList();
             OnvanDoreh.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
             ViewBag.MaghtaeTahsili_Drop = MaghtaeTahsili_Drop;
             ViewBag.Reshte = Reshte;
@@ -111,39 +116,12 @@ namespace Request_Course.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> TeacherForm(ModaresanVM model, IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili=""
-            ,string Reshte="",string DaragehElmi="")
+        public async Task<IActionResult> TeacherForm(ModaresanVM model, IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili = ""
+            , string Reshte = "", string DaragehElmi = "")
         {
+            
             ModelState.Remove("img");
-            if (!ModelState.IsValid)
-            {
-                List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs1 = new List<Modaresan_Fild_AsliVM>();
-                List<SelectListItem> Reshte1 = _services.GetReshtehTahsilis().Result
-                    .Select(x => new SelectListItem { Value = x.ID_ReshtehTahsili.ToString(), Text = x.Titles_ReshtehTahsili }).ToList();
-                Reshte1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
-                List<SelectListItem> MaghtaeTahsili_Drop1 = _services.GetMaghtaeTahsili().Result
-                    .Select(x => new SelectListItem { Value = x.ID_MaghtaeTahsili.ToString(), Text = x.Titles_MaghtaeTahsili }).ToList();
-                MaghtaeTahsili_Drop1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
-                List<SelectListItem> DaragehElmi1 = _services.GetDaragehElmis().Result
-                    .Select(x => new SelectListItem { Value = x.ID_DaragehElmi.ToString(), Text = x.Titles_DaragehElmi }).ToList();
-                DaragehElmi1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
-                List<SelectListItem> FildAsli1 = _services.GetFildAslis().Result
-                    .Select(x => new SelectListItem { Value = x.ID_FildAsli.ToString(), Text = x.Titles_FildAsli }).ToList();
-                FildAsli1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
-                List<SelectListItem> OnvanDoreh1= _services.GetOnvanDorehs().Result
-                    .Select(x => new SelectListItem { Value = x.ID_OnvanDoreh.ToString(), Text = x.Titles_OnvanDoreh }).ToList();
-                OnvanDoreh1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
-
-                ViewBag.MaghtaeTahsili_Drop = MaghtaeTahsili_Drop1;
-                ViewBag.Reshte = Reshte1;
-                ViewBag.FildAsli = FildAsli1;
-                ViewBag.DaragehElmi = DaragehElmi1;
-                ViewBag.OnvanDoreh = OnvanDoreh1;
-                ViewBag.Fild_Asli = modaresan_Fild_AsliVMs1;
-
-                return View(model);
-            }
-            if (Reshte=="0"||MaghtaeTahsili=="0"||DaragehElmi=="0")
+            if (!ModelState.IsValid || Reshte == "0" || MaghtaeTahsili == "0" || DaragehElmi == "0")
             {
                 List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs1 = new List<Modaresan_Fild_AsliVM>();
                 List<SelectListItem> Reshte1 = _services.GetReshtehTahsilis().Result
@@ -171,7 +149,6 @@ namespace Request_Course.Controllers
 
                 return View(model);
             }
-
             T_Modaresan t_Modaresan = new T_Modaresan()
             {
                 Email = model.Email,
@@ -179,41 +156,41 @@ namespace Request_Course.Controllers
                 Daneshgah_Sherkat = model.Daneshgah_Reshteh,
                 Mobile = model.Phone,
                 Phone = model.Phone,
-                Onvan_Shoghli=model.OnvanShoghli,
+                Onvan_Shoghli = model.OnvanShoghli,
                 Description = model.Description,
-                T_L_MaghtaeTahsili_ID= null,
-                T_L_ReshtehTahsili_ID=null,
-                T_L_DaragehElmi_ID=null,
+                T_L_MaghtaeTahsili_ID = null,
+                T_L_ReshtehTahsili_ID = null,
+                T_L_DaragehElmi_ID = null,
             };
-            if (MaghtaeTahsili!="0")
+            if (MaghtaeTahsili != "0")
             {
-                t_Modaresan.T_L_MaghtaeTahsili_ID = Convert.ToInt32(MaghtaeTahsili);           
+                t_Modaresan.T_L_MaghtaeTahsili_ID = Convert.ToInt32(MaghtaeTahsili);
                 t_Modaresan.MadrakTahsili = await _services.GetMadraktahsilibyId(Convert.ToInt32(MaghtaeTahsili));
             }
-            if (Reshte!="0")
+            if (Reshte != "0")
             {
                 t_Modaresan.T_L_ReshtehTahsili_ID = Convert.ToInt32(Reshte);
             }
-            if (DaragehElmi!="0")
+            if (DaragehElmi != "0")
             {
                 t_Modaresan.T_L_DaragehElmi_ID = Convert.ToInt32(DaragehElmi);
             }
-            t_Modaresan.NameFamily =  _services.GetActivation(t_Modaresan.Phone).Result.NameFamily;
-            var Modearseid=await _services.AddModares(t_Modaresan, img);
+            t_Modaresan.NameFamily = _services.GetActivation(t_Modaresan.Phone).Result.NameFamily;
+            var Modearseid = await _services.AddModares(t_Modaresan, img);
             List<T_Modaresan_Fild_Amozeshi> t_Modaresan_Fild_Amozeshi = new List<T_Modaresan_Fild_Amozeshi>();
             for (int i = 0; i < FildAsli.Count; i++)
             {
-                T_Modaresan_Fild_Amozeshi t_Modaresan_Fild_Amozeshi_one =new  T_Modaresan_Fild_Amozeshi();
+                T_Modaresan_Fild_Amozeshi t_Modaresan_Fild_Amozeshi_one = new T_Modaresan_Fild_Amozeshi();
                 t_Modaresan_Fild_Amozeshi_one.T_L_FildAsli_ID = Convert.ToInt16(FildAsli[i]);
-                t_Modaresan_Fild_Amozeshi_one.T_L_OnvanDoreh_ID= Convert.ToInt16(OnvanDoreh[i]);
+                t_Modaresan_Fild_Amozeshi_one.T_L_OnvanDoreh_ID = Convert.ToInt16(OnvanDoreh[i]);
                 t_Modaresan_Fild_Amozeshi_one.T_Modaresan_ID = Modearseid;
-                t_Modaresan_Fild_Amozeshi.Add(t_Modaresan_Fild_Amozeshi_one);   
+                t_Modaresan_Fild_Amozeshi.Add(t_Modaresan_Fild_Amozeshi_one);
             }
             await _services.AddModaresanFildAsli(t_Modaresan_Fild_Amozeshi);
             return RedirectToAction("TeacherInfo", new { id = Modearseid });
         }
 
         #endregion
-       
+
     }
 }
