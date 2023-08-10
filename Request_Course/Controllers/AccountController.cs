@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Request_Course.Models;
 using Request_Course.Serivces.Interface;
 using Request_Course.VM;
+using System.Security.Claims;
 
 namespace Request_Course.Controllers
 {
@@ -87,6 +90,18 @@ namespace Request_Course.Controllers
                 var Activtion = await _servises.GetActivation(codeVm.Phone);
                 if (Activtion.DateGenerateCode >= DateTime.Now.AddMinutes(-5))
                 {
+                    var clm = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.NameIdentifier,Activtion.Phone),
+                        new Claim(ClaimTypes.Name,Activtion.NameFamily),
+                    };
+                    var identity = new ClaimsIdentity(clm, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principle = new ClaimsPrincipal(identity);
+                    var properties = new AuthenticationProperties
+                    {
+                        IsPersistent = false
+                    };
+                    await HttpContext.SignInAsync(principle, properties);
                     Activtion.code = "";
                     await _servises.UpdateActivation(Activtion);
                     //Execept Code
@@ -129,7 +144,7 @@ namespace Request_Course.Controllers
                     Activtion.code = "";
                     await _servises.UpdateActivation(Activtion);
                     //Expired Time of Code
-                    return RedirectToAction("ReCode", new { phone =codeVm.Phone});
+                    return RedirectToAction("ReCode", new { phone = codeVm.Phone });
                 }
             }
             //wrong Code
@@ -156,6 +171,13 @@ namespace Request_Course.Controllers
 
             }
             return RedirectToAction("GetCode", new { phone = phone });
+        }
+
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return View("GetPhone");
         }
 
         #endregion

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Request_Course.Models;
 using Request_Course.Serivces.Interface;
 using Request_Course.VM;
+using System.Security.Claims;
 
 namespace Request_Course.Controllers
 {
@@ -18,6 +19,7 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> Index()
         {
+           
             return View();
         }
 
@@ -187,6 +189,8 @@ namespace Request_Course.Controllers
                 t_Modaresan_Fild_Amozeshi.Add(t_Modaresan_Fild_Amozeshi_one);
             }
             await _services.AddModaresanFildAsli(t_Modaresan_Fild_Amozeshi);
+            var x = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+            x.Add(new Claim(ClaimTypes.Version, "sk"));
             return RedirectToAction("TeacherInfo", new { id = Modearseid });
         }
 

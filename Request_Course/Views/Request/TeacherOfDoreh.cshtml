@@ -1,7 +1,7 @@
 ﻿@model List<Request_Course.Models.T_Modaresan>
 
 @{
-    Layout = null;
+   Layout = "~/Views/Shared/_LayoutIntialing.cshtml";
 }
 
 <!DOCTYPE html>
@@ -52,7 +52,7 @@
                 <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات دوره</p></div>
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="panel-body">
-                    <form id="myForm" asp-action="Request_DorehAmozeshi" method="post">
+                    <form id="myForm" asp-action="TeacherOfDoreh" method="post">
                         <input type="hidden" name="OnvanDoreh" value="@ViewBag.OnvanDoreh" data="@ViewBag.OnvanDoreh" />
                         <input type="hidden" name="onvanAsli" value="@ViewBag.onvanAsli" data="@ViewBag.onvanAsli" />
                         <input type="hidden" name="DorehDarkhasti_ID" value="@ViewBag.DorehDarkhasti_ID" data="@ViewBag.DorehDarkhasti_ID" />

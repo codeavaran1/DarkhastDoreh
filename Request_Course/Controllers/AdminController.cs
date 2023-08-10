@@ -16,6 +16,7 @@ namespace Request_Course.Controllers
     [Authorize]
     public class AdminController : Controller
     {
+     
         private IRepository _services;
         public AdminController(IRepository repository)
         {
@@ -26,10 +27,14 @@ namespace Request_Course.Controllers
 
             return View();
         }
-
+        
         #region Modaresan
         public async Task<IActionResult> Modaresan(int pageId = 1)
         {
+            if (await _services.GetAdmin(User.Identity.Name)==null)
+            {
+                return BadRequest();
+            }
             var reslut = await _services.GetModaresan(pageId, "ali");
             var model = reslut.Item1;
             ViewBag.pagecount = reslut.Item2;
@@ -40,6 +45,10 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> CreateModares()
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             return View();
         }
         [HttpPost]
@@ -50,6 +59,10 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> UpdateModares(int modaresId)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             var Modares = await _services.GetModaresan(modaresId);
             ModaresanUpdateVM model = new ModaresanUpdateVM()
             {
@@ -87,6 +100,10 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> BindModaresToDoreh(int pageid = 1)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             var result = await _services.GetDorehWithoutModares(pageid);
             List<string> OnvanDoreh = new List<string>();
             List<string> Mokhatab = new List<string>();
@@ -118,6 +135,10 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> ModarsanPishnadiDoreh(int dorehId)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             string Teacher1 = null;
             string Teacher2 = null;
             string Teacher3 = null;
@@ -159,6 +180,10 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> BindModaresToDorehFindModare(int dorehId, int pageId = 1)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             var reslut = await _services.GetModaresan(pageId, "ali");
             var model = reslut.Item1;
             ViewBag.pagecount = reslut.Item2;
@@ -170,6 +195,10 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> FinalBindModares(int dorehid, int modaresid)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             await _services.BindModresToDoreh(dorehid, modaresid);
             return RedirectToAction("BindModaresToDoreh");
         }
@@ -179,6 +208,11 @@ namespace Request_Course.Controllers
         #region Doreh
         public async Task<IActionResult> Doreh(int pageid = 1)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
+
             var result = await _services.GetDoreh(pageid);
             List<string> OnvanDoreh = new List<string>();
             List<string> Mokhatab = new List<string>();
@@ -208,16 +242,28 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> DefineOnvanAsliAndOnvanDoreh()
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             return View();
         }
         public async Task<IActionResult> DefineOnvanAsliAndOnvanDoreh(string OnvanAsli, string OnvanDoreh)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             await _services.AddOnvanAsliAndOnvanDoreh(OnvanAsli, OnvanDoreh);
             return RedirectToAction("DefineOnvanAsliAndOnvanDoreh");
         }
 
         public async Task<IActionResult> DorehFaal(int pageid = 1)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             var result = await _services.GetDorehMokhatabFaalAdmin(pageid);
             List<string> OnvanDoreh = new List<string>();
             List<string> Mokhatab = new List<string>();
@@ -247,6 +293,10 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> DorehPygiry(int pageid = 1)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             var result = await _services.GetDorehMokhatabPygiryAdmin(pageid);
             List<string> OnvanDoreh = new List<string>();
             List<string> Mokhatab = new List<string>();
@@ -276,6 +326,10 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> DorehGhabl(int pageid = 1)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             var result = await _services.GetDorehMokhatabGhablAdmin(pageid);
             List<string> OnvanDoreh = new List<string>();
             List<string> Mokhatab = new List<string>();
@@ -318,16 +372,23 @@ namespace Request_Course.Controllers
         #region Adimn & User
         public async Task<IActionResult> Admins(int pageid = 1)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             var result = await _services.GetAdminsList(pageid);
             var model = result.Item1;
             ViewBag.pagecount = result.Item2;
             ViewBag.pageid = pageid;
             return View(model);
-
-
         }
         public async Task<IActionResult> AddAdmin()
         {
+            var admin = await _services.GetAdmin(User.Identity.Name);
+            if ( admin== null || admin.Admin==false)
+            {
+                return BadRequest();
+            }
             return View();
         }
         [HttpPost]
@@ -373,10 +434,11 @@ namespace Request_Course.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateAdmin(AdminUpdateVM model, IFormFile img, string username)
         {
-            //if (!ModelState.IsValid&&ModelState.)
-            //{
-            //    return View(model);
-            //}
+            ModelState.Remove("img");
+            if (!ModelState.IsValid )
+            {
+                return View(model);
+            }
             var Admin = await _services.GetAdmin(username);
             if (Admin != null)
             {
@@ -451,6 +513,10 @@ namespace Request_Course.Controllers
         //}
         public async Task<IActionResult> Users(int pageid = 1)
         {
+            if (await _services.GetAdmin(User.Identity.Name) == null)
+            {
+                return BadRequest();
+            }
             var result = await _services.GetUsersList(pageid);
             var model = result.Item1;
             ViewBag.pagecount = result.Item2;

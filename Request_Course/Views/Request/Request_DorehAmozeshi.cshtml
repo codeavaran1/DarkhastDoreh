@@ -1,7 +1,7 @@
 ﻿@model Request_Course.VM.DarkhastDorehAmozeshiVM
 
 @{
-    Layout = "~/Views/Shared/_LayoutMokhatabin.cshtml";
+    Layout = "~/Views/Shared/_LayoutIntialing.cshtml";
 }
 
 <!DOCTYPE html>
@@ -169,13 +169,11 @@
                         </div>
 
                         <div class="col-md-3">
-                            
-                                  <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
-                                <button onclick=" event.preventDefault()" class="btn btn-primery btn-block">
-                                    <a asp-action="Request_New_DorehAmozeshi" asp-route-phone="@ViewBag.Phone ">
-                                        تعریف دوره جدید
-                                    </a>
-                                </button>
+
+                            <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                            <a asp-action="Request_New_DorehAmozeshi" asp-route-phone="@ViewBag.Phone " class="btn btn-primery btn-block">
+                                    تعریف دوره جدید
+                            </a>
                         </div>
 
                     </div>
@@ -195,81 +193,81 @@
 
 
 
-@*
+    @*
 
     <h4>DarkhastDorehAmozeshiVM</h4>
     <hr />
     <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Request_DorehAmozeshi" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" value="@ViewBag.Phone" data="ViewBag.Phone" name="Phoneing" />
-                <label>@ViewBag.user</label>
-                <label>@ViewBag.Name_Sherkat    </label>
-                <div class="form-group">
-                    <label asp-for="DateStart" class="control-label"></label>
-                    <input asp-for="DateStart" class="form-control" />
-                    <span asp-validation-for="DateStart" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="DateEnd" class="control-label"></label>
-                    <input asp-for="DateEnd" class="form-control" />
-                    <span asp-validation-for="DateEnd" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> OnvanAsli</label>
-                    <select name="OnvanAsli" class="form-control" asp-items="@ViewBag.OnvanAsli"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> OnvanDoreh</label>
-                    <select name="OnvanDoreh" class="form-control" asp-items="@ViewBag.OnvanDoreh"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> MediaAmozeshis</label>
-                    <select name="MediaAmozeshis" class="form-control" asp-items="@ViewBag.MediaAmozeshis"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> RaveshAmozeshis</label>
-                    <select name="RaveshAmozeshis" class="form-control" asp-items="@ViewBag.RaveshAmozeshis"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> ModateDorehs</label>
-                    <select name="ModateDorehs" class="form-control" asp-items="@ViewBag.ModateDorehs"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> MokhatabanDorehs</label>
-                    <select name="MokhatabanDorehs" class="form-control" asp-items="@ViewBag.MokhatabanDorehs"></select>
-                </div>
-                <div class="form-group">
-                    <label class="control-label"> SatheKeyfi_Modares</label>
-                    <select name="SatheKeyfi_Modares" class="form-control" asp-items="@ViewBag.SatheKeyfi_Modares"></select>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </form>
-            <br />
-            <br />
-            <br />
-            <a asp-action="Request_New_DorehAmozeshi" asp-route-phone="@ViewBag.Phone ">
-                New Requesr Doreh
-            </a>
-            <br />
-            <br />
-            <br />
-        </div>
+    <div class="col-md-4">
+    <form asp-action="Request_DorehAmozeshi" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" value="@ViewBag.Phone" data="ViewBag.Phone" name="Phoneing" />
+    <label>@ViewBag.user</label>
+    <label>@ViewBag.Name_Sherkat    </label>
+    <div class="form-group">
+    <label asp-for="DateStart" class="control-label"></label>
+    <input asp-for="DateStart" class="form-control" />
+    <span asp-validation-for="DateStart" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="DateEnd" class="control-label"></label>
+    <input asp-for="DateEnd" class="form-control" />
+    <span asp-validation-for="DateEnd" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> OnvanAsli</label>
+    <select name="OnvanAsli" class="form-control" asp-items="@ViewBag.OnvanAsli"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> OnvanDoreh</label>
+    <select name="OnvanDoreh" class="form-control" asp-items="@ViewBag.OnvanDoreh"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> MediaAmozeshis</label>
+    <select name="MediaAmozeshis" class="form-control" asp-items="@ViewBag.MediaAmozeshis"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> RaveshAmozeshis</label>
+    <select name="RaveshAmozeshis" class="form-control" asp-items="@ViewBag.RaveshAmozeshis"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> ModateDorehs</label>
+    <select name="ModateDorehs" class="form-control" asp-items="@ViewBag.ModateDorehs"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> MokhatabanDorehs</label>
+    <select name="MokhatabanDorehs" class="form-control" asp-items="@ViewBag.MokhatabanDorehs"></select>
+    </div>
+    <div class="form-group">
+    <label class="control-label"> SatheKeyfi_Modares</label>
+    <select name="SatheKeyfi_Modares" class="form-control" asp-items="@ViewBag.SatheKeyfi_Modares"></select>
+    </div>
+    <div class="form-group">
+    <input type="submit" value="Create" class="btn btn-default" />
+    </div>
+    </form>
+    <br />
+    <br />
+    <br />
+    <a asp-action="Request_New_DorehAmozeshi" asp-route-phone="@ViewBag.Phone ">
+    New Requesr Doreh
+    </a>
+    <br />
+    <br />
+    <br />
+    </div>
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to List</a>
     </div>
-*@
+    *@
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
     }
-     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function myFunction() {
                 event.preventDefault();
@@ -287,14 +285,14 @@
                     cancelButtonText: 'رد',
                 }).then(res => {
                     if (res.isConfirmed) {
-                       document.getElementById("myForm").submit();
+                        document.getElementById("myForm").submit();
                     } else {
                         Swal.fire({
                             title: 'عدم تایید',
                             text: 'عدم ارسال اطلاعات',
                             icon: 'error',
-                             confirmButtonText: 'اوکی',
-                              cancelButtonText: 'اوکی',
+                            confirmButtonText: 'اوکی',
+                            cancelButtonText: 'اوکی',
                         })
                     }
                 });

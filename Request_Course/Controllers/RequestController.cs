@@ -404,7 +404,7 @@ namespace Request_Course.Controllers
             var onvanasli = await _serivecs.GetOnvanAsli(Doreh.T_L_OnvanAsli_ID.Value);
             var RavasheAmozeshi = await _serivecs.GetRavasheAmozeshi(Doreh.T_L_RaveshAmozeshi_ID.Value);
             var MediaAmozeshi = await _serivecs.GetMediaAmozeshi(Doreh.T_L_MediaAmozeshi_ID.Value);
-            var MokhatabinDoreh = await _serivecs.GetMokhatabinDoreh(Doreh.T_L_MokhatabanDoreh_ID.Value);
+            var MokhatabinDoreh = await _serivecs.GetMokhatabinDoreh(Doreh.T_Mokhatebin_ID.Value);
             var pishnahad_MOdares = await _serivecs.GetPishnahad_Modares_Doreh(Doreh.ID_Doreh_Darkhasti);
             AllAboutDoreh model = new AllAboutDoreh()
             {
