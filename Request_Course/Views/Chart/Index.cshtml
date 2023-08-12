@@ -1,0 +1,56 @@
+﻿
+
+
+<div class="row">
+    <div class="col-6">
+        <h3>
+            chart
+        </h3>
+        <canvas id="myChart"></canvas>
+    </div>
+
+</div>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.ajax({
+            type: "POST",
+            url: "/Chart/charting",
+            data: "",
+            contentType: "application/json; charset=utf8",
+            dataType: "json",
+            success: Onsuccess
+        });
+
+        function Onsuccess(data) {
+            const myChart = document.getElementById('myChart');
+            var _data = data;
+            var _labels = _data[0];
+            var _Chartdata = _data[1];
+            var colors = ['Red', 'Blue', 'Green', 'Purple'];
+
+            new Chart(myChart,
+                {
+                    type: 'bar',
+                    data: {
+                        labels:_labels,
+                        datasets: [{
+                            backgroundColor: colors,
+                            data: _Chartdata,
+                            borderWidth: 1
+                        }]
+                    }
+                });
+
+
+        }
+    });
+
+</script>

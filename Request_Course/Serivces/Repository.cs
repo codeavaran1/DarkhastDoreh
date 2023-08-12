@@ -275,6 +275,10 @@ namespace Request_Course.Serivces
         {
             return _context.T_Doreh_Darkhasti.Where(x => x.T_L_ModateDoreh_ID == Teacherid).ToList();
         }
+        public async Task<List<int>> GetDorehID_Teacher(int Teacherid)
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_ModateDoreh_ID == Teacherid).Select(x => x.ID_Doreh_Darkhasti).ToList();
+        }
         public async Task<List<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid)
         {
             return _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid && x.T_L_Vaziyat_Doreh_ID == 1).ToList();
@@ -619,8 +623,24 @@ namespace Request_Course.Serivces
             }
             return 1;            
         }
+
+
         #endregion
 
+        #region NazarSanji
+        public async Task<int> AddNazasanji(T_Nazarsanji t_Nazarsanji)
+        {
+            await _context.T_Nazarsanji.AddAsync(t_Nazarsanji);
+            await _context.SaveChangesAsync();
+            return 0;
+        }
+
+
+        public async Task<T_Nazarsanji> GetNazarsanji(int dorehId)
+        {
+            return _context.T_Nazarsanji.SingleOrDefault(x => x.T_Doreh_Darkhasti_ID == dorehId);
+        }
+        #endregion
 
     }
 }

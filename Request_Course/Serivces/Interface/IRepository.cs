@@ -51,6 +51,7 @@ namespace Request_Course.Serivces.Interface
         public Task<int> GetModaresanPage();
         #region Modaresan Doreh
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid);
+        public Task<List<int>> GetDorehID_Teacher(int Teacherid);
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid);
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_ghabil(int teacherid);
         #endregion
@@ -132,8 +133,16 @@ namespace Request_Course.Serivces.Interface
         public Task<int> AddAdmin(T_Admin t_Admin,IFormFile img);
         public Task<int> EditAdmin(T_Admin t_Admin, IFormFile img);
         public Task<int> RemoveAdmin(string username);
-        
+
         #endregion
+
+
+        #region Nazarsanji
+        public Task<int> AddNazasanji(T_Nazarsanji t_Nazarsanji);
+        public Task<T_Nazarsanji> GetNazarsanji(int dorehId);
+        #endregion
+
+
 
     }
 }
