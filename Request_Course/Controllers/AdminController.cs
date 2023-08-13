@@ -569,5 +569,27 @@ namespace Request_Course.Controllers
             return View("Login", "Home");
         }
         #endregion
+
+        #region Cerdential
+
+        public async Task<IActionResult> Certificates()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetCertificate(CertificateVM model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+           
+            return RedirectToAction("Certificates");
+        }
+
+        #endregion
+
     }
 }

@@ -1,12 +1,14 @@
 ﻿
-
+@{
+    Layout = null;
+}
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-6" style="width:50%">
         <h3>
             chart
         </h3>
-        <canvas id="myChart"></canvas>
+        <canvas id="myChart" width="200px" height="200px"  style="width:250px!important;height:250px!important"></canvas>
     </div>
 
 </div>
@@ -20,6 +22,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        alert("Hiii")
         $.ajax({
             type: "POST",
             url: "/Chart/charting",
@@ -30,11 +33,15 @@
         });
 
         function Onsuccess(data) {
+           
             const myChart = document.getElementById('myChart');
             var _data = data;
-            var _labels = _data[0];
-            var _Chartdata = _data[1];
+            var _labels = data[0];
+            var _Chartdata = data[1];
             var colors = ['Red', 'Blue', 'Green', 'Purple'];
+            alert(_data[0])
+            alert(_data[1])
+            alert(colors)
 
             new Chart(myChart,
                 {

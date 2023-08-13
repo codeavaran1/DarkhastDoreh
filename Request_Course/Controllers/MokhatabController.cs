@@ -37,5 +37,12 @@ namespace Request_Course.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> RequestCertificate()
+        {
+            return View();
+        }
+
+
+
     }
 }
