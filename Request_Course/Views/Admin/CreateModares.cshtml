@@ -1,19 +1,6 @@
 ﻿@model Request_Course.VM.ModaresanVM
 
-@{
-    Layout = "~/Views/Shared/_LayoutIntialing.cshtml";
-}
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-
-
-    <title>علی Ran فرم اساتید</title>
-
-</head>
 <body>
     <section class="content-header">
     </section>
@@ -24,7 +11,7 @@
             <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات استاد</p></div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="panel-body">
-                <form id="myForm" asp-action="TeacherForm" method="post" enctype="multipart/form-data">
+                <form id="myForm" asp-action="CreateModares" method="post" enctype="multipart/form-data">
 
                     <div class="row">
                         <div class="col-md-6">
@@ -47,7 +34,33 @@
                     <br />
                     <div class="row">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <input asp-for="Phone" value="@ViewBag.Phone" data="@ViewBag.Phone" type="hidden" />
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">نام و نام خانوادگی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="text" name="NameFamilyr" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">موبایل</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Phone" class="form-control" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-6">
@@ -57,18 +70,6 @@
                                 <div class="col-md-10">
                                     <input asp-for="Email" class="form-control" />
                                     <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">عنوان شغلی</label>
-                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                </div>
-                                <div class="col-md-10">
-                                    <input asp-for="OnvanShoghli" class="form-control" />
-                                    <span asp-validation-for="OnvanShoghli" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -142,11 +143,22 @@
                     </div>
                     <br />
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">عنوان شغلی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="OnvanShoghli" class="form-control" />
+                                    <span asp-validation-for="OnvanShoghli" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-6">
                                     <label class="control-label">عکس</label>
-
                                 </div>
                                 <div class="col-md-10">
                                     <input name="img" type="file" class="form-control" />
@@ -225,81 +237,6 @@
             </div>
         </div>
     </section>
-
-
-
-
-    @*  <h4>ModaresanVM</h4>
-    <hr />
-    <div class="row">
-    <div class="col-md-4">
-    <form asp-action="TeacherForm" method="post" enctype="multipart/form-data">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <input asp-for="Phone" value="@ViewBag.Phone" data="@ViewBag.Phone" type="hidden" />
-    <div class="form-group">
-    <label asp-for="Email" class="control-label"></label>
-    <input asp-for="Email" class="form-control" />
-    <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="OnvanShoghli" class="control-label"></label>
-    <input asp-for="OnvanShoghli" class="form-control" />
-    <span asp-validation-for="OnvanShoghli" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <input asp-for="Phone" type="hidden" value="@ViewBag.Phone" data="@ViewBag.Phone" />
-    <label asp-for="Daneshgah_Reshteh" class="control-label"></label>
-    <input asp-for="Daneshgah_Reshteh" class="form-control" />
-    <span asp-validation-for="Daneshgah_Reshteh" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Description" class="control-label"></label>
-    <textarea asp-for="Description" class="form-control"></textarea>
-    <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label class="control-label"> Maghtae Tahsili</label>
-    <select name="MaghtaeTahsili" class="form-control" asp-items="@ViewBag.MaghtaeTahsili_Drop"></select>
-    </div>
-    <div class="form-group">
-    <label class="control-label"> Reshte </label>
-    <select name="Reshte" class="form-control" asp-items="@ViewBag.Reshte"></select>
-    </div>
-    <div class="form-group">
-    <label class="control-label"> DaragehElmi</label>
-    <select name="DaragehElmi" class="form-control" asp-items="@ViewBag.DaragehElmi"></select>
-    </div>
-    <div class="form-group">
-    <input name="img" type="file" class="form-control" />
-    </div>
-    <br />
-    <br />
-    <br />
-    @for (int i = 0; i < 4; i++)
-    {
-    <div class="form-group">
-    <label class="control-label"> FildAsli</label>
-    <select name="FildAsli" class="form-control" asp-items="@ViewBag.FildAsli"></select>
-    </div>
-    <div class="form-group">
-    <label class="control-label"> OnvanDoreh</label>
-    <select name="OnvanDoreh" class="form-control" asp-items="@ViewBag.OnvanDoreh"></select>
-    </div>
-
-    }
-    <br />
-    <br />
-    <br />
-    <div class="form-group">
-    <input type="submit" value="Create" class="btn btn-default" />
-    </div>
-    </form>
-    </div>
-    </div>
-
-    <div>
-    <a asp-action="Index">Back to List</a>
-    </div>*@
 
     @section Scripts {
         @{

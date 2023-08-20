@@ -8,8 +8,5 @@
         public string DorehName { get; set; }
         public DateTime DateTime { get; set; }
 
-
-
-
     }
 }

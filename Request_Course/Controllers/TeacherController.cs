@@ -189,8 +189,8 @@ namespace Request_Course.Controllers
                 t_Modaresan_Fild_Amozeshi.Add(t_Modaresan_Fild_Amozeshi_one);
             }
             await _services.AddModaresanFildAsli(t_Modaresan_Fild_Amozeshi);
-            var x = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
-            x.Add(new Claim(ClaimTypes.Version, "sk"));
+           // var x = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+           // x.Add(new Claim(ClaimTypes.Version, "sk"));
             return RedirectToAction("TeacherInfo", new { id = Modearseid });
         }
 

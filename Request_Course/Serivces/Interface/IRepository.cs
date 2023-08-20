@@ -88,6 +88,8 @@ namespace Request_Course.Serivces.Interface
         public Task<string> GetMokhatabinDoreh(int MokhatinDoreh);
         public Task<string> GetSatehkeyfi(int SatehkeyfiId);
         public Task<string> GetTeacherName(int TeacherId);
+        public Task<int> GetOnvanAsliByName(string name);
+        public Task<int> GetOnvanDorehByName(string name);
         #endregion
 
         #region Doreh Jadid
@@ -106,6 +108,7 @@ namespace Request_Course.Serivces.Interface
         public Task<List<T_Fasl_Doreh>> GetT_Fasl_Dore(int onvanasli, int onvandoreh);
         public Task<List<string>> GetT_Fasl_Dorehs_Pishnahadi(int Dorehid);
         public Task<int> Add_sar_Fasle_Doreh_Pishnahadi(List<T_Fasl_Doreh_Pishnahadi> t_Fasl_Doreh_Pishnahadi);
+        public Task<int> AddSarFasl(List<T_Fasl_Doreh> t_Fasl_Dorehs);
 
         #endregion
 
