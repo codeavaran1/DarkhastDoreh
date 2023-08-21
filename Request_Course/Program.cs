@@ -20,6 +20,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
                       option.ExpireTimeSpan = TimeSpan.FromDays(30);
                   });
 builder.Services.AddScoped<IRepository, Repository>();
+builder.Services.AddMvc();
 
 var app = builder.Build();
 

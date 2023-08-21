@@ -1,4 +1,6 @@
-﻿using Request_Course.Models;
+﻿using X.PagedList;
+using Request_Course.Models;
+
 
 namespace Request_Course.Serivces.Interface
 {
@@ -143,6 +145,15 @@ namespace Request_Course.Serivces.Interface
         #region Nazarsanji
         public Task<int> AddNazasanji(T_Nazarsanji t_Nazarsanji);
         public Task<T_Nazarsanji> GetNazarsanji(int dorehId);
+        #endregion
+
+
+
+
+
+        #region Test
+
+        public Task<IPagedList<T_Modaresan>> GetMOdaresanTest(string q="",string sortOrder="", int page = 1);
         #endregion
 
 

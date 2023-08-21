@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Serivces\xpagelist.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\bower_components\bootstrap\.bower.json" />
     <Content Include="wwwroot\bower_components\bootstrap\bower.json" />
     <Content Include="wwwroot\bower_components\bootstrap\dist\css\bootstrap-theme.css" />
@@ -716,6 +720,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.12">
       <PrivateAssets>all</PrivateAssets>
@@ -727,10 +732,15 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="PagedList" Version="1.17.0" />
+    <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
     <PackageReference Include="SweetAlert" Version="1.0.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
+    <PackageReference Include="X.PagedList.PagedListExt" Version="0.8.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Serivces\xpagelist.cs" />
     <None Include="wwwroot\bower_components\bootstrap\CHANGELOG.md" />
     <None Include="wwwroot\bower_components\bootstrap\dist\css\bootstrap-theme.css.map" />
     <None Include="wwwroot\bower_components\bootstrap\dist\css\bootstrap-theme.min.css.map" />

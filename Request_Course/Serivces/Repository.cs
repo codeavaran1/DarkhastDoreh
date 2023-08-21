@@ -1,4 +1,5 @@
-﻿using Request_Course.Data;
+﻿using X.PagedList;
+using Request_Course.Data;
 using Request_Course.Models;
 using Request_Course.Serivces.Interface;
 
@@ -205,15 +206,10 @@ namespace Request_Course.Serivces
         public async Task<Tuple<List<T_Modaresan>, int>> GetModaresan(int pageid = 0, string all = "")
         {
             IQueryable<T_Modaresan> result = _context.T_Modaresan;
-
             result = result.OrderByDescending(c => c.DateCreate);
-
             int skip = (pageid - 1) * 4;
             int pageCount = result.Count() / 4;
-
-
             List<T_Modaresan> query = result.Skip(skip).Take(4).ToList();
-
             return Tuple.Create(query, pageCount);
         }
         public async Task<int> GetModaresanPage()
@@ -655,6 +651,40 @@ namespace Request_Course.Serivces
             return _context.T_Nazarsanji.SingleOrDefault(x => x.T_Doreh_Darkhasti_ID == dorehId);
         }
         #endregion
+
+
+
+        #region Testing
+
+        public async Task<IPagedList<T_Modaresan>> GetMOdaresanTest(string q = "", string sortOrder = "", int page=1)
+        {
+            IQueryable<T_Modaresan> result = _context.T_Modaresan;
+            
+            result = result.OrderByDescending(c => c.DateCreate);
+            switch (sortOrder)
+            {
+                case "nameFamily":
+                    result = result.OrderBy(x => x.NameFamily);
+                    break;
+                case "Phone":
+                    result = result.OrderBy(x => x.Phone);
+                    break;
+                case "Email":
+                    result = result.OrderByDescending(x => x.Email);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(q))
+            {
+                result = result.Where(x => x.NameFamily.Contains(q));
+            }
+                 
+            return result.ToList().ToPagedList(page,3);
+        }
+        #endregion
+
+
 
     }
 }

@@ -29,6 +29,14 @@ namespace Request_Course.Controllers
         }
         
         #region Modaresan
+
+        public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int pageid = 1)
+        {
+            ViewBag.searchQuery = string.IsNullOrEmpty(q) ? "" : q;
+            var result =await _services.GetMOdaresanTest(q,sortOrder,pageid);
+            return View(result);
+        }
+
         public async Task<IActionResult> Modaresan(int pageId = 1)
         {
             //if (await _services.GetAdmin(User.Identity.Name)==null)
