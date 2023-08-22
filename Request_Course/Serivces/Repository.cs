@@ -2,6 +2,7 @@
 using Request_Course.Data;
 using Request_Course.Models;
 using Request_Course.Serivces.Interface;
+using System.Globalization;
 
 namespace Request_Course.Serivces
 {
@@ -680,10 +681,81 @@ namespace Request_Course.Serivces
                 result = result.Where(x => x.NameFamily.Contains(q));
             }
                  
-            return result.ToList().ToPagedList(page,3);
+            return result.ToList().ToPagedList(page,1);
         }
         #endregion
 
+        #region Chart
+        public async Task<Tuple<List<int>, List<int>>> GetDorehByMonthForChart()
+        {
+            int month = DateTime.Now.Month;
+            var year= DateTime.Now.Year;
+            int day = DateTime.Now.Day;
+
+            //Convert to Shamsi
+
+            DateTime date = new DateTime(year, month, day);
+            var calendar = new PersianCalendar();
+            var persianDate = new DateTime(calendar.GetYear(date), calendar.GetMonth(date), calendar.GetDayOfMonth(date));
+
+            List<T_Doreh_Darkhasti> model = new List<T_Doreh_Darkhasti>();
+            var convertDime = _context.T_Doreh_Darkhasti.ToList();
+            foreach (var item in convertDime)
+            {
+                var converting = item.Date_Create.Value;
+                item.Date_Create = new DateTime(calendar.GetYear(converting), calendar.GetMonth(converting), calendar.GetDayOfMonth(converting));
+                model.Add(item);
+            }
+
+            List<int> dateTimes = new List<int>();
+            List<int> Numbers = new List<int>();
+
+            int Month_shamsi = persianDate.Month;
+            for (int i = 1; i <= Month_shamsi; i++)
+            {     
+                var sort =model.Where(xx => xx.Date_Create.Value.Month.Equals(i)).Count();
+                Numbers.Add(sort);
+                dateTimes.Add(i);
+            }
+            return Tuple.Create(dateTimes, Numbers);
+            
+        }
+
+
+        public async Task<Tuple<List<int>, List<int>>> GetUserByMonthForChart()
+        {
+            int month = DateTime.Now.Month;
+            var year = DateTime.Now.Year;
+            int day = DateTime.Now.Day;
+
+            //Convert to Shamsi
+
+            DateTime date = new DateTime(year, month, day);
+            var calendar = new PersianCalendar();
+            var persianDate = new DateTime(calendar.GetYear(date), calendar.GetMonth(date), calendar.GetDayOfMonth(date));
+
+            List<T_Modaresan> model = new List<T_Modaresan>();
+            var convertDime = _context.T_Modaresan.ToList();
+            foreach (var item in convertDime)
+            {
+                var converting = item.DateCreate.Value;
+                item.DateCreate = new DateTime(calendar.GetYear(converting), calendar.GetMonth(converting), calendar.GetDayOfMonth(converting));
+                model.Add(item);
+            }
+
+            List<int> dateTimes = new List<int>();
+            List<int> Numbers = new List<int>();
+
+            int Month_shamsi = persianDate.Month;
+            for (int i = 1; i <= Month_shamsi; i++)
+            {
+                var sort = model.Where(xx => xx.DateCreate.Value.Month.Equals(i)).Count();
+                Numbers.Add(sort);
+                dateTimes.Add(i);
+            }
+            return Tuple.Create(dateTimes, Numbers);
+        }
+        #endregion
 
 
     }

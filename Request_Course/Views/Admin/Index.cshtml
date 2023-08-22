@@ -1,3 +1,123 @@
-﻿<div class="content-wrapper">
-    
+﻿
+<section class="content">
+    <!-- Info boxes -->
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">قدرت سرور</span>
+                    <span class="info-box-number">90<small>%</small></span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">لایک ها</span>
+                    <span class="info-box-number">41,410</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">فروش</span>
+                    <span class="info-box-number">760</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">کاربران جدید</span>
+                    <span class="info-box-number">2,000</span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+    </div>
+</section>
+
+
+@*<partial name="~/Views/Chart/Index.cshtml" />*@
+
+
+<div class="row">
+    <div class="col-6" style="width:50%">
+        <h3>
+            chart
+        </h3>
+        <canvas id="myChart" style="width:250px!important;height:250px!important"></canvas>
+    </div>
+
 </div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        alert("Hiii")
+        $.ajax({
+            type: "POST",
+            url: "/Chart/charting",
+            data: "",
+            contentType: "application/json; charset=utf8",
+            dataType: "json",
+            success: Onsuccess
+        });
+
+        function Onsuccess(data) {
+
+            const myChart = document.getElementById('myChart');
+            var _data = data;
+            var _labels = data[0];
+            var _Chartdata = data[1];
+            var colors = ['Red', 'Blue', 'Green', 'Purple'];
+            alert(_data[0])
+            alert(_data[1])
+            alert(colors)
+
+            new Chart(myChart,
+                {
+                    type: 'bar',
+                    data: {
+                        labels: _labels,
+                        datasets: [{
+                            backgroundColor: colors,
+                            data: _Chartdata,
+                            borderWidth: 1
+                        }]
+                    }
+                });
+
+
+        }
+    });
+
+</script>
+

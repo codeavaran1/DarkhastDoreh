@@ -87,6 +87,7 @@
                                             </ul>
                                         }
                                     </div>
+                                      @Html.PagedListPager(Model, page => Url.Action("ModaresanTest", new { pageid=page }))
                                 </div>
                             </div>
                         </div>
@@ -100,10 +101,6 @@
         </div>
         <!-- /.row -->
     </section>
-    @Html.PagedListPager(Model, page => Url.Action("ModaresanTest", new { pageid=page }))
+  
 </div>
-
-@*
-@Html.PagelistPager(Model,i=>Url.Action("ModaresanTest","Admin",new{pageid}));
-*@
 

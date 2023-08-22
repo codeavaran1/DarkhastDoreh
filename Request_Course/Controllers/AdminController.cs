@@ -22,15 +22,38 @@ namespace Request_Course.Controllers
         {
             _services = repository;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-
             return View();
         }
-        
-        #region Modaresan
 
-        public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int pageid = 1)
+        #region chart
+        [HttpPost]
+        public async Task<List<object>> charting()
+        {
+            List<object> data = new List<object>();
+            List<string> labels = new List<string>();
+            var Result = await _services.GetDorehByMonthForChart();
+            foreach (var item in Result.Item1)
+            {
+                labels.Add(item.ToString() + "ماه ");
+            }
+            List<int> total = new List<int>();
+            foreach (var item in Result.Item2)
+            {
+                total.Add(item);
+            }
+            data.Add(labels);
+            data.Add(total);
+            return data;
+        }
+
+    
+#endregion
+
+#region Modaresan
+
+public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int pageid = 1)
         {
             ViewBag.searchQuery = string.IsNullOrEmpty(q) ? "" : q;
             var result =await _services.GetMOdaresanTest(q,sortOrder,pageid);

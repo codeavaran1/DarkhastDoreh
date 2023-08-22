@@ -148,7 +148,10 @@ namespace Request_Course.Serivces.Interface
         #endregion
 
 
-
+        #region Chart
+        public Task<Tuple<List<int>, List<int>>> GetDorehByMonthForChart();
+        public Task<Tuple<List<int>, List<int>>> GetUserByMonthForChart();
+        #endregion
 
 
         #region Test
