@@ -17,11 +17,11 @@ namespace Request_Course.Serivces
 
         #region Admin
         #region Modaresan
-        public async Task<Tuple<List<T_Doreh_Darkhasti>,int>> GetDorehforBinding(int pageid=0)
+        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehforBinding(int pageid = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti;
-            result=result.Where(x => x.T_L_Vaziyat_Doreh_ID == 3);
-            result=result.OrderByDescending(c => c.Date_Create);
+            result = result.Where(x => x.T_L_Vaziyat_Doreh_ID == 3);
+            result = result.OrderByDescending(c => c.Date_Create);
 
             int skip = (pageid - 1) * 4;
             int pageCount = result.Count() / 4;
@@ -31,8 +31,8 @@ namespace Request_Course.Serivces
         }
         public async Task<int> BindModresToDoreh(int dorehid, int modaresid)
         {
-            var result =await GetDoreh_Darkhasti(dorehid);
-            result.T_Modaresan_ID=modaresid;
+            var result = await GetDoreh_Darkhasti(dorehid);
+            result.T_Modaresan_ID = modaresid;
             result.T_L_Vaziyat_Doreh_ID = 1;
             _context.T_Doreh_Darkhasti.Update(result);
             await _context.SaveChangesAsync();
@@ -40,7 +40,7 @@ namespace Request_Course.Serivces
         }
         #endregion
         #region Doreh
-        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDoreh(int pageid=0)
+        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDoreh(int pageid = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti;
             result = result.OrderByDescending(c => c.Date_Create);
@@ -78,7 +78,7 @@ namespace Request_Course.Serivces
             await _context.SaveChangesAsync();
             return 0;
         }
-        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabFaalAdmin(int pageId=0)
+        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabFaalAdmin(int pageId = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 1);
             result = result.OrderByDescending(x => x.Date_Create);
@@ -90,7 +90,7 @@ namespace Request_Course.Serivces
             return Tuple.Create(query, pageCount);
 
         }
-        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabPygiryAdmin(int pageId=0)
+        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabPygiryAdmin(int pageId = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3);
             result = result.OrderByDescending(x => x.Date_Create);
@@ -101,7 +101,7 @@ namespace Request_Course.Serivces
 
             return Tuple.Create(query, pageCount);
         }
-        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabGhablAdmin(int pageId=0)
+        public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabGhablAdmin(int pageId = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 2);
             result = result.OrderByDescending(x => x.Date_Create);
@@ -114,7 +114,7 @@ namespace Request_Course.Serivces
         }
         #endregion
         #region Requester
-        public async Task<Tuple<List<T_Mokhatebin>,int>> GetSherkatha(int pageid = 0)
+        public async Task<Tuple<List<T_Mokhatebin>, int>> GetSherkatha(int pageid = 0)
         {
             IQueryable<T_Mokhatebin> result = _context.T_Mokhatebin;
 
@@ -190,12 +190,12 @@ namespace Request_Course.Serivces
         public async Task<List<T_Modaresan>> GetModaresan(int onvnasli, int onvandoreh)
         {
             var OnvanAsli = _context.T_Modaresan_Fild_Amozeshi
-                .Where(x => x.T_L_FildAsli_ID == onvnasli && x.T_L_OnvanDoreh_ID==onvandoreh).Select(x=>x.T_Modaresan_ID).ToList();
-            OnvanAsli=OnvanAsli.Distinct().ToList();
-            List<T_Modaresan> result = new List<T_Modaresan>(); 
+                .Where(x => x.T_L_FildAsli_ID == onvnasli && x.T_L_OnvanDoreh_ID == onvandoreh).Select(x => x.T_Modaresan_ID).ToList();
+            OnvanAsli = OnvanAsli.Distinct().ToList();
+            List<T_Modaresan> result = new List<T_Modaresan>();
             foreach (var item in OnvanAsli)
             {
-                T_Modaresan t_Modaresan =_context.T_Modaresan.SingleOrDefault(d => d.ID_Modaresan == item);
+                T_Modaresan t_Modaresan = _context.T_Modaresan.SingleOrDefault(d => d.ID_Modaresan == item);
                 result.Add(t_Modaresan);
             }
             return result;
@@ -247,7 +247,7 @@ namespace Request_Course.Serivces
         {
             if (img != null)
             {
-                if (_Modaresan.img!=null)
+                if (_Modaresan.img != null)
                 {
                     string Deletimg = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", _Modaresan.img);
                     if (File.Exists(Deletimg))
@@ -255,7 +255,7 @@ namespace Request_Course.Serivces
                         File.Delete(Deletimg);
                     }
                 }
-                _Modaresan.img= Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(img.FileName);
+                _Modaresan.img = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(img.FileName);
 
                 string ImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", _Modaresan.img);
                 using (var Stream = new FileStream(ImgPath, FileMode.Create))
@@ -288,7 +288,7 @@ namespace Request_Course.Serivces
         #region Modaresan Sar Fasl
         public async Task<List<string>> GetT_Fasl_Dorehs(int onvanasli, int onvandoreh)
         {
-            return _context.T_Fasl_Doreh.Where(x => x.T_L_OnvanDoreh_ID == onvandoreh && x.T_L_OnvanAsli_ID == onvanasli).Select(x=>x.Mohtav).ToList();
+            return _context.T_Fasl_Doreh.Where(x => x.T_L_OnvanDoreh_ID == onvandoreh && x.T_L_OnvanAsli_ID == onvanasli).Select(x => x.Mohtav).ToList();
         }
         public async Task<List<T_Fasl_Doreh>> GetT_Fasl_Dore(int onvanasli, int onvandoreh)
         {
@@ -360,7 +360,7 @@ namespace Request_Course.Serivces
         #region Doreh Mokhatbin
         public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl(int userid)
         {
-            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID==userid && x.T_L_Vaziyat_Doreh_ID==2).ToList();
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 2).ToList();
         }
         public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabFaal(int userid)
         {
@@ -391,7 +391,7 @@ namespace Request_Course.Serivces
         }
         public async Task<T_Doreh_Darkhasti> GetDoreh_Darkhasti(int DorehDakhastiId)
         {
-            return  _context.T_Doreh_Darkhasti.SingleOrDefault(x => x.ID_Doreh_Darkhasti == DorehDakhastiId);
+            return _context.T_Doreh_Darkhasti.SingleOrDefault(x => x.ID_Doreh_Darkhasti == DorehDakhastiId);
         }
         public async Task<T_Pishnahad_Modares_Doreh> GetPishnahad_Modares_Doreh(int DorehDakhastiId)
         {
@@ -445,7 +445,7 @@ namespace Request_Course.Serivces
         }
         public async Task<List<string>> GetT_Fasl_Dorehs_Pishnahadi(int Dorehid)
         {
-            return  _context.T_Fasl_Doreh_Pishnahadi.Where(x => x.T_Doreh_Darkhasti_ID == Dorehid).Select(x=>x.Mohtava).ToList();
+            return _context.T_Fasl_Doreh_Pishnahadi.Where(x => x.T_Doreh_Darkhasti_ID == Dorehid).Select(x => x.Mohtava).ToList();
         }
         public async Task<int> AddSarFasl(List<T_Fasl_Doreh> t_Fasl_Dorehs)
         {
@@ -545,7 +545,7 @@ namespace Request_Course.Serivces
 
 
         #region Adimns
-        public async Task<Tuple<List<T_Admin>,int>> GetAdminsList(int pageid=0)
+        public async Task<Tuple<List<T_Admin>, int>> GetAdminsList(int pageid = 0)
         {
             IQueryable<T_Admin> result = _context.T_Admins.Where(x => x.Admin == true);
 
@@ -555,15 +555,15 @@ namespace Request_Course.Serivces
 
             return Tuple.Create(query, pageCount);
         }
-        public async Task<T_Admin> GetAdmin(string username,string password)
+        public async Task<T_Admin> GetAdmin(string username, string password)
         {
-            return  _context.T_Admins.SingleOrDefault(x => x.UserName == username&& x.Password==password);
+            return _context.T_Admins.SingleOrDefault(x => x.UserName == username && x.Password == password);
         }
         public async Task<T_Admin> GetAdmin(string username)
         {
             return _context.T_Admins.SingleOrDefault(x => x.UserName == username);
         }
-        public async Task<Tuple<List<T_Admin>, int>> GetUsersList(int pageid=0)
+        public async Task<Tuple<List<T_Admin>, int>> GetUsersList(int pageid = 0)
         {
             IQueryable<T_Admin> result = _context.T_Admins.Where(x => x.User == true);
             int skip = (pageid - 1) * 4;
@@ -617,8 +617,8 @@ namespace Request_Course.Serivces
         }
         public async Task<int> RemoveAdmin(string username)
         {
-            var t_Admin = _context.T_Admins.SingleOrDefault(x=>x.UserName==username);
-            if (t_Admin!=null)
+            var t_Admin = _context.T_Admins.SingleOrDefault(x => x.UserName == username);
+            if (t_Admin != null)
             {
                 if (t_Admin.img != null)
                 {
@@ -628,11 +628,11 @@ namespace Request_Course.Serivces
                         File.Delete(Deletimg);
                     }
                 }
-                 _context.T_Admins.Remove(t_Admin);
+                _context.T_Admins.Remove(t_Admin);
                 await _context.SaveChangesAsync();
                 return 0;
             }
-            return 1;            
+            return 1;
         }
 
 
@@ -657,10 +657,10 @@ namespace Request_Course.Serivces
 
         #region Testing
 
-        public async Task<IPagedList<T_Modaresan>> GetMOdaresanTest(string q = "", string sortOrder = "", int page=1)
+        public async Task<IPagedList<T_Modaresan>> GetMOdaresanTest(string q = "", string sortOrder = "", int page = 1)
         {
             IQueryable<T_Modaresan> result = _context.T_Modaresan;
-            
+
             result = result.OrderByDescending(c => c.DateCreate);
             switch (sortOrder)
             {
@@ -680,82 +680,129 @@ namespace Request_Course.Serivces
             {
                 result = result.Where(x => x.NameFamily.Contains(q));
             }
-                 
-            return result.ToList().ToPagedList(page,1);
+
+            return result.ToList().ToPagedList(page, 1);
         }
         #endregion
 
         #region Chart
-        public async Task<Tuple<List<int>, List<int>>> GetDorehByMonthForChart()
+        public async Task<Tuple<List<string>, List<int>>> GetDorehByMonthForChart()
         {
-            int month = DateTime.Now.Month;
-            var year= DateTime.Now.Year;
-            int day = DateTime.Now.Day;
-
-            //Convert to Shamsi
-
-            DateTime date = new DateTime(year, month, day);
+            
             var calendar = new PersianCalendar();
-            var persianDate = new DateTime(calendar.GetYear(date), calendar.GetMonth(date), calendar.GetDayOfMonth(date));
-
-            List<T_Doreh_Darkhasti> model = new List<T_Doreh_Darkhasti>();
-            var convertDime = _context.T_Doreh_Darkhasti.ToList();
-            foreach (var item in convertDime)
-            {
-                var converting = item.Date_Create.Value;
-                item.Date_Create = new DateTime(calendar.GetYear(converting), calendar.GetMonth(converting), calendar.GetDayOfMonth(converting));
-                model.Add(item);
-            }
-
+            var year = new DateTime(calendar.GetYear(DateTime.Now), calendar.GetMonth(DateTime.Now), calendar.GetDayOfMonth(DateTime.Now));
+            var model= _context.T_Doreh_Darkhasti.ToList(); 
             List<int> dateTimes = new List<int>();
+            List<string> months = new List<string>() { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
             List<int> Numbers = new List<int>();
-
-            int Month_shamsi = persianDate.Month;
-            for (int i = 1; i <= Month_shamsi; i++)
-            {     
-                var sort =model.Where(xx => xx.Date_Create.Value.Month.Equals(i)).Count();
-                Numbers.Add(sort);
+            for (int i = 1; i <= 12; i++)
+            {
                 dateTimes.Add(i);
             }
-            return Tuple.Create(dateTimes, Numbers);
-            
+            var group = model.Where(x => x.Date_Create.Value.Year == year.Year).GroupBy(x => x.Date_Create.Value.Month);
+
+            var joinde1 = from c in dateTimes
+                          join p in @group on c equals p.Key into ps
+                          from p in ps.DefaultIfEmpty()
+                          select p;
+
+            foreach (var item in joinde1)
+            {
+                if (item == null)
+                {
+                    Numbers.Add(0);
+                }
+                else
+                {
+                    Numbers.Add(item.Count());
+                }
+            }
+            return Tuple.Create(months, Numbers);
+
         }
 
 
-        public async Task<Tuple<List<int>, List<int>>> GetUserByMonthForChart()
+        public async Task<Tuple<List<string>, List<int>>> GetUserByMonthForChart()
         {
-            int month = DateTime.Now.Month;
-            var year = DateTime.Now.Year;
-            int day = DateTime.Now.Day;
 
-            //Convert to Shamsi
-
-            DateTime date = new DateTime(year, month, day);
             var calendar = new PersianCalendar();
-            var persianDate = new DateTime(calendar.GetYear(date), calendar.GetMonth(date), calendar.GetDayOfMonth(date));
+            var year = new DateTime(calendar.GetYear(DateTime.Now),calendar.GetMonth(DateTime.Now),calendar.GetDayOfMonth(DateTime.Now));
+            var model = _context.T_Modaresan.ToList();
+            List<int> dateTimes = new List<int>();
+            List<string> months = new List<string>() { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
+            List<int> Numbers = new List<int>();
+            for (int i = 1; i <= 12; i++)
+            {
+                dateTimes.Add(i);
+            }
+            var group = model.Where(s=>s.DateCreate.Value.Year==year.Year).GroupBy(x => x.DateCreate.Value.Month);
 
-            List<T_Modaresan> model = new List<T_Modaresan>();
+            var joinde1 = from c in dateTimes
+                          join p in @group on c equals p.Key into ps
+                          from p in ps.DefaultIfEmpty()
+                          select p;
+
+            foreach (var item in joinde1)
+            {
+                if (item == null)
+                {
+                    Numbers.Add(0);
+                }
+                else
+                {
+                    Numbers.Add(item.Count());
+                }
+
+            }
+            //for (int i = 1; i <= Month_shamsi; i++)
+            //{
+            //    var sort = model.Where(xx => xx.DateCreate.Value.Month.Equals(i)).Count();
+            //    Numbers.Add(sort);
+            //    dateTimes.Add(i);
+            //}
+            return Tuple.Create(months, Numbers);
+        }
+        #endregion
+
+        #region ConvertDate
+        public async Task ConvertDateToShamsimodaresan()
+        {
+            var calendar = new PersianCalendar();
             var convertDime = _context.T_Modaresan.ToList();
             foreach (var item in convertDime)
             {
                 var converting = item.DateCreate.Value;
                 item.DateCreate = new DateTime(calendar.GetYear(converting), calendar.GetMonth(converting), calendar.GetDayOfMonth(converting));
-                model.Add(item);
             }
+            await _context.SaveChangesAsync();
+        }
 
-            List<int> dateTimes = new List<int>();
-            List<int> Numbers = new List<int>();
-
-            int Month_shamsi = persianDate.Month;
-            for (int i = 1; i <= Month_shamsi; i++)
+        public async Task ConvertDateToShamsiDoreh()
+        {
+            var calendar = new PersianCalendar();
+            var convertDime = _context.T_Doreh_Darkhasti.ToList();
+            foreach (var item in convertDime)
             {
-                var sort = model.Where(xx => xx.DateCreate.Value.Month.Equals(i)).Count();
-                Numbers.Add(sort);
-                dateTimes.Add(i);
+                var converting_cerate =  item.Date_Create.Value;
+                var convert_Az_pi = item.Date_Az_Pishnahad.Value;
+                var convert_ta_pi = item.Date_Ta_Pishnahad.Value;
+                item.Date_Create = new DateTime(calendar.GetYear(converting_cerate), calendar.GetMonth(converting_cerate), calendar.GetDayOfMonth(converting_cerate));
+                item.Date_Az_Pishnahad = new DateTime(calendar.GetYear(convert_Az_pi), calendar.GetMonth(convert_Az_pi), calendar.GetDayOfMonth(convert_Az_pi));
+                item.Date_Ta_Pishnahad= new DateTime(calendar.GetYear(convert_ta_pi), calendar.GetMonth(convert_ta_pi), calendar.GetDayOfMonth(convert_ta_pi));
             }
-            return Tuple.Create(dateTimes, Numbers);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<DateTime> ConvertDateToShamsi(DateTime dateTime)
+        {
+            var calendar = new PersianCalendar();
+            var converting = dateTime;
+            DateTime FinalDate= new DateTime(calendar.GetYear(converting), calendar.GetMonth(converting), calendar.GetDayOfMonth(converting));
+            return FinalDate;
         }
         #endregion
+
+
 
 
     }

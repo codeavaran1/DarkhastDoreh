@@ -149,8 +149,8 @@ namespace Request_Course.Serivces.Interface
 
 
         #region Chart
-        public Task<Tuple<List<int>, List<int>>> GetDorehByMonthForChart();
-        public Task<Tuple<List<int>, List<int>>> GetUserByMonthForChart();
+        public Task<Tuple<List<string>, List<int>>> GetDorehByMonthForChart();
+        public Task<Tuple<List<string>, List<int>>> GetUserByMonthForChart();
         #endregion
 
 
@@ -158,6 +158,13 @@ namespace Request_Course.Serivces.Interface
 
         public Task<IPagedList<T_Modaresan>> GetMOdaresanTest(string q="",string sortOrder="", int page = 1);
         #endregion
+
+        #region DateTime
+        public Task ConvertDateToShamsimodaresan();
+        public Task ConvertDateToShamsiDoreh();
+        public Task<DateTime> ConvertDateToShamsi(DateTime dateTime);
+        #endregion
+
 
 
 

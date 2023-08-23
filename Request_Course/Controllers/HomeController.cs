@@ -15,6 +15,7 @@ namespace Request_Course.Controllers
 
         public IActionResult Index()
         {
+            
             return View();
         }
 

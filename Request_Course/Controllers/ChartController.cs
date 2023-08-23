@@ -26,14 +26,11 @@ namespace Request_Course.Controllers
             foreach (var item in Result.Item1)
             {
                 labels.Add(item.ToString()+"ماه ");
-            }
-
-            
+            }            
             //labels.Add("Nooveber");
             //labels.Add("desumber");
             //labels.Add("juli");
             //labels.Add("april");
-
             List<int> total = new List<int>();
             foreach (var item in Result.Item2)
             {
@@ -43,7 +40,6 @@ namespace Request_Course.Controllers
             //total.Add(12);
             //total.Add(21);
             //total.Add(16);
-
             data.Add(labels);
             data.Add(total);
             return data;
@@ -61,17 +57,21 @@ namespace Request_Course.Controllers
             {
                 labels.Add(item.ToString() + "ماه ");
             }
-
             List<int> total = new List<int>();
             foreach (var item in Result.Item2)
             {
-                total.Add(item);
+                if (item==null)
+                {
+                    total.Add(0);
+                }
+                else
+                {
+                    total.Add(item);
+                }
             }
-            
             data.Add(labels);
             data.Add(total);
             return data;
-
         }
 
 

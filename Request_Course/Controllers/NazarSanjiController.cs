@@ -33,7 +33,7 @@ namespace Request_Course.Controllers
                 Num_TamoolBaFaragir = model.Num_TamoolBaFaragir,
                 Num_Tasalot = model.Num_Tasalot,
                 T_Doreh_Darkhasti_ID = model.T_Doreh_Darkhasti_ID,
-                DateCreate = DateTime.UtcNow,
+                DateCreate =await _services.ConvertDateToShamsi(DateTime.Now),
                 UserID = model.Username,
             };
             var Avrage =(model.Num_Roayat_Sarfasl + model.Num_Roayat_Nazm + model.Num_TamoolBaFaragir + model.Num_Tasalot)/4;

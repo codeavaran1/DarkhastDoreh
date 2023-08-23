@@ -167,8 +167,9 @@ namespace Request_Course.Controllers
            
             T_Doreh_Darkhasti t_Doreh_Darkhasti = new T_Doreh_Darkhasti()
             {
-                Date_Az_Pishnahad = model.DateStart,
-                Date_Ta_Pishnahad = model.DateEnd,
+                Date_Az_Pishnahad = await _serivecs.ConvertDateToShamsi(model.DateStart),
+                Date_Ta_Pishnahad = await _serivecs.ConvertDateToShamsi(model.DateEnd),
+                Date_Create=await _serivecs.ConvertDateToShamsi(DateTime.Now), 
                 T_L_OnvanAsli_ID = null,
                 T_L_OnvanDoreh_ID = null,
                 T_L_MediaAmozeshi_ID = null,
@@ -177,7 +178,7 @@ namespace Request_Course.Controllers
                 T_L_MokhatabanDoreh_ID = null,
                 T_L_SatheKeyfi_Modares_ID = null,
                 T_L_Vaziyat_Doreh_ID = 3
-
+                
             };
             if (OnvanAsli != "0")
             {
@@ -276,8 +277,9 @@ namespace Request_Course.Controllers
             T_Doreh_Darkhasti t_Doreh_Darkhasti = new T_Doreh_Darkhasti()
             {
                 OnvanDoreh_Jadid = model.OnvanDoreh,
-                Date_Az_Pishnahad = model.DateStart,
-                Date_Ta_Pishnahad = model.DateEnd,
+                Date_Az_Pishnahad = await _serivecs.ConvertDateToShamsi(model.DateStart),
+                Date_Ta_Pishnahad = await _serivecs.ConvertDateToShamsi(model.DateEnd),
+                Date_Create=await _serivecs.ConvertDateToShamsi(DateTime.Now),
                 T_L_OnvanAsli_ID = null,
                 T_L_MediaAmozeshi_ID = null,
                 T_L_ModateDoreh_ID = null,
