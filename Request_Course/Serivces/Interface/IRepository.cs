@@ -10,22 +10,29 @@ namespace Request_Course.Serivces.Interface
         #region Admin
         #region Modaresan
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehforBinding(int pageid=0);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehforBinding(string search,int pageid=0);
         public Task<int> BindModresToDoreh(int dorehid,int modaresid);
         #endregion
         #region Doreh
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDoreh(int pageid=0);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh(string search,string sortOrder,int pageid=0);
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehWithoutModares(int pageid=0);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehWithoutModares(string search,string sortOreder,int pageid=0);
         public Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh);
         public Task<Tuple<List<T_Doreh_Darkhasti>,int>> GetDorehMokhatabFaalAdmin(int paegid=0);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabFaalAdmin(string search,string sortOrder,int paegid=0);
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabPygiryAdmin(int paegid = 0);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabPygiryAdmin(string search, string sortOrder, int paegid = 0);
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabGhablAdmin(int paegid = 0);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabGhablAdmin(string search, string sortOrder, int paegid = 0);
         #endregion
         #region requster
         public Task<Tuple<List<T_Mokhatebin>, int>> GetSherkatha(int pageid = 0);
+        public Task<IPagedList<T_Mokhatebin>> GetSherkatha(string search, string sortOrder, int paegid = 0);
         #endregion
         #region User
         public Task<List<T_Activation>> GetActivations();
+        public Task<IPagedList<T_Activation>> GetActivations(string search, string sortOrder, int paegid = 0);
         #endregion
         #endregion
 
@@ -103,8 +110,11 @@ namespace Request_Course.Serivces.Interface
 
         #region Mohktab
         public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl(int userid);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl(int userid, string search, string sortOrder, int paegid = 0);
         public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabFaal(int userid);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabFaal(int userid, string search, string sortOrder, int paegid = 0);
         public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid, string search, string sortOrder, int paegid = 0);
         #endregion
 
         #region Sar Fasl Doreh
@@ -134,7 +144,9 @@ namespace Request_Course.Serivces.Interface
 
         #region Admins
         public Task<Tuple<List<T_Admin>, int>> GetAdminsList(int pageid=0);
+        public Task<IPagedList<T_Admin>> GetAdminsList(string search,string soreOrder,int pageid=0);
         public Task<Tuple<List<T_Admin>, int>> GetUsersList(int pageid=0);
+        public Task<IPagedList<T_Admin>> GetUsersList(string search, string soreOrder, int pageid = 0);
         public Task<T_Admin> GetAdmin(string username, string password);
         public Task<T_Admin> GetAdmin(string username);
         public Task<int> AddAdmin(T_Admin t_Admin,IFormFile img);

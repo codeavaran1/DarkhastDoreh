@@ -3,6 +3,7 @@ using Request_Course.Data;
 using Request_Course.Models;
 using Request_Course.Serivces.Interface;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore;
 
 namespace Request_Course.Serivces
 {
@@ -29,6 +30,16 @@ namespace Request_Course.Serivces
 
             return Tuple.Create(query, pageCount);
         }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehforBinding(string search,int pageid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3);
+            if (string.IsNullOrEmpty(search))
+            {
+                result=result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh==search);
+            }
+            return result.ToList().ToPagedList(pageid, 1);
+        }
+
         public async Task<int> BindModresToDoreh(int dorehid, int modaresid)
         {
             var result = await GetDoreh_Darkhasti(dorehid);
@@ -51,6 +62,19 @@ namespace Request_Course.Serivces
 
             return Tuple.Create(query, pageCount);
         }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh(string search, string sortOrder, int pageid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti;
+            if (!string.IsNullOrEmpty(sortOrder))
+            {
+                result = result.OrderBy(d => d.T_L_OnvanDoreh.Titles_OnvanDoreh);
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+            }
+            return result.ToList().ToPagedList(pageid, 1);
+        }
         public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehWithoutModares(int pageid = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID != null);
@@ -63,7 +87,6 @@ namespace Request_Course.Serivces
             return Tuple.Create(query, pageCount);
 
         }
-
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehWithoutModares(string search, string sortOreder, int pageid = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result =_context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID != null);
@@ -77,6 +100,10 @@ namespace Request_Course.Serivces
                     break;
                 default:
                     break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
             }
             return  result.ToList().ToPagedList(pageid, 1);
 
@@ -110,6 +137,26 @@ namespace Request_Course.Serivces
             return Tuple.Create(query, pageCount);
 
         }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabFaalAdmin(string search, string sortOrder, int paegid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 1);
+            switch (sortOrder)
+            {
+                case "Name":
+                    result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                    break;
+                case "Date":
+                    result = result.OrderBy(o => o.Date_Create);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
+        }
         public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabPygiryAdmin(int pageId = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3);
@@ -121,6 +168,26 @@ namespace Request_Course.Serivces
 
             return Tuple.Create(query, pageCount);
         }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabPygiryAdmin(string search, string sortOrder, int paegid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3);
+            switch (sortOrder)
+            {
+                case "Name":
+                    result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                    break;
+                case "Date":
+                    result = result.OrderBy(o => o.Date_Create);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
+        }
         public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabGhablAdmin(int pageId = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 2);
@@ -131,6 +198,26 @@ namespace Request_Course.Serivces
             List<T_Doreh_Darkhasti> query = result.Skip(skip).Take(4).ToList();
 
             return Tuple.Create(query, pageCount);
+        }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabGhablAdmin(string search, string sortOrder, int paegid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 2);
+            switch (sortOrder)
+            {
+                case "Name":
+                    result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                    break;
+                case "Date":
+                    result = result.OrderBy(o => o.Date_Create);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
         }
         #endregion
         #region Requester
@@ -144,11 +231,45 @@ namespace Request_Course.Serivces
 
             return Tuple.Create(query, pageCount);
         }
+        public async Task<IPagedList<T_Mokhatebin>> GetSherkatha(string search, string sortOrder, int paegid = 0)
+        {
+            IQueryable<T_Mokhatebin> result = _context.T_Mokhatebin;
+            switch (sortOrder)
+            {
+                case "Name":
+                    result = result.OrderBy(o => o.Name_Sherkat);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Where(s => s.Name_Sherkat== search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
+        }
         #endregion
         #region User
         public async Task<List<T_Activation>> GetActivations()
         {
             return _context.T_Activation.ToList();
+        }
+        public async Task<IPagedList<T_Activation>> GetActivations(string search, string sortOrder, int paegid = 0)
+        {
+            IQueryable<T_Activation> result = _context.T_Activation;
+            switch (sortOrder)
+            {
+                case "Name":
+                    result = result.OrderBy(o => o.NameFamily);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Where(s => s.NameFamily== search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
         }
         #endregion
         #endregion
@@ -403,13 +524,76 @@ namespace Request_Course.Serivces
         {
             return _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 2).ToList();
         }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl(int userid, string search, string sortOrder, int paegid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result= _context.T_Doreh_Darkhasti.
+                Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 2);
+            switch (sortOrder)
+            {
+                case "Name":
+                    result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                    break;
+                case "Date":
+                    result = result.OrderBy(o => o.Date_Create);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
+        }
         public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabFaal(int userid)
         {
             return _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 1).ToList();
         }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabFaal(int userid, string search, string sortOrder, int paegid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.
+               Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 1);
+            switch (sortOrder)
+            {
+                case "Name":
+                    result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                    break;
+                case "Date":
+                    result = result.OrderBy(o => o.Date_Create);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
+        }
         public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid)
         {
             return _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 3).ToList();
+        }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid, string search, string sortOrder, int paegid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.
+              Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 3);
+            switch (sortOrder)
+            {
+                case "Name":
+                    result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                    break;
+                case "Date":
+                    result = result.OrderBy(o => o.Date_Create);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
         }
         #endregion
 
@@ -596,6 +780,23 @@ namespace Request_Course.Serivces
 
             return Tuple.Create(query, pageCount);
         }
+        public async Task<IPagedList<T_Admin>> GetAdminsList(string search, string soreOrder, int pageid = 0)
+        {
+            IQueryable<T_Admin> result = _context.T_Admins.Where(x => x.Admin == true);
+            switch (soreOrder)
+            {
+                case "Name":
+                    result = result.OrderBy(o => o.Name);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Where(s => s.Name== search);
+            }
+            return result.ToList().ToPagedList(pageid, 1);
+        }
         public async Task<T_Admin> GetAdmin(string username, string password)
         {
             return _context.T_Admins.SingleOrDefault(x => x.UserName == username && x.Password == password);
@@ -611,6 +812,23 @@ namespace Request_Course.Serivces
             int pageCount = result.Count() / 4;
             List<T_Admin> query = result.Skip(skip).Take(4).ToList();
             return Tuple.Create(query, pageCount);
+        }
+        public async Task<IPagedList<T_Admin>> GetUsersList(string search, string soreOrder, int pageid = 0)
+        {
+            IQueryable<T_Admin> result = _context.T_Admins.Where(x => x.User == true);
+            switch (soreOrder)
+            {
+                case "Name":
+                    result = result.OrderBy(o => o.Name);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Where(s => s.Name == search);
+            }
+            return result.ToList().ToPagedList(pageid, 1);
         }
         public async Task<int> AddAdmin(T_Admin t_Admin, IFormFile img)
         {
@@ -675,7 +893,6 @@ namespace Request_Course.Serivces
             }
             return 1;
         }
-
 
         #endregion
 
