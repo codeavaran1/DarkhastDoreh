@@ -69,13 +69,13 @@ namespace Request_Course.Controllers
         {
             var Modares= await _services.GetModaresan();
             int rank = 1;
-            foreach (var item in Modares.Item1)
+            foreach (var item in Modares)
             {
-                var maximum = Modares.Item1.Max(x => x.Avg_Nomreh_Tadris);
-                var ModaresTemp= Modares.Item1.FirstOrDefault(x=>x.Avg_Nomreh_Tadris==maximum);
+                var maximum = Modares.Max(x => x.Avg_Nomreh_Tadris);
+                var ModaresTemp= Modares.FirstOrDefault(x=>x.Avg_Nomreh_Tadris==maximum);
                 ModaresTemp.Rotbe_Modares = rank;
                 await _services.UpdateModaresan(ModaresTemp);
-                Modares.Item1.Remove(ModaresTemp);
+                Modares.Remove(ModaresTemp);
                 rank++;
             }
             return View();

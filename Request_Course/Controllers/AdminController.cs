@@ -13,10 +13,10 @@ using System.Text;
 
 namespace Request_Course.Controllers
 {
-    
+
     public class AdminController : Controller
     {
-     
+
         private IRepository _services;
         public AdminController(IRepository repository)
         {
@@ -36,7 +36,7 @@ namespace Request_Course.Controllers
             var Result = await _services.GetDorehByMonthForChart();
             foreach (var item in Result.Item1)
             {
-                labels.Add(item.ToString() + "ماه ");
+                labels.Add(item.ToString());
             }
             List<int> total = new List<int>();
             foreach (var item in Result.Item2)
@@ -48,29 +48,27 @@ namespace Request_Course.Controllers
             return data;
         }
 
-    
-#endregion
 
-#region Modaresan
+        #endregion
 
-public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int pageid = 1)
+        #region Modaresan
+
+        public async Task<IActionResult> ModaresanTest(string sortOrder, string search, int pageid = 1)
         {
-            ViewBag.searchQuery = string.IsNullOrEmpty(q) ? "" : q;
-            var result =await _services.GetMOdaresanTest(q,sortOrder,pageid);
+            ViewBag.searchQuery = string.IsNullOrEmpty(search) ? "" : search;
+            var result = await _services.GetMOdaresanTest(search, sortOrder, pageid);
             return View(result);
         }
 
-        public async Task<IActionResult> Modaresan(int pageId = 1)
+        public async Task<IActionResult> Modaresan(string sortOrder, string search, int pageid = 1)
         {
             //if (await _services.GetAdmin(User.Identity.Name)==null)
             //{
             //    return BadRequest();
             //}
-            var reslut = await _services.GetModaresan(pageId, "ali");
-            var model = reslut.Item1;
-            ViewBag.pagecount = reslut.Item2;
-            ViewBag.pageid = pageId;
-            return View(model);
+            ViewBag.searchQuery = string.IsNullOrEmpty(search) ? "" : search;
+            var result = await _services.GetModaresan(search, sortOrder, pageid);
+            return View(result);
         }
 
         [HttpGet]
@@ -106,7 +104,7 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
         }
         [HttpPost]
         public async Task<IActionResult> CreateModares(ModaresanVM model, IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili = ""
-            , string Reshte = "", string DaragehElmi = "",string NameFamilyr="")
+            , string Reshte = "", string DaragehElmi = "", string NameFamilyr = "")
         {
             ModelState.Remove("img");
             if (!ModelState.IsValid || Reshte == "0" || MaghtaeTahsili == "0" || DaragehElmi == "0")
@@ -150,7 +148,7 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
                 T_L_MaghtaeTahsili_ID = null,
                 T_L_ReshtehTahsili_ID = null,
                 T_L_DaragehElmi_ID = null,
-                NameFamily= NameFamilyr,
+                NameFamily = NameFamilyr,
             };
             if (MaghtaeTahsili != "0")
             {
@@ -182,8 +180,8 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
                 code = "12345",
                 DateGenerateCode = DateTime.Now,
                 NameFamily = NameFamilyr,
-                Teacher=true,
-                Student=false, 
+                Teacher = true,
+                Student = false,
             };
             await _services.AddActivation(t_Activation);
 
@@ -278,20 +276,20 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
             T_Doreh_Darkhasti Doreh = await _services.GetDoreh_Darkhasti(dorehId);
             var pishnahad_MOdares = await _services.GetPishnahad_Modares_Doreh(dorehId);
             ModaresanPishnahadi model = new ModaresanPishnahadi();
-            if (pishnahad_MOdares!=null)
+            if (pishnahad_MOdares != null)
             {
                 model.TeacherPshanmdiName1 = pishnahad_MOdares.Pishnahad_Modares_Name1;
                 model.TeacherPshanmdiName2 = pishnahad_MOdares.Pishnahad_Modares_Name2;
                 model.TeacherPshanmdiName3 = pishnahad_MOdares.Pishnahad_Modares_Name3;
             }
-           
+
             T_Pishnahad_Modares_Doreh Teachers = await _services.GetPishnahad_Modares_Doreh(dorehId);
             if (Teachers != null)
             {
                 if (Teachers.T_Modaresan_ID1 != null)
                 {
                     Teacher1 = await _services.GetTeacherName(Teachers.T_Modaresan_ID1.Value);
-                    model.ID_Teahcername1 =Teachers.T_Modaresan_ID1.Value;
+                    model.ID_Teahcername1 = Teachers.T_Modaresan_ID1.Value;
                     model.Teahcername1 = Teacher1;
                 }
                 if (Teachers.T_Modaresan_ID2 != null)
@@ -307,7 +305,7 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
                     model.ID_Teahcername3 = Teachers.T_Modaresan_ID3.Value;
                 }
             }
-            ViewBag.DorehId=dorehId;
+            ViewBag.DorehId = dorehId;
             return View(model);
         }
 
@@ -317,12 +315,10 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
             {
                 return BadRequest();
             }
-            var reslut = await _services.GetModaresan(pageId, "ali");
-            var model = reslut.Item1;
-            ViewBag.pagecount = reslut.Item2;
+            var reslut = await _services.GetModaresan("","",pageId);
             ViewBag.pageid = pageId;
             ViewBag.dorehid = dorehId;
-            return View(model);
+            return View(reslut);
 
         }
 
@@ -394,7 +390,7 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
             //}
             await _services.AddOnvanAsliAndOnvanDoreh(OnvanAsli, OnvanDoreh);
             int onvanAsli = await _services.GetOnvanAsliByName(OnvanAsli);
-            int onvanDoreh= await _services.GetOnvanDorehByName(OnvanDoreh);
+            int onvanDoreh = await _services.GetOnvanDorehByName(OnvanDoreh);
             List<T_Fasl_Doreh> List_Fasl = new List<T_Fasl_Doreh>();
             for (int i = 0; i < Mohtav.Count; i++)
             {
@@ -403,8 +399,8 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
                     Modate_Ejra = Modate_Ejra[i],
                     Mohtav = Mohtav[i],
                     Shekle_Ejra = shekldoreh[i],
-                    T_L_OnvanAsli_ID=onvanAsli,
-                    T_L_OnvanDoreh_ID=onvanDoreh
+                    T_L_OnvanAsli_ID = onvanAsli,
+                    T_L_OnvanDoreh_ID = onvanDoreh
                 };
                 List_Fasl.Add(t_Fasl_Doreh);
 
@@ -540,7 +536,7 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
         public async Task<IActionResult> AddAdmin()
         {
             var admin = await _services.GetAdmin(User.Identity.Name);
-            if ( admin== null || admin.Admin==false)
+            if (admin == null || admin.Admin == false)
             {
                 return BadRequest();
             }
@@ -590,7 +586,7 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
         public async Task<IActionResult> UpdateAdmin(AdminUpdateVM model, IFormFile img, string username)
         {
             ModelState.Remove("img");
-            if (!ModelState.IsValid )
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
@@ -740,7 +736,7 @@ public async Task<IActionResult> ModaresanTest(string sortOrder, string q, int p
             {
                 return View(model);
             }
-           
+
             return RedirectToAction("Certificates");
         }
 

@@ -25,7 +25,7 @@ namespace Request_Course.Controllers
             var Result = await _services.GetDorehByMonthForChart();
             foreach (var item in Result.Item1)
             {
-                labels.Add(item.ToString()+"ماه ");
+                labels.Add(item.ToString());
             }            
             //labels.Add("Nooveber");
             //labels.Add("desumber");
@@ -55,7 +55,7 @@ namespace Request_Course.Controllers
             var Result = await _services.GetUserByMonthForChart();
             foreach (var item in Result.Item1)
             {
-                labels.Add(item.ToString() + "ماه ");
+                labels.Add(item.ToString());
             }
             List<int> total = new List<int>();
             foreach (var item in Result.Item2)

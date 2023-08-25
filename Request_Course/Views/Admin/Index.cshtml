@@ -58,25 +58,32 @@
         </div>
         <!-- /.col -->
     </div>
-</section>
 
 
-@*<partial name="~/Views/Chart/Index.cshtml" />*@
+
+    @*<partial name="~/Views/Chart/Index.cshtml" />*@
 
 
-<div class="row">
-    <div class="col-6" style="width:50%">
-        <h3>
-            chart
-        </h3>
-        <canvas id="myChart" style="width:250px!important;height:250px!important"></canvas>
+    <div class="row">
+        <div class="col-md-6 col-6" style="width:40%;margin-right:6%">
+            <h3>
+                chart
+            </h3>
+            <canvas id="myChart" style="width:250px!important;height:250px!important"></canvas>
+
+        </div>
+        <div class="col-md-6 col-6" style="width:40%;margin-right:6%">
+            <h3>
+                chart
+            </h3>
+            <canvas id="myChartcri" width="200px" height="200px" style="width:250px!important;height:250px!important"></canvas>
+        </div>
+
     </div>
 
-</div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 
 <script type="text/javascript">
@@ -121,3 +128,45 @@
 
 </script>
 
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        alert("Hiii22222")
+        $.ajax({
+            type: "POST",
+            url: "/Chart/UserChart",
+            data: "",
+            contentType: "application/json; charset=utf8",
+            dataType: "json",
+            success: Onsuccess
+        });
+
+        function Onsuccess(data) {
+
+            const myChart = document.getElementById('myChartcri');
+            var _data = data;
+            var _labels = data[0];
+            var _Chartdata = data[1];
+            var colors = ['Red', 'Blue', 'Green', 'Purple'];
+            alert(_data[0])
+            alert(_data[1])
+            alert(colors)
+
+            new Chart(myChart,
+                {
+                    type: 'bar',
+                    data: {
+                        labels: _labels,
+                        datasets: [{
+                            backgroundColor: colors,
+                            data: _Chartdata,
+                            borderWidth: 1
+                        }]
+                    }
+                });
+
+
+        }
+    });
+
+</script>

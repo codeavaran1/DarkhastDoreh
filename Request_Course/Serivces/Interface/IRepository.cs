@@ -15,6 +15,7 @@ namespace Request_Course.Serivces.Interface
         #region Doreh
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDoreh(int pageid=0);
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehWithoutModares(int pageid=0);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehWithoutModares(string search,string sortOreder,int pageid=0);
         public Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh);
         public Task<Tuple<List<T_Doreh_Darkhasti>,int>> GetDorehMokhatabFaalAdmin(int paegid=0);
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabPygiryAdmin(int paegid = 0);
@@ -49,7 +50,8 @@ namespace Request_Course.Serivces.Interface
         public Task<T_Modaresan> GetModaresan(string phone);
         public Task<T_Modaresan> GetModaresan(int id);
         public Task<List<T_Modaresan>> GetModaresan(int onvnasli, int onvandoreh);
-        public Task<Tuple<List<T_Modaresan>, int>> GetModaresan(int pageid=0,string all="");
+        public Task<IPagedList<T_Modaresan>> GetModaresan(string search,string sortOrder ,int pageid=0);
+        public Task<List<T_Modaresan>> GetModaresan();
         public Task<int> GetModaresanPage();
         #region Modaresan Doreh
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid);

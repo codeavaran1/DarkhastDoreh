@@ -1,18 +1,16 @@
-﻿@model List<Request_Course.Models.T_Modaresan>
+﻿@model X.PagedList.IPagedList<Request_Course.Models.T_Modaresan>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
 
-    @{
-     Layout = "~/Views/Shared/_LayoutIntialing.cshtml";
+@{
+    Layout = "~/Views/Shared/_LayoutIntialing.cshtml";
 }
-
 <!DOCTYPE html>
 
-<html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
-
-
     <title>علی Ran فرم اساتید</title>
-
 </head>
 
 <div class="content-wrapper">
@@ -25,6 +23,12 @@
                         <h3 class="box-title">مدرسان</h3>
                     </div>
                     <!-- /.box-header -->
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input type="text" name="search" value="@ViewBag.searchQuery" class="search-text form-control" placeholder="Search..." />
+                        </div>
+                        <button type="submit" class="btn btn-info">جستوجو</button>
+                    </form>
                     <div class="box-body">
                         <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                             <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
@@ -32,9 +36,16 @@
                                     <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">نام کربری</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">شماره</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="ایمیل: activate to sort column ascending">ایمیل</th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">
+                                                    @Html.ActionLink("نام کاربری", "Modaresan",new {sortOrder="nameFamily"})
+                                                </th>
+
+                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
+                                                    @Html.ActionLink("شماره", "Modaresan",new {sortOrder="Phone"})
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="ایمیل: activate to sort column ascending">
+                                                    @Html.ActionLink("ایمیل", "Modaresan",new {sortOrder="Email"})
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -54,28 +65,9 @@
                                 </div>
 
                                 <div class="col-sm-7">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                        @if (ViewBag.pagecount >= 1)
-                                        {
-                                            <ul class="pagination">
-                                                @for (int i = 0; i < ViewBag.pagecount + 1; i++)
-                                                {
-                                                    @if (ViewBag.pageid == i + 1)
-                                                    {
-                                                        <li class="paginate_button active">
-                                                            <a asp-controller="Admin" asp-action="Modaresan" asp-route-pageId="@(i+1)" aria-controls="example2" data-dt-idx="0" tabindex="0">@(i+1)</a>
-                                                        </li>
-                                                    }
-                                                    else
-                                                    {
-                                                        <li class="paginate_button ">
-                                                            <a asp-controller="Admin" asp-action="Modaresan" asp-route-pageId="@(i+1)" aria-controls="example2" data-dt-idx="0" tabindex="0">@(i+1)</a>
-                                                        </li>
-                                                    }
-                                                }
-                                            </ul>
-                                        }
+                                    <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"> 
                                     </div>
+                                      @Html.PagedListPager(Model, page => Url.Action("Modaresan", new { pageid=page }))
                                 </div>
                             </div>
                         </div>
@@ -89,4 +81,6 @@
         </div>
         <!-- /.row -->
     </section>
+  
 </div>
+

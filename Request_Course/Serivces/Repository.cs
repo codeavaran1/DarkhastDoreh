@@ -63,6 +63,26 @@ namespace Request_Course.Serivces
             return Tuple.Create(query, pageCount);
 
         }
+
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehWithoutModares(string search, string sortOreder, int pageid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result =_context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID != null);
+            switch (sortOreder)
+            {
+                case "Doreh":
+                    result = result.OrderBy(x => x.T_L_OnvanAsli_ID);
+                    break;
+                case "Mokhatb":
+                    result = result.OrderBy(x => x.T_Mokhatebin_ID);
+                    break;
+                default:
+                    break;
+            }
+            return  result.ToList().ToPagedList(pageid, 1);
+
+        }
+
+
         public async Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh)
         {
             T_L_OnvanAsli t_L_OnvanAsli = new T_L_OnvanAsli()
@@ -204,14 +224,35 @@ namespace Request_Course.Serivces
         {
             return _context.T_Modaresan.SingleOrDefault(x => x.ID_Modaresan == id);
         }
-        public async Task<Tuple<List<T_Modaresan>, int>> GetModaresan(int pageid = 0, string all = "")
+        public async Task<List<T_Modaresan>> GetModaresan()
+        {
+            return _context.T_Modaresan.ToList();
+        }
+        public async Task<IPagedList<T_Modaresan>> GetModaresan(string search, string sortOrder, int pageid = 0)
         {
             IQueryable<T_Modaresan> result = _context.T_Modaresan;
+
             result = result.OrderByDescending(c => c.DateCreate);
-            int skip = (pageid - 1) * 4;
-            int pageCount = result.Count() / 4;
-            List<T_Modaresan> query = result.Skip(skip).Take(4).ToList();
-            return Tuple.Create(query, pageCount);
+            switch (sortOrder)
+            {
+                case "nameFamily":
+                    result = result.OrderBy(x => x.NameFamily);
+                    break;
+                case "Phone":
+                    result = result.OrderBy(x => x.Phone);
+                    break;
+                case "Email":
+                    result = result.OrderByDescending(x => x.Email);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Where(x => x.NameFamily.Contains(search));
+            }
+
+            return result.ToList().ToPagedList(pageid, 1);
         }
         public async Task<int> GetModaresanPage()
         {
