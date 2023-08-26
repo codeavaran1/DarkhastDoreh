@@ -454,9 +454,17 @@ namespace Request_Course.Controllers
             }
 
             ViewBag.t_Fasl_Doreh_Pishnahadis = t_Fasl_Doreh_Pishnahadis;
-
+            ViewBag.DorehDarkhasti_ID = DorehId;
             return View(model);
         }
+
+        public async Task<IActionResult> ConfrimDoreh(int DorehId)
+        {
+            await _serivecs.ConfrimDoreh(DorehId);
+            return RedirectToAction("Index");
+        }
+
+
         #endregion
 
         #region Confirm page

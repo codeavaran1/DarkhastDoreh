@@ -41,28 +41,25 @@
                     </div>
                     <br />
                     <div class="row">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">زمان شروع</label>
+                                <div class="col-md-10">
+                                    <label class="control-label"> نام شرکت</label>
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
                                 <div class="col-md-10">
-                                    <input asp-for="DateStart" class="form-control" />
-                                    <span asp-validation-for="DateStart" class="text-danger"></span>
+                                    <input class="form-control"  readonly type="text" value="@ViewBag.Name_Sherkat"  data="@ViewBag.Name_Sherkat" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">زمان اتمام</label>
+                                <div class="col-md-10">
+                                    <label class="control-label">کاربر</label>
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
                                 <div class="col-md-10">
-                                    <input asp-for="DateEnd" class="form-control" />
-                                    <span asp-validation-for="DateEnd" class="text-danger"></span>
+                                    <input class="form-control" readonly  type="text" value="@ViewBag.user" data="@ViewBag.user" />
                                 </div>
                             </div>
                         </div>
@@ -143,6 +140,34 @@
                         </div>
                     </div>
                     <br />
+                      <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">زمان شروع</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="DateStart" class="form-control" />
+                                    <span asp-validation-for="DateStart" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">زمان اتمام</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="DateEnd" class="form-control" />
+                                    <span asp-validation-for="DateEnd" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -172,7 +197,7 @@
 
                             <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
                             <a asp-action="Request_New_DorehAmozeshi" asp-route-phone="@ViewBag.Phone " class="btn btn-primery btn-block">
-                                    تعریف دوره جدید
+                                تعریف دوره جدید
                             </a>
                         </div>
 

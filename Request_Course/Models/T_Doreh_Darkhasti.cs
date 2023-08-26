@@ -53,6 +53,8 @@ namespace Request_Course.Models
 
         public int? T_L_Vaziyat_Doreh_ID { get; set; }
 
+        public bool IsFinaly { get; set; } = false;
+
         public virtual T_L_MediaAmozeshi T_L_MediaAmozeshi { get; set; }
 
         public virtual T_L_ModateDoreh T_L_ModateDoreh { get; set; }

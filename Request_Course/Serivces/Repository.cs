@@ -17,6 +17,17 @@ namespace Request_Course.Serivces
 
 
         #region Admin
+
+        #region Access
+        public async Task ConfrimDoreh(int dorehId)
+        {
+            var result = await _context.T_Doreh_Darkhasti.SingleOrDefaultAsync(id => id.ID_Doreh_Darkhasti == dorehId);
+            result.IsFinaly = true;
+            _context.T_Doreh_Darkhasti.Update(result);
+            await _context.SaveChangesAsync();
+        }
+        #endregion
+
         #region Modaresan
         public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehforBinding(int pageid = 0)
         {
@@ -39,7 +50,6 @@ namespace Request_Course.Serivces
             }
             return result.ToList().ToPagedList(pageid, 1);
         }
-
         public async Task<int> BindModresToDoreh(int dorehid, int modaresid)
         {
             var result = await GetDoreh_Darkhasti(dorehid);

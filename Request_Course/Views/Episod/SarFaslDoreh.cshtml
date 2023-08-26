@@ -2,6 +2,12 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutIntialing.cshtml";
+    var modeling = new
+    {
+        DorehDarkhasti_ID = (int)ViewBag.DorehDarkhasti_ID,
+        onvandoreh = (int)ViewBag.onvandoreh,
+        onvanasli = (int)ViewBag.onvandoreh
+    };
 }
 
 <!DOCTYPE html>
@@ -39,26 +45,6 @@
                     </div>
                     @for (int i = 0; i < Model.Count; i++)
                     {
-
-                        @*   <dt>
-                    @Html.DisplayNameFor(model => model[i].Mohtav)
-                    </dt>
-                    <dd>
-                    @Html.DisplayFor(model => model[i].Mohtav)
-                    </dd>
-                    <dt>
-                    @Html.DisplayNameFor(model => model[i].Modate_Ejra)
-                    </dt>
-                    <dd>
-                    @Html.DisplayFor(model => model[i].Modate_Ejra)
-                    </dd>
-                    <dt>
-                    @Html.DisplayNameFor(model => model[i].Shekle_Ejra)
-                    </dt>
-                    <dd>
-                    @Html.DisplayFor(model => model[i].Shekle_Ejra)
-                    </dd>*@
-
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -105,10 +91,16 @@
 
 
                     }
-                     <a  class="btn btn-success btn-block" asp-controller="Request" asp-action="TeacherOfDoreh" asp-route-onvanAsli="@ViewBag.onvanasli" asp-route-DorehDarkhasti_ID="@ViewBag.DorehDarkhasti_ID" asp-route-OnvanDoreh="@ViewBag.onvandoreh">
-                    تایید
-                </a>
-                <br />
+                       @* @Html.RenderPartialFromController("/Episod/SarFasliPishnahadi")
+                       @await Html.Action("SarFasliPishnahaditest", modeling)
+                       @Html.Action("GetMenu", "Home")
+                       *@
+                       
+                        
+                    <a class="btn btn-success btn-block" asp-controller="Request" asp-action="TeacherOfDoreh" asp-route-onvanAsli="@ViewBag.onvanasli" asp-route-DorehDarkhasti_ID="@ViewBag.DorehDarkhasti_ID" asp-route-OnvanDoreh="@ViewBag.onvandoreh">
+                        تایید
+                    </a>
+                    <br />
                     <form asp-action="SarFasliPishnahadi" method="get">
                         <input type="hidden" name="DorehDarkhasti_ID" value="@ViewBag.DorehDarkhasti_ID" data="@ViewBag.DorehDarkhasti_ID" />
                         <input type="hidden" name="onvanasli" value="@ViewBag.onvanasli" data="@ViewBag.onvanasli" />
@@ -116,8 +108,8 @@
                         <input type="submit" style="background:#337ab7" class="btn btn-warnnig btn-block" value="سر فصل جدید" />
                     </form>
                 </dl>
-                
-               
+
+
             </div>
         </div>
     </section>

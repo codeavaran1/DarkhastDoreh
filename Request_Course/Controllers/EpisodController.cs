@@ -31,8 +31,14 @@ namespace Request_Course.Controllers
             ViewBag.DarkhastDoreh = DorehDarkhasti_ID;
             ViewBag.onvanasli = onvanasli;
             ViewBag.onvandoreh = onvandoreh;
+            return PartialView();
+        }
+        public async Task<IActionResult> SarFasliPishnahaditest(int DorehDarkhasti_ID = 0, int onvandoreh = 0, int onvanasli = 0)
+        {
+
             return View();
         }
+
 
         [HttpPost]
         public async Task<IActionResult> SarFasliPishnahadi(List<string> Mohtav, List<string> Modate_Ejra,

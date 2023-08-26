@@ -2,7 +2,7 @@
 
 
 @{
-     Layout = "~/Views/Shared/_LayoutMokhatabin.cshtml";
+    Layout = "~/Views/Shared/_LayoutMokhatabin.cshtml";
 }
 
 
@@ -78,7 +78,7 @@
         sar Fasle ha
     </p>
 </div>
-@if (ViewData["FasleDoreh"]!= null)
+@if (ViewData["FasleDoreh"] != null)
 {
     @foreach (var item in @ViewData["FasleDoreh"] as List<string>)
     {
@@ -91,4 +91,11 @@
 {
     <p>fasle pishnahadi : @item</p>
 }
+
+
+<button class="btn btn-success btn-block">
+    <a asp-controller="Request" asp-action="ConfrimDoreh" asp-route-DorehId="@ViewBag.DorehDarkhasti_ID">
+        تایید
+    </a>
+</button>
 

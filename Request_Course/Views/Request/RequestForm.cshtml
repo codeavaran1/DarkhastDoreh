@@ -45,12 +45,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-6">
-                                    <label class="control-label">شرکت</label>
+                                    <label class="control-label">نام</label>
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
                                 <div class="col-md-10">
-                                    <input asp-for="Name_Sherkat" class="form-control" />
-                                    <span asp-validation-for="Name_Sherkat" class="text-danger"></span>
+                                    <input value="@ViewBag.family" data="@ViewBag.family" readonly class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -73,6 +72,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-6">
+                                    <label class="control-label">شرکت</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Name_Sherkat" class="form-control" />
+                                    <span asp-validation-for="Name_Sherkat" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
                                     <label class="control-label">ایمیل </label>
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
@@ -82,6 +93,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <br />
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-10">
@@ -93,9 +107,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <br />
-                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-10">
@@ -106,8 +117,6 @@
                                     <select name="Semat" class="form-control" asp-items="@ViewBag.Semat"></select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
                         </div>
                     </div>
                     <br />
@@ -188,7 +197,7 @@
     }
 
 
-      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
             function myFunction() {
                 event.preventDefault();
@@ -206,14 +215,14 @@
                     cancelButtonText: 'رد',
                 }).then(res => {
                     if (res.isConfirmed) {
-                       document.getElementById("myForm").submit();
+                        document.getElementById("myForm").submit();
                     } else {
                         Swal.fire({
                             title: 'عدم تایید',
                             text: 'عدم ارسال اطلاعات',
                             icon: 'error',
-                             confirmButtonText: 'اوکی',
-                              cancelButtonText: 'اوکی',
+                            confirmButtonText: 'اوکی',
+                            cancelButtonText: 'اوکی',
                         })
                     }
                 });

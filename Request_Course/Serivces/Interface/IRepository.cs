@@ -8,6 +8,11 @@ namespace Request_Course.Serivces.Interface
     {
 
         #region Admin
+
+        #region Accsee
+        public Task ConfrimDoreh(int dorehId);
+        #endregion
+
         #region Modaresan
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehforBinding(int pageid=0);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehforBinding(string search,int pageid=0);
