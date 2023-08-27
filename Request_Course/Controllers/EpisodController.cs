@@ -16,28 +16,29 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> SarFaslDoreh(int onvanasli, int onvandoreh, int DorehDarkhasti_ID = 0)
         {
+            List<SelectListItem> Sheklejra = _services.GetRaveshAmozeshis().Result
+               .Select(x => new SelectListItem { Value = x.Titles_RaveshAmozeshi.ToString(), Text = x.Titles_RaveshAmozeshi }).ToList();
             ViewBag.DorehDarkhasti_ID = DorehDarkhasti_ID;
             var SarFasleha = await _services.GetT_Fasl_Dore(onvanasli, onvandoreh);
             ViewBag.onvanasli = onvanasli;
             ViewBag.onvandoreh = onvandoreh;
+            ViewBag.Sheklejra = Sheklejra;
             return View(SarFasleha);
         }
-        [HttpGet]
-        public async Task<IActionResult> SarFasliPishnahadi(int DorehDarkhasti_ID = 0, int onvandoreh = 0, int onvanasli = 0)
-        {
-            List<SelectListItem> Sheklejra = _services.GetRaveshAmozeshis().Result
-                .Select(x => new SelectListItem { Value = x.Titles_RaveshAmozeshi.ToString(), Text = x.Titles_RaveshAmozeshi }).ToList();
-            ViewBag.Sheklejra = Sheklejra;
-            ViewBag.DarkhastDoreh = DorehDarkhasti_ID;
-            ViewBag.onvanasli = onvanasli;
-            ViewBag.onvandoreh = onvandoreh;
-            return PartialView();
-        }
-        public async Task<IActionResult> SarFasliPishnahaditest(int DorehDarkhasti_ID = 0, int onvandoreh = 0, int onvanasli = 0)
-        {
 
-            return View();
-        }
+
+
+        //[HttpGet]
+        //public async Task<IActionResult> SarFasliPishnahadi(int DorehDarkhasti_ID = 0, int onvandoreh = 0, int onvanasli = 0)
+        //{
+        //    List<SelectListItem> Sheklejra = _services.GetRaveshAmozeshis().Result
+        //        .Select(x => new SelectListItem { Value = x.Titles_RaveshAmozeshi.ToString(), Text = x.Titles_RaveshAmozeshi }).ToList();
+        //    ViewBag.Sheklejra = Sheklejra;
+        //    ViewBag.DarkhastDoreh = DorehDarkhasti_ID;
+        //    ViewBag.onvanasli = onvanasli;
+        //    ViewBag.onvandoreh = onvandoreh;
+        //    return PartialView();
+        //}
 
 
         [HttpPost]
