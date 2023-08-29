@@ -743,22 +743,26 @@ namespace Request_Course.Controllers
             return View(reslut);
         }
 
-        public async Task<IActionResult> GetDorehOfSherkat(int MokhatabId)
+        public async Task<IActionResult> GetDorehOfSherkat(int MokhatabId, int pageid = 1)
         {
-            var reslut =await _services.GetDoreh_DarkhastisForMokhatab(MokhatabId);
+            var reslut =await _services.GetDoreh_DarkhastisForMokhatab(MokhatabId,pageid);
             List<string> onvanAsli = new List<string>();
             List<string> onvanDoreh = new List<string>();
             List<string> Vaziat = new List<string>();
+            List<int> Id = new List<int>();
             foreach (var item in reslut)
             {
                 onvanAsli.Add( await _services.GetOnvanAslisbyid(item.T_L_OnvanAsli_ID.Value));
                 onvanDoreh.Add( await _services.GetOnvanDorehbyid(item.T_L_OnvanDoreh_ID.Value));
                 Vaziat.Add(await _services.GetVaziatDorehbyid(item.T_L_Vaziyat_Doreh_ID.Value));
+                Id.Add(item.ID_Doreh_Darkhasti);
             }
             ViewBag.OnvanAsli = onvanAsli;
             ViewBag.OnvanDoreh = onvanDoreh;
             ViewBag.Vaziat = Vaziat;
-            return View();
+            ViewBag.ID = Id;
+            ViewBag.MokhatabId = MokhatabId;
+            return View(reslut);
         }
 
         public async Task<IActionResult> DeleteSherkat()
@@ -771,21 +775,30 @@ namespace Request_Course.Controllers
             return null;
         }
 
-        public async Task<IActionResult> UpdateSherkat()
+        public async Task<IActionResult> AddDorehForSherkat(int mokhatabId)
         {
-            return null;
+            var mokhatab =await _services.GetMokhatebinById(mokhatabId);
+            if (mokhatab == null)
+            {
+                return NotFound();
+            }
+            string Family = mokhatab.NamFamily_Rabet;
+            string Name_Sherkat = mokhatab.Name_Sherkat;
+            string Phone = mokhatab.Phone;
+
+            return RedirectToAction("Request_DorehAmozeshi", "Request", new
+            {
+                Family = Family,
+                Name_Sherkat = Name_Sherkat,
+                Phone = Phone,
+            });
+            
         }
 
-        public async Task<IActionResult> AddDorehForSherkat()
+        public async Task<IActionResult> DeleteDorehOfSherkat(int DorehId)
         {
-
-            return null;
-        }
-
-        public async Task<IActionResult> DeleteDorehOfSherkat()
-        {
-
-            return null;
+            await _services.RemoveDoreh(DorehId);
+            return RedirectToAction("Sherkatha");
         }
 
 

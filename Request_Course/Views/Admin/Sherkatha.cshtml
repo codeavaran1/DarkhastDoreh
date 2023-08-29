@@ -39,8 +39,8 @@
                                                 <td class="sorting_1">@item.Name_Sherkat</td>
                                                 <td>@item.Phone</td>
                                                 <td>@item.Email</td>
-                                                <td class="btn btn-warning" style="margin-right:5%;margin-left:2%"><a asp-controller="Admin" asp-action="GetDorehOfSherkat" asp-route-Id="@item.ID_Mokhatebin">دوره ها</a></td>
-                                                <td class="btn btn-danger" style="margin-right:5%;margin-left:2%"><a asp-controller="Admin" asp-action="DeleteSherkat" asp-route-Id="@item.ID_Mokhatebin">حذف</a></td>
+                                                <td class="btn btn-warning" style="margin-right:5%;margin-left:2%"><a asp-controller="Admin" asp-action="GetDorehOfSherkat" asp-route-MokhatabId="@item.ID_Mokhatebin">دوره ها</a></td>
+                                                <td class="btn btn-danger" style="margin-right:5%;margin-left:2%"><a asp-controller="Admin" asp-action="DeleteSherkat" asp-route-MokhatabId="@item.ID_Mokhatebin">حذف</a></td>
                                             </tr>
                                         }
                                     </tbody>

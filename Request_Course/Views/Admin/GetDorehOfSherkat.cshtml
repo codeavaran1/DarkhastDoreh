@@ -1,5 +1,4 @@
-﻿@*
-@model X.PagedList.IPagedList<Request_Course.Models.T_Doreh_Darkhasti>
+﻿@model X.PagedList.IPagedList<Request_Course.Models.T_Doreh_Darkhasti>
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 
@@ -23,27 +22,45 @@
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">
-                                                @Html.ActionLink("شرکت", "Sherkatha",new {sortOrder="Name"})
+                                                عنوان اصلی
                                             </th>
 
                                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
-                                                شماره
+                                               عنوان دوره
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="ایمیل: activate to sort column ascending">
-                                                ایمیل
+                                               وضیعت
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       @foreach (var item in Model)
+                                        @if (Model.Count() == null || Model.Count() < 1)
                                         {
-                                            <tr role="row" class="odd">
-                                                <td class="sorting_1">@item.Name_Sherkat</td>
-                                                <td>@item.Phone</td>
-                                                <td>@item.Email</td>
-                                                <td class="btn btn-warning" style="margin-right:5%;margin-left:2%"><a asp-controller="Admin" asp-action="GetDorehOfSherkat" asp-route-Id="@item.ID_Mokhatebin">دوره ها</a></td>
-                                                <td class="btn btn-danger" style="margin-right:5%;margin-left:2%"><a asp-controller="Admin" asp-action="DeleteSherkat" asp-route-Id="@item.ID_Mokhatebin">حذف</a></td>
-                                            </tr>
+                                             <tr role="row" class="odd">
+                                                    <td class="sorting_1">نداریم</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                     <td class="btn btn-primery" style="margin-right:5%;margin-left:2%">
+                                                        <a asp-controller="Admin" asp-action="AddDorehForSherkat" asp-route-mokhatabId="@ViewBag.MokhatabId" >افزودن دوره</a>
+                                                    </td>
+                                                </tr>
+                                        }
+                                        else
+                                        {
+                                            @for (int i = 0; i < Model.Count(); i++)
+                                            {
+                                                <tr role="row" class="odd">
+                                                    <td class="sorting_1">@ViewBag.OnvanAsli[i]</td>
+                                                    <td>@ViewBag.OnvanDoreh[i]</td>
+                                                    <td>@ViewBag.Vaziat[i]</td>
+                                                      <td class="btn btn-primery" style="margin-right:5%;margin-left:2%">
+                                                        <a asp-controller="Admin" asp-action="AddDorehForSherkat" asp-route-mokhatabId="@ViewBag.MokhatabId">افزودن دوره</a>
+                                                    </td>
+                                                    <td class="btn btn-danger" style="margin-right:5%;margin-left:2%">
+                                                        <a asp-controller="Admin" asp-action="DeleteDorehOfSherkat" asp-route-DorehId="@ViewBag.ID[i]">حذف</a>
+                                                    </td>
+                                                </tr>
+                                            }
                                         }
                                     </tbody>
                                 </table>
@@ -111,4 +128,3 @@
     </script>
 
 
-*@

@@ -32,10 +32,12 @@ namespace Request_Course.Serivces.Interface
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabGhablAdmin(int paegid = 0);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabGhablAdmin(string search, string sortOrder, int paegid = 0);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_DarkhastisForMokhatab(int MokhatabId = 0, int pageid = 0);
+        public Task RemoveDoreh(int DoreId);
         #endregion
         #region requster
         public Task<Tuple<List<T_Mokhatebin>, int>> GetSherkatha(int pageid = 0);
         public Task<IPagedList<T_Mokhatebin>> GetSherkatha(string search, string sortOrder, int paegid = 0);
+        public Task<T_Mokhatebin> GetMokhatebinById(int MokhatabId);
         #endregion
         #region User
         public Task<List<T_Activation>> GetActivations();

@@ -238,6 +238,13 @@ namespace Request_Course.Serivces
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == MokhatabId&&x.T_L_Vaziyat_Doreh_ID==1);
             return result.ToList().ToPagedList(pageid, 1);
         }
+        public async Task RemoveDoreh(int DoreId)
+        {
+            var result =_context.T_Doreh_Darkhasti.SingleOrDefault(x => x.ID_Doreh_Darkhasti == DoreId);
+            result.IsFinaly = false;
+            _context.T_Doreh_Darkhasti.Update(result);
+            await _context.SaveChangesAsync();
+        }
         #endregion
         #region Requester
         public async Task<Tuple<List<T_Mokhatebin>, int>> GetSherkatha(int pageid = 0)
@@ -266,6 +273,10 @@ namespace Request_Course.Serivces
                 result = result.Where(s => s.Name_Sherkat== search);
             }
             return result.ToList().ToPagedList(paegid, 3);
+        }
+        public async Task<T_Mokhatebin> GetMokhatebinById(int MokhatabId)
+        {
+            return _context.T_Mokhatebin.SingleOrDefault(x => x.ID_Mokhatebin == MokhatabId);
         }
         #endregion
         #region User
