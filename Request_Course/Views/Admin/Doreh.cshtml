@@ -1,72 +1,208 @@
 ﻿@model int
-<div class="content-wrapper">
-    <section class="content">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">دوره</h3>
+
+@*<section class="content">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">اطلاعات </p></div>
+        <div class="panel-body">
+            <form id="myForm" asp-action="DefineOnvanAsliAndOnvanDoreh" method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-8">
+                                <div class="titrfild">
+                                    <p style="font-family:WYekan;font-size:large">
+                                        <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
+                                        <strong>اطلاعات کلی:</strong>
+                                    </p>
+                                </div>
+                            </div> <div class="col-4"></div>
+                            <div class="col-md-10">
+                            </div>
+                        </div>
                     </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
-                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                            <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
-                                <div class="col-sm-12">
-                                    <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-                                        <thead>
-                                            <tr role="row">
-                                                <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="عنوان دوره: activate to sort column descending">عنوان دوره</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="مخاطب: activate to sort column ascending">مخاطب</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @for (int i = 0; i < Model; i++)
-                                            {
-                                                <tr role="row" class="odd">
-                                                    <td class="sorting_1">@ViewBag.OnvanDoreh[i]</td>
-                                                    <td>@ViewBag.mokhatab[i]</td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label">عنوان اصلی</label>
+                                <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" name="OnvanAsli" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label">عنوان دوره</label>
+                                <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" name="OnvanDoreh" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-8">
+                                <div class="titrfild">
+                                    <p style="font-family:WYekan;font-size:large">
+                                        <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
+                                        <strong>اطلاعات سرفصل دوره:</strong>
+                                    </p>
                                 </div>
-                            </div><div class="row">
-                                <div class="col-sm-5">
+                            </div> <div class="col-4"></div>
+                            <div class="col-md-10">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <div class="row">
+                    @for (int i = 0; i < 2; i++)
+                    {
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">محتوا</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
-                                <div class="col-sm-7">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                       @if (ViewBag.pagecount >= 1)
+                                <div class="col-md-10">
+                                    <input name="Mohtav" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">مدت اجرا</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input name="Modate_Ejra" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">نوع اجرا</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="shekldoreh" class="form-control" asp-items="@ViewBag.Sheklejra"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-10">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+
+                    <div class="col-md-3">
+                    </div>
+
+                    <div class="col-md-3">
+                        <button onclick="myFunction()" class="btn btn-success btn-block"> تایید</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+*@
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">دوره</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                            <div class="col-sm-12">
+                                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="عنوان دوره: activate to sort column descending">عنوان دوره</th>
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="مخاطب: activate to sort column ascending">شرکت</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < Model; i++)
                                         {
-                                            <ul class="pagination">
-                                                @for (int i = 0; i < ViewBag.pagecount + 1; i++)
-                                                {
-                                                    @if (ViewBag.pageid == i + 1)
-                                                    {
-                                                        <li class="paginate_button active">
-                                                            <a asp-controller="Admin" asp-action="Doreh" asp-route-pageid="@(i+1)" aria-controls="example2" data-dt-idx="0" tabindex="0">@(i+1)</a>
-                                                        </li>
-                                                    }
-                                                    else
-                                                    {
-                                                        <li class="paginate_button ">
-                                                            <a asp-controller="Admin" asp-action="Doreh" asp-route-pageid="@(i+1)" aria-controls="example2" data-dt-idx="0" tabindex="0">@(i+1)</a>
-                                                        </li>
-                                                    }
-                                                }
-                                            </ul>
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">@ViewBag.OnvanDoreh[i]</td>
+                                                <td>@ViewBag.mokhatab[i]</td>
+                                                <td class="btn btn-danger"><a asp-controller="Admin" asp-action="DeleteModares" asp-route-modaresId="@ViewBag.Dorehid[i]">حذف</a></td>
+                                            </tr>
                                         }
-                                    </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><div class="row">
+                            <div class="col-sm-5">
+                            </div>
+                            <div class="col-sm-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                    @if (ViewBag.pagecount >= 1)
+                                    {
+                                        <ul class="pagination">
+                                            @for (int i = 0; i < ViewBag.pagecount + 1; i++)
+                                            {
+                                                @if (ViewBag.pageid == i + 1)
+                                                {
+                                                    <li class="paginate_button active">
+                                                        <a asp-controller="Admin" asp-action="Doreh" asp-route-pageid="@(i+1)" aria-controls="example2" data-dt-idx="0" tabindex="0">@(i+1)</a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="paginate_button ">
+                                                        <a asp-controller="Admin" asp-action="Doreh" asp-route-pageid="@(i+1)" aria-controls="example2" data-dt-idx="0" tabindex="0">@(i+1)</a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- /.box-body -->
                 </div>
-                <!-- /.box -->
-                <!-- /.box -->
+                <!-- /.box-body -->
             </div>
-            <!-- /.col -->
+            <!-- /.box -->
+            <!-- /.box -->
         </div>
-        <!-- /.row -->
-    </section>
-</div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+

@@ -1,8 +1,11 @@
-﻿
+﻿@model X.PagedList.IPagedList<Request_Course.Models.T_Fasl_Doreh>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+
 <body>
     <section class="content-header">
     </section>
-
     <!-- Main content -->
     <section class="content">
         <div class="panel panel-primary">
@@ -143,6 +146,79 @@
             </div>
         </div>
     </section>
+
+
+      <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">مدرسان</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                            <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                                <div class="col-sm-12">
+                                    <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">
+                                                   عنوان اصلی  
+                                                </th>
+
+                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
+                                                   عنوان دوره
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="ایمیل: activate to sort column ascending">
+                                                    محتوا
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="ایمیل: activate to sort column ascending">
+                                                    مدت اجرا
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="ایمیل: activate to sort column ascending">
+                                                    شکل اجرا
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for(int i = 0; i < Model.Count(); i++)
+                                            {
+                                                 <tr role="row" class="odd">
+                                                    <td class="sorting_1">@ViewBag.onvanAsli[i]</td>
+                                                    <td>@ViewBag.onvanDoreh[i]</td>
+                                                    <td>@Model[i].Mohtav</td>
+                                                    <td>@Model[i].Modate_Ejra</td>
+                                                    <td>@Model[i].Shekle_Ejra</td>
+                                                    <td class="btn btn-warning" style="margin-right:5%;margin-left:2%"><a asp-controller="Admin" asp-action="UpdateOnvanAsliAndOnvanDoreh" asp-route-Id="@Model[i].ID_Fasl_Doreh">ویرایش</a></td>
+                                                </tr>
+                                            }    
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div><div class="row">
+                                <div class="col-sm-5">
+                                </div>
+
+                                <div class="col-sm-7">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                    </div>
+                                    @Html.PagedListPager(Model, page => Url.Action("DefineOnvanAsliAndOnvanDoreh", new { pageid=page }))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+
+
 
     @section Scripts {
         @{

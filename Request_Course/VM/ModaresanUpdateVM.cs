@@ -14,9 +14,7 @@ namespace Request_Course.VM
         [StringLength(250)]
         public string Onvan_Shoghli { get; set; } = string.Empty;
 
-        [StringLength(50)]
-        public string MadrakTahsili { get; set; }
-
+        
         [StringLength(100)]
         public string NameFamily { get; set; } = string.Empty;       
 
@@ -26,6 +24,5 @@ namespace Request_Course.VM
         [StringLength(50)]
         public string? Phone { get; set; }
 
-        public bool? Active { get; set; }
     }
 }

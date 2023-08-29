@@ -88,7 +88,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        alert("Hiii")
+       
         $.ajax({
             type: "POST",
             url: "/Chart/charting",
@@ -105,10 +105,7 @@
             var _labels = data[0];
             var _Chartdata = data[1];
             var colors = ['Red', 'Blue', 'Green', 'Purple'];
-            alert(_data[0])
-            alert(_data[1])
-            alert(colors)
-
+       
             new Chart(myChart,
                 {
                     type: 'bar',
@@ -131,7 +128,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        alert("Hiii22222")
+        
         $.ajax({
             type: "POST",
             url: "/Chart/UserChart",
@@ -148,10 +145,7 @@
             var _labels = data[0];
             var _Chartdata = data[1];
             var colors = ['Red', 'Blue', 'Green', 'Purple'];
-            alert(_data[0])
-            alert(_data[1])
-            alert(colors)
-
+        
             new Chart(myChart,
                 {
                     type: 'bar',

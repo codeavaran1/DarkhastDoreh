@@ -59,6 +59,12 @@ namespace Request_Course.Serivces
             await _context.SaveChangesAsync();
             return 0;
         }
+        public async Task RemoveTeacher(int modaresId)
+        {
+            var modares =await GetModaresan(modaresId);
+            _context.T_Modaresan.Remove(modares);
+            await _context.SaveChangesAsync();
+        }
         #endregion
         #region Doreh
         public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDoreh(int pageid = 0)
@@ -118,8 +124,6 @@ namespace Request_Course.Serivces
             return  result.ToList().ToPagedList(pageid, 1);
 
         }
-
-
         public async Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh)
         {
             T_L_OnvanAsli t_L_OnvanAsli = new T_L_OnvanAsli()
@@ -229,6 +233,11 @@ namespace Request_Course.Serivces
             }
             return result.ToList().ToPagedList(paegid, 1);
         }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_DarkhastisForMokhatab(int MokhatabId = 0,int pageid=0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == MokhatabId&&x.T_L_Vaziyat_Doreh_ID==1);
+            return result.ToList().ToPagedList(pageid, 1);
+        }
         #endregion
         #region Requester
         public async Task<Tuple<List<T_Mokhatebin>, int>> GetSherkatha(int pageid = 0)
@@ -256,7 +265,7 @@ namespace Request_Course.Serivces
             {
                 result = result.Where(s => s.Name_Sherkat== search);
             }
-            return result.ToList().ToPagedList(paegid, 1);
+            return result.ToList().ToPagedList(paegid, 3);
         }
         #endregion
         #region User
@@ -614,9 +623,11 @@ namespace Request_Course.Serivces
         {
             throw new NotImplementedException();
         }
-        public Task<int> UpdateDoreh()
+        public async Task<int> UpdateDoreh(T_Doreh_Darkhasti doreh_Darkhasti)
         {
-            throw new NotImplementedException();
+            _context.T_Doreh_Darkhasti.Update(doreh_Darkhasti);
+            await _context.SaveChangesAsync();
+            return 0;
         }
         public async Task<int> Add_Pishnahad_Modares_Doreh(T_Pishnahad_Modares_Doreh t_Pishnahad_Modares_Doreh)
         {
@@ -685,6 +696,21 @@ namespace Request_Course.Serivces
         public async Task<int> AddSarFasl(List<T_Fasl_Doreh> t_Fasl_Dorehs)
         {
             await _context.T_Fasl_Doreh.AddRangeAsync(t_Fasl_Dorehs);
+            await _context.SaveChangesAsync();
+            return 0;
+        }
+        public async Task<IPagedList<T_Fasl_Doreh>> GetT_Fasle_Dorehs(int pageid)
+        {
+            IQueryable<T_Fasl_Doreh> result = _context.T_Fasl_Doreh;
+            return result.ToList().ToPagedList(pageid, 2);
+        }
+        public async Task<T_Fasl_Doreh> GetT_Fasl_DorehById(int id)
+        {
+            return _context.T_Fasl_Doreh.SingleOrDefault(x => x.ID_Fasl_Doreh == id);
+        }
+        public async Task<int> Update_T_Fasle_Doreh(T_Fasl_Doreh t_Fasl_Doreh)
+        {
+            _context.T_Fasl_Doreh.Update(t_Fasl_Doreh);
             await _context.SaveChangesAsync();
             return 0;
         }
@@ -778,6 +804,68 @@ namespace Request_Course.Serivces
 
         #endregion
 
+        #region Tools
+        public async Task<string> GetDategeElmibyid(int id)
+        {
+            return _context.T_L_DaragehElmi.SingleOrDefault(x => x.ID_DaragehElmi == id).Titles_DaragehElmi;
+        }
+        public async Task<string> GetMaghtaeTahsilibyid(int id)
+        {
+            return _context.T_L_MaghtaeTahsili.SingleOrDefault(x => x.ID_MaghtaeTahsili == id).Titles_MaghtaeTahsili;
+        }
+        public async Task<string> GetReshtehTahsilibyid(int id)
+        {
+            return _context.T_L_ReshtehTahsili.SingleOrDefault(x => x.ID_ReshtehTahsili == id).Titles_ReshtehTahsili;
+        }
+        public async Task<string> GetFildAslibyid(int id)
+        {
+            return _context.T_L_FildAsli.SingleOrDefault(x => x.ID_FildAsli == id).Titles_FildAsli;
+        }
+        public async Task<string> GetOnvanDorehbyid(int id)
+        {
+            return _context.T_L_OnvanDoreh.SingleOrDefault(x => x.ID_OnvanDoreh == id).Titles_OnvanDoreh;
+        }
+        public async Task<string> GetSematbyid(int id)
+        {
+            return _context.T_L_Semat.SingleOrDefault(x => x.ID_Semat == id).Titles_Semat;
+        }
+        public async Task<string> GetOstansbyid(int id)
+        {
+            return _context.T_L_Ostan.SingleOrDefault(x => x.ID_Ostan == id).Titles_Ostan;
+        }
+        public async Task<string> GetOnvanAslisbyid(int id)
+        {
+            return _context.T_L_OnvanAsli.SingleOrDefault(x => x.ID_L_OnvanAsli == id).Titles_OnvanAsli;
+        }
+        public async Task<string> GetMediaAmozeshisbyid(int id)
+        {
+            return _context.T_L_MediaAmozeshi.SingleOrDefault(x => x.ID_MediaAmozeshi == id).Titles_MediaAmozeshi;
+        }
+        public async Task<string> GetRaveshAmozeshisbyid(int id)
+        {
+            return _context.T_L_RaveshAmozeshi.SingleOrDefault(x => x.ID_L_RaveshAmozeshi == id).Titles_RaveshAmozeshi;
+        }
+        public async Task<string> GetModateDorehsbyid(int id)
+        {
+            return _context.T_L_ModateDoreh.SingleOrDefault(x => x.ID_ModateDoreh == id).Titles_ModateDoreh;
+        }
+        public async Task<string> GetMokhatabanDorehsbyid(int id)
+        {
+            return _context.T_L_MokhatabanDoreh.SingleOrDefault(x => x.ID_MokhatabanDoreh == id).Titles_MokhatabanDoreh;
+        }
+        public async Task<string> GetSatheKeyfi_Modaresbyid(int id)
+        {
+            return _context.T_L_SatheKeyfi_Modares.SingleOrDefault(x => x.ID_L_SatheKeyfi_Modares == id).Titles_SatheKeyfi_Modares;
+        }
+        public async Task<int> Get_RaveshAmozeshiByName(string name)
+        {
+            return _context.T_L_RaveshAmozeshi.SingleOrDefault(x => x.Titles_RaveshAmozeshi == name).ID_L_RaveshAmozeshi;
+        }
+        public async Task<string> GetVaziatDorehbyid(int id)
+        {
+            return _context.T_L_Vaziyat_Doreh.SingleOrDefault(x => x.ID_L_Vaziyat_Doreh == id).Titles_Vaziyat_Doreh;
+        }
+        #endregion
 
         #region Adimns
         public async Task<Tuple<List<T_Admin>, int>> GetAdminsList(int pageid = 0)

@@ -17,6 +17,7 @@ namespace Request_Course.Serivces.Interface
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehforBinding(int pageid=0);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehforBinding(string search,int pageid=0);
         public Task<int> BindModresToDoreh(int dorehid,int modaresid);
+        public Task RemoveTeacher(int modaresId);
         #endregion
         #region Doreh
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDoreh(int pageid=0);
@@ -30,6 +31,7 @@ namespace Request_Course.Serivces.Interface
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabPygiryAdmin(string search, string sortOrder, int paegid = 0);
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehMokhatabGhablAdmin(int paegid = 0);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabGhablAdmin(string search, string sortOrder, int paegid = 0);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_DarkhastisForMokhatab(int MokhatabId = 0, int pageid = 0);
         #endregion
         #region requster
         public Task<Tuple<List<T_Mokhatebin>, int>> GetSherkatha(int pageid = 0);
@@ -93,7 +95,7 @@ namespace Request_Course.Serivces.Interface
 
         #region doreh
         public Task<int> AddDoreh();
-        public Task<int> UpdateDoreh();
+        public Task<int> UpdateDoreh(T_Doreh_Darkhasti doreh_Darkhasti);
         public Task<int> Add_Pishnahad_Modares_Doreh(T_Pishnahad_Modares_Doreh t_Pishnahad_Modares_Doreh);
         public Task<T_Doreh_Darkhasti> GetDoreh_Darkhasti(int DorehDakhastiId);
         public Task<T_Pishnahad_Modares_Doreh> GetPishnahad_Modares_Doreh(int DorehDakhastiId);
@@ -128,10 +130,15 @@ namespace Request_Course.Serivces.Interface
         public Task<List<string>> GetT_Fasl_Dorehs_Pishnahadi(int Dorehid);
         public Task<int> Add_sar_Fasle_Doreh_Pishnahadi(List<T_Fasl_Doreh_Pishnahadi> t_Fasl_Doreh_Pishnahadi);
         public Task<int> AddSarFasl(List<T_Fasl_Doreh> t_Fasl_Dorehs);
+        public Task<IPagedList<T_Fasl_Doreh>> GetT_Fasle_Dorehs(int pageid);
+        public Task<T_Fasl_Doreh> GetT_Fasl_DorehById(int id);
+        public Task<int> Update_T_Fasle_Doreh(T_Fasl_Doreh t_Fasl_Doreh);
+        
 
         #endregion
 
         #region Tools
+
         public Task<List<T_L_MaghtaeTahsili>> GetMaghtaeTahsili();
         public Task<List<T_L_ReshtehTahsili>> GetReshtehTahsilis();
         public Task<List<T_L_DaragehElmi>> GetDaragehElmis();
@@ -145,6 +152,24 @@ namespace Request_Course.Serivces.Interface
         public Task<List<T_L_ModateDoreh>> GetModateDorehs();
         public Task<List<T_L_MokhatabanDoreh>> GetMokhatabanDorehs();
         public Task<List<T_L_SatheKeyfi_Modares>> GetSatheKeyfi_Modares();
+        public Task<string> GetVaziatDorehbyid(int id); 
+        public Task<string> GetDategeElmibyid(int id);
+        public Task<string> GetMaghtaeTahsilibyid(int id);
+        public Task<string> GetReshtehTahsilibyid(int id);
+        public Task<string> GetFildAslibyid(int id);
+        public Task<string> GetOnvanDorehbyid(int id);
+        public Task<string> GetSematbyid(int id);
+        public Task<string> GetOstansbyid(int id);
+        public Task<string> GetOnvanAslisbyid(int id);
+        public Task<string> GetMediaAmozeshisbyid(int id);
+        public Task<string> GetRaveshAmozeshisbyid(int id);
+        public Task<string> GetModateDorehsbyid(int id);
+        public Task<string> GetMokhatabanDorehsbyid(int id);
+        public Task<string> GetSatheKeyfi_Modaresbyid(int id);
+        public Task<int> Get_RaveshAmozeshiByName(string name);
+
+
+
         #endregion
 
         #region Admins

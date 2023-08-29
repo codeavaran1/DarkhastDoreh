@@ -1,0 +1,242 @@
+﻿@model Request_Course.VM.ModaresanUpdateVM
+
+
+<body>
+    <section class="content-header">
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="panel panel-primary">
+            <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات استاد</p></div>
+            <div class="panel-body">
+                <form id="myForm" asp-action="UpdateModares" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="modaresId" value="@ViewBag.ID" data="@ViewBag.ID" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-8">
+                                    <div class="titrfild">
+                                        <p style="font-family:WYekan;font-size:large">
+                                            <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
+                                            <strong>اطلاعات کلی:</strong>
+                                        </p>
+                                    </div>
+                                </div> <div class="col-4"></div>
+                                <div class="col-md-10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <br />
+                     <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">نام نام خانوادگی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="NameFamily" class="form-control" />
+                                    <span asp-validation-for="NameFamily" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">موبایل</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Phone" class="form-control" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">ایمیل</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">دانشگاه</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Daneshgah_Sherkat" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">توضیحات</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Description" class="form-control" />
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                         <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">عنوان شغلی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Onvan_Shoghli " class="form-control" />
+                                    <span asp-validation-for="Onvan_Shoghli " class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> مقطع تحصیلی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="maghtaehtasili" class="form-control" asp-items="@ViewBag.Maghta"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                         <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">رشته تحصیلی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                <select name="Reshte" class="form-control" asp-items="@ViewBag.Reshte_Drop"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> درجه علمی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="DaregElmi" class="form-control" asp-items="@ViewBag.DaregElm_Drop"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">توضیحات</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <textarea asp-for="Description" class="form-control"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">عکس</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input name="img" type="file" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                        </div>
+
+                        <div class="col-md-3">
+                        </div>
+
+                        <div class="col-md-3">
+                            <button onclick="myFunction()" class="btn btn-success btn-block">ویرایش</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            function myFunction() {
+                event.preventDefault();
+                Swal.fire({
+                    title: 'آیا از اطلاعات خود مطمئن هستید ',
+                    icon: 'question',
+                    imageWidth: 350,
+                    imageHeight: 300,
+                    showCloseButton: false,
+                    showCancelButton: true,
+                    focusConfirm: false,
+                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'تایید',
+                    cancelButtonText: 'رد',
+                }).then(res => {
+                    if (res.isConfirmed) {
+                        document.getElementById("myForm").submit();
+                    } else {
+                        Swal.fire({
+                            title: 'عدم تایید',
+                            text: 'عدم ارسال اطلاعات',
+                            icon: 'error',
+                            confirmButtonText: 'اوکی',
+                            cancelButtonText: 'اوکی',
+                        })
+                    }
+                });
+            }
+        </script>
+
+    </body>
+            </html>
