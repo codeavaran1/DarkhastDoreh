@@ -101,6 +101,7 @@ namespace Request_Course.Serivces.Interface
         public Task<int> Add_Pishnahad_Modares_Doreh(T_Pishnahad_Modares_Doreh t_Pishnahad_Modares_Doreh);
         public Task<T_Doreh_Darkhasti> GetDoreh_Darkhasti(int DorehDakhastiId);
         public Task<T_Pishnahad_Modares_Doreh> GetPishnahad_Modares_Doreh(int DorehDakhastiId);
+        public Task<bool> GetModaresPishnahadiForBind(int DrehId,string phone);
         public Task<string> GetOnvanAsli(int OnvanAsliId);
         public Task<string> GetOnvanDoreh(int OnvanDorehId);
         public Task<string> GetRavasheAmozeshi(int RaveshAmozeshId);
@@ -124,6 +125,7 @@ namespace Request_Course.Serivces.Interface
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabFaal(int userid, string search, string sortOrder, int paegid = 0);
         public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid, string search, string sortOrder, int paegid = 0);
+        public Task DeleteSherkat(int SherkatId);
         #endregion
 
         #region Sar Fasl Doreh

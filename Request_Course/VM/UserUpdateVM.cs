@@ -2,7 +2,6 @@
 {
     public class UserUpdateVM
     {
-        public int id { get; set; }
 
         public string Usename { get; set; }=string.Empty;
 

@@ -6,7 +6,7 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">دوره</h3>
+                        <h3 class="box-title">انتخاب مدرس</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -17,8 +17,7 @@
                                         <thead>
                                         </thead>
                                         <tbody>
-                                            <p>Info of Modaresan Pishnahadi</p>
-
+                                            <p>مدرس های مربوط به دوره</p>
                                             <div>
                                                 <p>
                                                     Teahcername1:@Model.Teahcername1
@@ -27,7 +26,6 @@
                                                         <a asp-controller="Admin" asp-action="FinalBindModares" asp-route-dorehid="@ViewBag.DorehId" asp-route-modaresid="@Model.ID_Teahcername1">انتخاب</a>
                                                     }
                                                 </p>
-
                                             </div>
                                             <div>
                                                 <p>
@@ -49,16 +47,22 @@
                                             <div>
                                                 <p>
                                                     TeacherPshanmdiName1 : @Model.TeacherPshanmdiName1
+                                                    Phone : @Model.TeacherPshanmdiNumber1
+                                                    <a asp-controller="Admin" asp-action="BindModaresPishnahadi" asp-route-Dorehid="@ViewBag.DorehId" asp-route-Phone="@Model.TeacherPshanmdiNumber1"> جستوجو و وصل کردن مدرس به دوره</a>
                                                 </p>
                                             </div>
                                             <div>
                                                 <p>
                                                     TeacherPshanmdiName2 : @Model.TeacherPshanmdiName2
+                                                    Phone : @Model.TeacherPshanmdiNumber2
+                                                    <a asp-controller="Admin" asp-action="BindModaresPishnahadi" asp-route-Dorehid="@ViewBag.DorehId" asp-route-Phone="@Model.TeacherPshanmdiNumber2"> جستوجو و وصل کردن مدرس به دوره</a>
                                                 </p>
                                             </div>
                                             <div>
                                                 <p>
                                                     TeacherPshanmdiName3 : @Model.TeacherPshanmdiName3
+                                                    Phone : @Model.TeacherPshanmdiNumber3
+                                                    <a asp-controller="Admin" asp-action="BindModaresPishnahadi" asp-route-Dorehid="@ViewBag.DorehId" asp-route-Phone="@Model.TeacherPshanmdiNumber3"> جستوجو و وصل کردن مدرس به دوره</a>
                                                 </p>
                                             </div>
                                             <br />

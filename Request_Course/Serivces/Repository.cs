@@ -54,7 +54,7 @@ namespace Request_Course.Serivces
         {
             var result = await GetDoreh_Darkhasti(dorehid);
             result.T_Modaresan_ID = modaresid;
-            result.T_L_Vaziyat_Doreh_ID = 1;
+            result.T_L_Vaziyat_Doreh_ID = 5;
             _context.T_Doreh_Darkhasti.Update(result);
             await _context.SaveChangesAsync();
             return 0;
@@ -81,22 +81,31 @@ namespace Request_Course.Serivces
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh(string search, string sortOrder, int pageid = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti;
-            if (!string.IsNullOrEmpty(sortOrder))
+            switch (sortOrder)
             {
-                result = result.OrderBy(d => d.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                case "Doreh":
+                    result = result.OrderBy(x => x.T_L_OnvanAsli_ID);
+                    break;
+                case "Mokhatb":
+                    result = result.OrderBy(x => x.T_Mokhatebin_ID);
+                    break;
+                case "vazieat":
+                    result = result.OrderBy(x => x.T_L_Vaziyat_Doreh_ID);
+                    break;
+                default:
+                    break;
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat== search);
             }
             return result.ToList().ToPagedList(pageid, 1);
         }
         public async Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehWithoutModares(int pageid = 0)
         {
-            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID != null);
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == null);
 
             result = result.OrderByDescending(c => c.Date_Create);
-
             int skip = (pageid - 1) * 4;
             int pageCount = result.Count() / 4;
             List<T_Doreh_Darkhasti> query = result.Skip(skip).Take(4).ToList();
@@ -105,7 +114,7 @@ namespace Request_Course.Serivces
         }
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehWithoutModares(string search, string sortOreder, int pageid = 0)
         {
-            IQueryable<T_Doreh_Darkhasti> result =_context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID != null);
+            IQueryable<T_Doreh_Darkhasti> result =_context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == null&&x.T_L_Vaziyat_Doreh_ID==3);
             switch (sortOreder)
             {
                 case "Doreh":
@@ -119,7 +128,7 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat== search);
             }
             return  result.ToList().ToPagedList(pageid, 1);
 
@@ -156,10 +165,10 @@ namespace Request_Course.Serivces
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 1);
             switch (sortOrder)
             {
-                case "Name":
+                case "Doreh":
                     result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
                     break;
-                case "Date":
+                case "Mokhatb":
                     result = result.OrderBy(o => o.Date_Create);
                     break;
                 default:
@@ -167,7 +176,7 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat == search);
             }
             return result.ToList().ToPagedList(paegid, 1);
         }
@@ -187,10 +196,10 @@ namespace Request_Course.Serivces
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3);
             switch (sortOrder)
             {
-                case "Name":
+                case "Doreh":
                     result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
                     break;
-                case "Date":
+                case "Mokhatb":
                     result = result.OrderBy(o => o.Date_Create);
                     break;
                 default:
@@ -198,7 +207,7 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat == search);
             }
             return result.ToList().ToPagedList(paegid, 1);
         }
@@ -218,10 +227,10 @@ namespace Request_Course.Serivces
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 2);
             switch (sortOrder)
             {
-                case "Name":
+                case "Doreh":
                     result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
                     break;
-                case "Date":
+                case "Mokhatb":
                     result = result.OrderBy(o => o.Date_Create);
                     break;
                 default:
@@ -229,13 +238,13 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat == search);
             }
             return result.ToList().ToPagedList(paegid, 1);
         }
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_DarkhastisForMokhatab(int MokhatabId = 0,int pageid=0)
         {
-            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == MokhatabId&&x.T_L_Vaziyat_Doreh_ID==1);
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Mokhatebin_ID== MokhatabId&&x.IsFinaly==true);
             return result.ToList().ToPagedList(pageid, 1);
         }
         public async Task RemoveDoreh(int DoreId)
@@ -548,6 +557,10 @@ namespace Request_Course.Serivces
             return 0;
         }
 
+        public async Task DeleteSherkat(int SherkatId)
+        {
+            var result= _context.T_Mokhatebin.SingleOrDefault(x => x.ID_Mokhatebin == SherkatId);
+        }
 
         #region Doreh Mokhatbin
         public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl(int userid)
@@ -654,6 +667,20 @@ namespace Request_Course.Serivces
         {
             return _context.T_Pishnahad_Modares_Doreh.SingleOrDefault(x => x.T_Doreh_Darkhasti_ID == DorehDakhastiId);
         }
+        public async Task<bool> GetModaresPishnahadiForBind(int DrehId, string phone)
+        {
+            T_Modaresan Modares =_context.T_Modaresan.SingleOrDefault(d => d.Phone == phone);
+            if (Modares!=null)
+            {
+                T_Doreh_Darkhasti Doreh = _context.T_Doreh_Darkhasti.SingleOrDefault(x => x.ID_Doreh_Darkhasti == DrehId);
+                Doreh.T_Modaresan_ID = Modares.ID_Modaresan;
+                Doreh.T_L_Vaziyat_Doreh_ID = 5;
+                _context.T_Doreh_Darkhasti.Update(Doreh);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
         public async Task<string> GetOnvanAsli(int OnvanAsliId)
         {
             return _context.T_L_OnvanAsli.SingleOrDefault(d => d.ID_L_OnvanAsli == OnvanAsliId).Titles_OnvanAsli;
@@ -672,7 +699,7 @@ namespace Request_Course.Serivces
         }
         public async Task<string> GetMokhatabinDoreh(int MokhatinDoreh)
         {
-            return _context.T_Mokhatebin.SingleOrDefault(d => d.ID_Mokhatebin == MokhatinDoreh).NamFamily_Rabet;
+            return _context.T_Mokhatebin.SingleOrDefault(d => d.ID_Mokhatebin == MokhatinDoreh).Name_Sherkat;
         }
         public async Task<string> GetSatehkeyfi(int SatehkeyfiId)
         {
@@ -894,7 +921,13 @@ namespace Request_Course.Serivces
             IQueryable<T_Admin> result = _context.T_Admins.Where(x => x.Admin == true);
             switch (soreOrder)
             {
-                case "Name":
+                case "username":
+                    result = result.OrderBy(o => o.UserName);
+                    break;
+                case "phone":
+                    result = result.OrderBy(o => o.Phone);
+                    break;
+                case "name":
                     result = result.OrderBy(o => o.Name);
                     break;
                 default:
@@ -902,7 +935,7 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Where(s => s.Name== search);
+                result = result.Where(s => s.UserName== search);
             }
             return result.ToList().ToPagedList(pageid, 1);
         }
@@ -927,7 +960,13 @@ namespace Request_Course.Serivces
             IQueryable<T_Admin> result = _context.T_Admins.Where(x => x.User == true);
             switch (soreOrder)
             {
-                case "Name":
+                case "username":
+                    result = result.OrderBy(o => o.UserName);
+                    break;
+                case "phone":
+                    result = result.OrderBy(o => o.Phone);
+                    break;
+                case "name":
                     result = result.OrderBy(o => o.Name);
                     break;
                 default:
@@ -935,7 +974,7 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Where(s => s.Name == search);
+                result = result.Where(s => s.UserName == search);
             }
             return result.ToList().ToPagedList(pageid, 1);
         }
