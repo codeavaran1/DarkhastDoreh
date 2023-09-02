@@ -11,42 +11,42 @@ namespace Request_Course.Controllers
             _services = repository;
         }
 
-        public async Task<IActionResult> ComputeModares(int ID_Modares)
+        public async Task<IActionResult> ComputeModaresByModaresId(int ID_Modares)
         {
             var TeacherOfDoreh = await _services.GetDorehID_Teacher(ID_Modares);
-            
+
             double meanReall = 0;
             int Counter = 0;
             foreach (var item in TeacherOfDoreh)
             {
                 var nazar = await _services.GetNazarsanji(item);
-                if (nazar!=null)
+                if (nazar != null)
                 {
                     Counter += 1;
                     int[] inpu = new int[4];
                     int[] Zarib = new int[4];
-                    Zarib[0] = 3;
+                    Zarib[0] = 1;
                     Zarib[1] = 1;
                     Zarib[2] = 1;
-                    Zarib[3] = 2;
+                    Zarib[3] = 1;
                     inpu[0] = nazar.Num_Tasalot.Value;
                     inpu[1] = nazar.Num_Roayat_Sarfasl.Value;
                     inpu[2] = nazar.Num_Roayat_Nazm.Value;
                     inpu[3] = nazar.Num_TamoolBaFaragir.Value;
                     meanReall += await weightedMean(inpu, Zarib, 4);
                 }
-                
+
             }
-            meanReall=meanReall/Counter;
-            meanReall=meanReall * 20 / 5;
-           var Modares= await _services.GetModaresan(ID_Modares);
+            meanReall = meanReall / Counter;
+            meanReall = meanReall * 20 / 5;
+            var Modares = await _services.GetModaresan(ID_Modares);
             Modares.Nomreh_Keyfi = ((decimal)meanReall);
-            Modares.Avg_Nomreh_Tadris= ((decimal)meanReall);
-            if (meanReall>=15)
+            Modares.Avg_Nomreh_Tadris = ((decimal)meanReall);
+            if (meanReall >= 15)
             {
                 Modares.Sathe_Keyfi = 4;
             }
-            else if (meanReall>=10)
+            else if (meanReall >= 10)
             {
                 Modares.Sathe_Keyfi = 3;
             }
@@ -58,21 +58,67 @@ namespace Request_Course.Controllers
             {
                 Modares.Sathe_Keyfi = 1;
             }
-
-
+            await ComputeRetbe();
             return View();
+        }
+
+
+        public async Task<IActionResult> ComputeModaresByDorehid(int DorehId)
+        {
+
+            var doreh = await _services.GetDoreh_Darkhasti(DorehId);
+            double meanReall = 0;
+            var nazar = await _services.GetNazarsanji(DorehId);
+            if (nazar != null)
+            {
+                int[] inpu = new int[4];
+                int[] Zarib = new int[4];
+                Zarib[0] = 1;
+                Zarib[1] = 1;
+                Zarib[2] = 1;
+                Zarib[3] = 1;
+                inpu[0] = nazar.Num_Tasalot.Value;
+                inpu[1] = nazar.Num_Roayat_Sarfasl.Value;
+                inpu[2] = nazar.Num_Roayat_Nazm.Value;
+                inpu[3] = nazar.Num_TamoolBaFaragir.Value;
+                meanReall += await weightedMean(inpu, Zarib, 4);
+            }
+
+            meanReall = meanReall * 20 / 5;
+            var Modares = await _services.GetModaresan(doreh.T_Modaresan_ID.Value);
+            Modares.Nomreh_Keyfi = ((decimal)meanReall);
+            Modares.Avg_Nomreh_Tadris = ((decimal)meanReall);
+            if (meanReall >= 15)
+            {
+                Modares.Sathe_Keyfi = 4;
+            }
+            else if (meanReall >= 10)
+            {
+                Modares.Sathe_Keyfi = 3;
+            }
+            else if (meanReall >= 5)
+            {
+                Modares.Sathe_Keyfi = 2;
+            }
+            else if (meanReall >= 0)
+            {
+                Modares.Sathe_Keyfi = 1;
+            }
+             await  ComputeRetbe();
+            return View();
+
         }
 
 
 
         public async Task<IActionResult> ComputeRetbe()
         {
-            var Modares= await _services.GetModaresan();
+            var Modares = await _services.GetModaresan();
             int rank = 1;
             foreach (var item in Modares)
             {
                 var maximum = Modares.Max(x => x.Avg_Nomreh_Tadris);
-                var ModaresTemp= Modares.FirstOrDefault(x=>x.Avg_Nomreh_Tadris==maximum);
+                var ModaresTemp = Modares.FirstOrDefault(x => x.Avg_Nomreh_Tadris == maximum);
                 ModaresTemp.Rotbe_Modares = rank;
                 await _services.UpdateModaresan(ModaresTemp);
                 Modares.Remove(ModaresTemp);
@@ -82,7 +128,7 @@ namespace Request_Course.Controllers
         }
 
 
-        public async Task<double> weightedMean(int[] X, int[] W, int n=4)
+        public async Task<double> weightedMean(int[] X, int[] W, int n = 4)
         {
             int sum = 0, numWeight = 0;
 

@@ -69,11 +69,15 @@ namespace Request_Course.Serivces.Interface
         public Task<IPagedList<T_Modaresan>> GetModaresan(string search,string sortOrder ,int pageid=0);
         public Task<List<T_Modaresan>> GetModaresan();
         public Task<int> GetModaresanPage();
+        public Task<IPagedList<T_Modaresan>> TeacherRank(string search, int pageid = 0);
         #region Modaresan Doreh
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid);
-        public Task<List<int>> GetDorehID_Teacher(int Teacherid);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid, string search, string sortOrder, int paegid = 0);
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid, string search, string sortOrder, int paegid = 0);
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_ghabil(int teacherid);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_ghabil(int teacherid, string search, string sortOrder, int paegid = 0);
+        public Task<List<int>> GetDorehID_Teacher(int Teacherid);
         #endregion
         #region Fild Asli Modaresan
         public Task<int> AddModaresanFildAsli(List<T_Modaresan_Fild_Amozeshi> t_Modaresan_Fild_Amozeshi);

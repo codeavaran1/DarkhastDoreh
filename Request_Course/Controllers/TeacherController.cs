@@ -17,20 +17,103 @@ namespace Request_Course.Controllers
 
         #region Teacher Schema
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int teacherId=0)
         {
-           
+            ViewBag.teacherid = teacherId;
             return View();
         }
+       
+        #endregion
 
-        public async Task<IActionResult> FollowUpTeacher()
+        #region Teacher Panel
+        public async Task<IActionResult> DorehTadrisShodeh(int TeacherId, string search="", string sortOrder="", int paegid = 1)
         {
-            return View();
+            ViewBag.teacherid = TeacherId;
+            var result = await _services.GetDoreh_Teacher(TeacherId,search,sortOrder,paegid);
+            List<string> OnvanDoreh = new List<string>();
+            List<string> Mokhatab = new List<string>();
+            foreach (var item in result)
+            {
+                string onvandoreh = "";
+                if (item.T_L_OnvanDoreh_ID != null)
+                {
+                    onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
+                }
+                else
+                {
+                    onvandoreh = item.OnvanDoreh_Jadid;
+                }
+                string mokhatab = await _services.GetMokhatabinDoreh(item.T_Mokhatebin_ID.Value);
+
+                OnvanDoreh.Add(onvandoreh);
+                Mokhatab.Add(mokhatab);
+            }
+            ViewBag.mokhatab = Mokhatab;
+            ViewBag.onvandoreh = OnvanDoreh;
+            return View(result);
+        }
+
+        public async Task<IActionResult> DorehFaal(int teacherid, string search = "", string sortOrder = "", int paegid = 1)
+        {
+            ViewBag.teacherid = teacherid;
+            var result = await _services.GetDoreh_Faal_Teacher(teacherid,search,sortOrder,paegid);
+            List<string> OnvanDoreh = new List<string>();
+            List<string> Mokhatab = new List<string>();
+            foreach (var item in result)
+            {
+                string onvandoreh = "";
+                if (item.T_L_OnvanDoreh_ID != null)
+                {
+                    onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
+                }
+                else
+                {
+                    onvandoreh = item.OnvanDoreh_Jadid;
+                }
+                string mokhatab = await _services.GetMokhatabinDoreh(item.T_Mokhatebin_ID.Value);
+
+                OnvanDoreh.Add(onvandoreh);
+                Mokhatab.Add(mokhatab);
+            }
+            ViewBag.mokhatab = Mokhatab;
+            ViewBag.onvandoreh = OnvanDoreh;
+
+            return View(result);
+        }
+
+        public async Task<IActionResult> DorehGhabil(int teacherid, string search = "", string sortOrder = "", int paegid = 1)
+        {
+            ViewBag.teacherid = teacherid;
+            var result = await _services.GetDoreh_ghabil(teacherid,search,sortOrder,paegid);
+
+            List<string> OnvanDoreh = new List<string>();
+            List<string> Mokhatab = new List<string>();
+            foreach (var item in result)
+            {
+                string onvandoreh = "";
+                if (item.T_L_OnvanDoreh_ID != null)
+                {
+                    onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
+                }
+                else
+                {
+                    onvandoreh = item.OnvanDoreh_Jadid;
+                }
+                string mokhatab = await _services.GetMokhatabinDoreh(item.T_Mokhatebin_ID.Value);
+
+                OnvanDoreh.Add(onvandoreh);
+                Mokhatab.Add(mokhatab);
+            }
+            ViewBag.mokhatab = Mokhatab;
+            ViewBag.onvandoreh = OnvanDoreh;
+
+            return View(result);
         }
 
         [HttpGet]
-        public async Task<IActionResult> TeacherInfo(string phone = "", int id = 0)
+        public async Task<IActionResult> TeacherInfo(string phone = "", int id = 0,int teacherid=0)
         {
+            ViewBag.teacherid = teacherid;
             T_Modaresan Teacher = new T_Modaresan();
             if (phone != "")
             {
@@ -58,25 +141,12 @@ namespace Request_Course.Controllers
             };
             return View(model);
         }
-        #endregion
 
-        #region Teacher Dore
-        public async Task<IActionResult> DorehTadrisShodeh(int TeacherId)
+        public async Task<IActionResult> TeachersRank(int teacherId,string search,int pageid=1)
         {
-            var model = await _services.GetDoreh_Teacher(TeacherId);
-            return View(model);
-        }
-
-        public async Task<IActionResult> DorehFaal(int teacherid)
-        {
-            var model = await _services.GetDoreh_Faal_Teacher(teacherid);
-            return View(model);
-        }
-
-        public async Task<IActionResult> DorehGhabil(int teacherid)
-        {
-            var model = await _services.GetDoreh_ghabil(teacherid);
-            return View(model);
+            ViewBag.teacherid = teacherId;
+            var Modares=_services.TeacherRank(search,pageid);
+            return View(Modares);   
         }
 
         #endregion

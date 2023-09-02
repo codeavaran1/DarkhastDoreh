@@ -4,7 +4,7 @@
     {
         public int? T_Doreh_Darkhasti_ID { get; set; }
 
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         public int? Num_Tasalot { get; set; }
 

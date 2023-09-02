@@ -1,5 +1,77 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    Layout="~/Views/Shared/_LayoutMokhatabin.cshtml";
 }
+
+
+@model X.PagedList.IPagedList<Request_Course.Models.T_Doreh_Darkhasti>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">دوره اتمام رسیده</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                       <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" name="search" class="search-text form-control" placeholder="Search..." />
+                                </div>
+                                <button type="submit" class="btn btn-info">جستوجو</button>
+                            </form>
+                            <div class="col-sm-12">
+                                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">
+                                                @Html.ActionLink("دوره", "DorehMokhatbGhabli",new {sortOrder="Doreh"})
+                                            </th>
+
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
+                                               مدرس
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < Model.Count(); i++)
+                                        {
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">@ViewBag.OnvanDoreh[i]</td>
+                                                <td>@ViewBag.Modares[i]</td>
+                                                <td><a asp-controller="Mokhatab" asp-action="Certificate" >صدور گواهی</a></td>
+                                                <td><a asp-controller="NazarSanji" asp-action="Nazarsanj" asp-route-Username="@ViewBag.Phone" asp-route-Doreh_Darkhasti_ID="@ViewBag.DoreId" >نظرسنجی</a></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><div class="row">
+                            <div class="col-sm-5">
+                            </div>
+
+                            <div class="col-sm-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                </div>
+                                @Html.PagedListPager(Model, page => Url.Action("DorehMokhatbGhabli", new { pageid=page }))
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+</div>
+ 

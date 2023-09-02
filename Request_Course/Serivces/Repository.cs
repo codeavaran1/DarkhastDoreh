@@ -312,8 +312,6 @@ namespace Request_Course.Serivces
         }
         #endregion
         #endregion
-
-
         #region Activation
         public async Task AddActivation(T_Activation t_Activation)
         {
@@ -339,7 +337,6 @@ namespace Request_Course.Serivces
         }
 
         #endregion
-
         #region Arrive
 
         public Task<int> AddContacts()
@@ -360,7 +357,6 @@ namespace Request_Course.Serivces
 
 
         #endregion
-
         #region Modaresin
 
         public async Task<T_Modaresan> GetModaresan(string phone)
@@ -468,22 +464,97 @@ namespace Request_Course.Serivces
             await _context.SaveChangesAsync();
             return 0;
         }
+        public async Task<IPagedList<T_Modaresan>> TeacherRank(string search,int pageid=0)
+        {
+            IQueryable<T_Modaresan> result = _context.T_Modaresan.OrderBy(x=>x.Rotbe_Modares);
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Where(s => s.NameFamily== search);
+            }
+            return result.ToList().ToPagedList(pageid, 1);
+        }
         #region Teacher doreh
         public async Task<List<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid)
         {
-            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_ModateDoreh_ID == Teacherid).ToList();
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == Teacherid).ToList();
+
         }
-        public async Task<List<int>> GetDorehID_Teacher(int Teacherid)
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid, string search, string sortOrder, int paegid = 0)
         {
-            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_ModateDoreh_ID == Teacherid).Select(x => x.ID_Doreh_Darkhasti).ToList();
+
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == Teacherid);
+            switch (sortOrder)
+            {
+                case "Doreh":
+                    result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                    break;
+                case "Mokhatb":
+                    result = result.OrderBy(o => o.Date_Create);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat == search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
+
         }
         public async Task<List<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid)
         {
             return _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid && x.T_L_Vaziyat_Doreh_ID == 1).ToList();
         }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid, string search, string sortOrder, int paegid = 0)
+        {
+
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid&& x.T_L_Vaziyat_Doreh_ID == 1);
+            switch (sortOrder)
+            {
+                case "Doreh":
+                    result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                    break;
+                case "Mokhatb":
+                    result = result.OrderBy(o => o.Date_Create);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat == search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
+        }
         public async Task<List<T_Doreh_Darkhasti>> GetDoreh_ghabil(int teacherid)
         {
             return _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid && x.T_L_Vaziyat_Doreh_ID == 2).ToList();
+        }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_ghabil(int teacherid, string search, string sortOrder, int paegid = 0)
+        {
+
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid&& x.T_L_Vaziyat_Doreh_ID == 2);
+            switch (sortOrder)
+            {
+                case "Doreh":
+                    result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                    break;
+                case "Mokhatb":
+                    result = result.OrderBy(o => o.Date_Create);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat == search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
+        }
+
+        public async Task<List<int>> GetDorehID_Teacher(int Teacherid)
+        {
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_ModateDoreh_ID == Teacherid).Select(x => x.ID_Doreh_Darkhasti).ToList();
         }
         #endregion
         #region Modaresan Sar Fasl
@@ -573,11 +644,8 @@ namespace Request_Course.Serivces
                 Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 2);
             switch (sortOrder)
             {
-                case "Name":
+                case "Doreh":
                     result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
-                    break;
-                case "Date":
-                    result = result.OrderBy(o => o.Date_Create);
                     break;
                 default:
                     break;
@@ -598,11 +666,8 @@ namespace Request_Course.Serivces
                Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 1);
             switch (sortOrder)
             {
-                case "Name":
+                case "Doreh":
                     result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
-                    break;
-                case "Date":
-                    result = result.OrderBy(o => o.Date_Create);
                     break;
                 default:
                     break;
@@ -623,11 +688,8 @@ namespace Request_Course.Serivces
               Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 3);
             switch (sortOrder)
             {
-                case "Name":
+                case "Doreh":
                     result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
-                    break;
-                case "Date":
-                    result = result.OrderBy(o => o.Date_Create);
                     break;
                 default:
                     break;

@@ -81,30 +81,30 @@
                 <ul class="sidebar-menu" data-widget="tree">
                     <li class="header">منو</li>
                     <li class="treeview">
-                        <a href="#">
+                        <a asp-controller="Teacher" asp-action="DorehTadrisShodeh" asp-route-teacherId="@ViewBag.teacherid">
                             <i class="fa fa fa-book"></i>
                             <span> دوره های تدریس شده</span>
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a asp-controller="Teacher" asp-action="DorehFaal" asp-route-TeacherId="@ViewBag.teacherid">
                             <i class="fa fa-book"></i>
                             <span>دروه های فعال</span>
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a asp-controller="Teacher" asp-action="DorehGhabil" asp-route-teacherid="@ViewBag.teacherid">
                             <i class="fa fa-files-o"></i>
                             <span>سوابق دروه های برگذار شده</span>
                         </a>
                     </li>
                     <li>
-                        <a href="pages/widgets.html">
+                        <a asp-controller="Teacher" asp-action="TeachersRank" asp-route-teacherId="@ViewBag.teacherid">
                             <i class="fa fa-dashboard"></i> <span>رتبه بین مدرسان </span>
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a asp-controller="Teacher" asp-action="TeacherInfo" asp-route-teacherid="@ViewBag.teacherid">
                             <i class="fa fa-laptop"></i> <span>پروفایل</span>
                         </a>
                     </li>

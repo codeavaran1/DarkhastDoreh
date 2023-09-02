@@ -1,8 +1,6 @@
 ﻿@{
-    Layout="~/Views/Shared/_LayoutMokhatabin.cshtml";
+    Layout="~/Views/Shared/_LayoutTeacher.cshtml";
 }
-
-
 @model X.PagedList.IPagedList<Request_Course.Models.T_Doreh_Darkhasti>
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
@@ -13,7 +11,7 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">دوره فعال</h3>
+                        <h3 class="box-title">دوره برگذار شده</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -30,11 +28,11 @@
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">
-                                                @Html.ActionLink("دوره", "RequestCertificate",new {sortOrder="Doreh"})
+                                                @Html.ActionLink("دوره", "DorehTadrisShodeh",new {sortOrder="Doreh"})
                                             </th>
 
                                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
-                                                مدرس
+                                                @Html.ActionLink("شرکت", "DorehTadrisShodeh",new {sortOrder="Mokhatb"})
                                             </th>
                                         </tr>
                                     </thead>
@@ -43,8 +41,7 @@
                                         {
                                             <tr role="row" class="odd">
                                                 <td class="sorting_1">@ViewBag.OnvanDoreh[i]</td>
-                                                <td>@ViewBag.Modares[i]</td>
-                                                <td><a>در خواست دوره</a></td>
+                                                <td>@ViewBag.mokhatab[i]</td>
                                             </tr>
                                         }
                                     </tbody>
@@ -57,7 +54,7 @@
                             <div class="col-sm-7">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
                                 </div>
-                                @Html.PagedListPager(Model, page => Url.Action("RequestCertificate", new { pageid=page }))
+                                @Html.PagedListPager(Model, page => Url.Action("DorehTadrisShodeh", new { pageid=page }))
 
                             </div>
                         </div>

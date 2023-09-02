@@ -16,7 +16,17 @@ namespace Request_Course.Controllers
         [HttpGet]
         public async Task<IActionResult> Nazarsanj(string Username,int Doreh_Darkhasti_ID)
         {
-            return View();
+            ViewBag.username = Username;
+            ViewBag.DorehId=Doreh_Darkhasti_ID;
+            var doreh=await _services.GetDoreh_Darkhasti(Doreh_Darkhasti_ID);
+            if (doreh.T_L_Vaziyat_Doreh_ID==2)
+            {
+                return View();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
         [HttpPost]
         public async Task<IActionResult> Nazarsanj(NazarSanjiVM model)
@@ -25,7 +35,6 @@ namespace Request_Course.Controllers
             {
                 return View(model);
             }
-
             T_Nazarsanji t_Nazarsanji = new T_Nazarsanji()
             {
                 Num_Roayat_Nazm = model.Num_Roayat_Nazm,
@@ -33,13 +42,14 @@ namespace Request_Course.Controllers
                 Num_TamoolBaFaragir = model.Num_TamoolBaFaragir,
                 Num_Tasalot = model.Num_Tasalot,
                 T_Doreh_Darkhasti_ID = model.T_Doreh_Darkhasti_ID,
-                DateCreate =await _services.ConvertDateToShamsi(DateTime.Now),
+                DateCreate = await _services.ConvertDateToShamsi(DateTime.Now),
                 UserID = model.Username,
+                Avg_Num = (model.Num_Roayat_Nazm + model.Num_Roayat_Sarfasl + model.Num_TamoolBaFaragir + model.Num_Tasalot) 
             };
             var Avrage =(model.Num_Roayat_Sarfasl + model.Num_Roayat_Nazm + model.Num_TamoolBaFaragir + model.Num_Tasalot)/4;
             t_Nazarsanji.Avg_Num = Avrage;
             await _services.AddNazasanji(t_Nazarsanji);
-            return View();
+            return RedirectToAction("ComputeModaresByDorehid", "Logic", new { DorehId = model.T_Doreh_Darkhasti_ID });
         }
 
     }

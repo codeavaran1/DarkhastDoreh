@@ -134,27 +134,27 @@
                                 <i class="fa fa-angle-right pull-left"></i>
                             </span>
                             <ul class="treeview-menu">
-                                <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i>برگزار شده ها</a></li>
-                                <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i>در حال برگزاری</a></li>
-                                <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i>در حال پیگیری</a></li>
+                                <li><a asp-controller="Mokhatab" asp-action="DorehMokhatbGhabli" asp-route-phone="@ViewBag.Phone"><i class="fa fa-circle-o"></i>برگزار شده ها</a></li>
+                                <li><a asp-controller="Mokhatab" asp-action="DorehMokhatbfaal" asp-route-phone="@ViewBag.Phone"><i class="fa fa-circle-o"></i>در حال برگزاری</a></li>
+                                <li><a asp-controller="Mokhatab" asp-action="DorehMokhatbPygiry" asp-route-phone="@ViewBag.Phone"></i>در حال پیگیری</a></li>
                             </ul>
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="#">
+                        <a asp-controller="Mokhatab" asp-action="RequestCertificate" asp-route-phone="@ViewBag.Phone">
                             <i class="fa fa-files-o"></i>
-                            <span>صدرو گواهی نامه </span>
+                            صدرو گواهی نامه 
                         </a>
                     </li>
                     <li class="treeview">
-                        <a href="#">
-                            <i class="fa fa-laptop"></i> <span>پروفایل</span>
+                        <a  asp-controller="Mokhatab" asp-action="MokhatibProfile" asp-route-phone="@ViewBag.Phone">
+                            <i class="fa fa-laptop"></i> پروفایل
                         </a>
                     </li>
                     <li class="treeview">
                         <a asp-controller="َAccount" asp-action="Logout">
                             <i class="fa fa-share"></i>
-                            <span>خروج</span>
+                            خروج
                         </a>
                     </li>
                 </ul>
