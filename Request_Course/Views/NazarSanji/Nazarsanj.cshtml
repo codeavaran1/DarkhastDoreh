@@ -13,43 +13,121 @@
 </head>
 <body>
 
-<h4>نظرسنجی</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Nazarsanj" method="post">
-            <input asp-for="Username"  value="@ViewBag.username" data="@ViewBag.username"    />
-            <input asp-for="T_Doreh_Darkhasti_ID"  value="@ViewBag.DorehId" data="@ViewBag.DorehId"    />
-            <div class="form-group">
-                <label asp-for="Num_Tasalot" class="control-label"></label>
-                <input asp-for="Num_Tasalot" class="form-control" />
-                <span asp-validation-for="Num_Tasalot" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Num_Roayat_Sarfasl" class="control-label"></label>
-                <input asp-for="Num_Roayat_Sarfasl" class="form-control" />
-                <span asp-validation-for="Num_Roayat_Sarfasl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Num_Roayat_Nazm" class="control-label"></label>
-                <input asp-for="Num_Roayat_Nazm" class="form-control" />
-                <span asp-validation-for="Num_Roayat_Nazm" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Num_TamoolBaFaragir" class="control-label"></label>
-                <input asp-for="Num_TamoolBaFaragir" class="form-control" />
-                <span asp-validation-for="Num_TamoolBaFaragir" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </form>
+    <h4>نظرسنجی</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Nazarsanj" method="post">
+                <input asp-for="Username" type="hidden" value="@ViewBag.username" data="@ViewBag.username" />
+                <input asp-for="T_Doreh_Darkhasti_ID" type="hidden" value="@ViewBag.DorehId" data="@ViewBag.DorehId" />
+                <div class="form-group">
+                    <label asp-for="Num_Tasalot" class="control-label"></label>
+                    <div>
+                        <input type="radio" asp-for="Num_Tasalot" value=5 />
+                        <label asp-for="Num_Tasalot">5</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Tasalot" value=4 />
+                        <label asp-for="Num_Tasalot">4</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Tasalot" value=3 />
+                        <label asp-for="Num_Tasalot">3</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Tasalot" value=2 />
+                        <label asp-for="Num_Tasalot">2</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Tasalot"  value=1 />
+                        <label asp-for="Num_Tasalot">1</label>
+                    </div>
+                    <span asp-validation-for="Num_Tasalot" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Num_Roayat_Sarfasl" class="control-label"></label>
+                               <div>
+                        <input type="radio" asp-for="Num_Roayat_Sarfasl" value=5 />
+                        <label asp-for="Num_Roayat_Sarfasl">5</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Roayat_Sarfasl" value=4 />
+                        <label asp-for="Num_Roayat_Sarfasl">4</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Roayat_Sarfasl" value=3 />
+                        <label asp-for="Num_Roayat_Sarfasl">3</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Roayat_Sarfasl" value=2 />
+                        <label asp-for="Num_Roayat_Sarfasl">2</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Roayat_Sarfasl"  value=1 />
+                        <label asp-for="Num_Roayat_Sarfasl">1</label>
+                    </div>
+         
+                    <span asp-validation-for="Num_Roayat_Sarfasl" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Num_Roayat_Nazm" class="control-label"></label>
+                    <div>
+                        <input type="radio" asp-for="Num_Roayat_Nazm" value=5 />
+                        <label asp-for="Num_Roayat_Nazm">5</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Roayat_Nazm" value=4 />
+                        <label asp-for="Num_Roayat_Nazm">4</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Roayat_Nazm" value=3 />
+                        <label asp-for="Num_Roayat_Nazm">3</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Roayat_Nazm" value=2 />
+                        <label asp-for="Num_Roayat_Nazm">2</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_Roayat_Nazm"  value=1 />
+                        <label asp-for="Num_Roayat_Nazm">1</label>
+                    </div>
+         
+                    <span asp-validation-for="Num_Roayat_Nazm" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Num_TamoolBaFaragir" class="control-label"></label>
+                               <div>
+                        <input type="radio" asp-for="Num_TamoolBaFaragir" value=5 />
+                        <label asp-for="Num_TamoolBaFaragir">5</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_TamoolBaFaragir" value=4 />
+                        <label asp-for="Num_TamoolBaFaragir">4</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_TamoolBaFaragir" value=3 />
+                        <label asp-for="Num_TamoolBaFaragir">3</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_TamoolBaFaragir" value=2 />
+                        <label asp-for="Num_TamoolBaFaragir">2</label>
+                    </div>
+                    <div>
+                        <input type="radio" asp-for="Num_TamoolBaFaragir"  value=1 />
+                        <label asp-for="Num_TamoolBaFaragir">1</label>
+                    </div>
+                    <span asp-validation-for="Num_TamoolBaFaragir" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 
 </body>
 </html>

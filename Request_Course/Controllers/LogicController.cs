@@ -86,24 +86,36 @@ namespace Request_Course.Controllers
 
             meanReall = meanReall * 20 / 5;
             var Modares = await _services.GetModaresan(doreh.T_Modaresan_ID.Value);
-            Modares.Nomreh_Keyfi = ((decimal)meanReall);
-            Modares.Avg_Nomreh_Tadris = ((decimal)meanReall);
-            if (meanReall >= 15)
+            if (Modares.Nomreh_Keyfi_float!=null)
+            {
+                var nomreh_keyfi_temp = Modares.Nomreh_Keyfi_float;
+                var nomreh_Tadris_temp = Modares.Nomreh_Keyfi_float;
+                Modares.Nomreh_Keyfi_float = (nomreh_keyfi_temp + (float)meanReall)/2;
+                Modares.Avg_Nomreh_Tadris_float =(nomreh_Tadris_temp + (float)meanReall)/2;
+            }
+            else
+            {
+                Modares.Nomreh_Keyfi_float = (float)meanReall;
+                Modares.Avg_Nomreh_Tadris_float = (float)meanReall;
+            }
+            
+            if (Modares.Nomreh_Keyfi_float >= 15)
             {
                 Modares.Sathe_Keyfi = 4;
             }
-            else if (meanReall >= 10)
+            else if (Modares.Nomreh_Keyfi_float >= 10)
             {
                 Modares.Sathe_Keyfi = 3;
             }
-            else if (meanReall >= 5)
+            else if (Modares.Nomreh_Keyfi_float >= 5)
             {
                 Modares.Sathe_Keyfi = 2;
             }
-            else if (meanReall >= 0)
+            else if (Modares.Nomreh_Keyfi_float >= 0)
             {
                 Modares.Sathe_Keyfi = 1;
             }
+             await _services.UpdateModaresan(Modares);
              await  ComputeRetbe();
             return View();
 
@@ -115,15 +127,30 @@ namespace Request_Course.Controllers
         {
             var Modares = await _services.GetModaresan();
             int rank = 1;
-            foreach (var item in Modares)
+            float temp_nomreh=0;
+            var ModaresOreder=Modares.OrderByDescending(x => x.Avg_Nomreh_Tadris_float).ToList();
+            foreach (var item in ModaresOreder)
             {
-                var maximum = Modares.Max(x => x.Avg_Nomreh_Tadris);
-                var ModaresTemp = Modares.FirstOrDefault(x => x.Avg_Nomreh_Tadris == maximum);
-                ModaresTemp.Rotbe_Modares = rank;
-                await _services.UpdateModaresan(ModaresTemp);
-                Modares.Remove(ModaresTemp);
-                rank++;
+                if (item.Avg_Nomreh_Tadris_float==null)
+                {
+                    item.Rotbe_Modares = rank;
+                    continue;
+                }
+                if(temp_nomreh != item.Avg_Nomreh_Tadris_float)
+                {
+                    item.Rotbe_Modares = rank;
+                    temp_nomreh=item.Avg_Nomreh_Tadris_float.Value;
+                    rank++;
+                }
+                else
+                {
+                    rank--;
+                    item.Rotbe_Modares = rank;
+                    rank++; 
+                }
+
             }
+           await _services.UpdateAllModares(ModaresOreder);
             return View();
         }
 

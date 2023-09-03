@@ -70,6 +70,7 @@ namespace Request_Course.Serivces.Interface
         public Task<List<T_Modaresan>> GetModaresan();
         public Task<int> GetModaresanPage();
         public Task<IPagedList<T_Modaresan>> TeacherRank(string search, int pageid = 0);
+        public Task<int> UpdateAllModares(List<T_Modaresan> t_Modaresans);
         #region Modaresan Doreh
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid, string search, string sortOrder, int paegid = 0);

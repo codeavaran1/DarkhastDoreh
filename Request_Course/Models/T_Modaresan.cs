@@ -35,6 +35,8 @@ namespace Request_Course.Models
 
         public decimal? Nomreh_Keyfi { get; set; }
 
+        public float? Nomreh_Keyfi_float { get; set; }
+
         [StringLength(250)]
         public string Onvan_Shoghli { get; set; } = string.Empty;
 
@@ -51,6 +53,8 @@ namespace Request_Course.Models
         public int? Rotbe_Modares { get; set; }
 
         public decimal? Avg_Nomreh_Tadris { get; set; }
+
+        public float? Avg_Nomreh_Tadris_float { get; set; }
 
         [Column(TypeName = "ntext")]
         public string? Description { get; set; }

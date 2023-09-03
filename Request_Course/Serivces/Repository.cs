@@ -41,12 +41,12 @@ namespace Request_Course.Serivces
 
             return Tuple.Create(query, pageCount);
         }
-        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehforBinding(string search,int pageid = 0)
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehforBinding(string search, int pageid = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_L_Vaziyat_Doreh_ID == 3);
             if (string.IsNullOrEmpty(search))
             {
-                result=result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh==search);
+                result = result.Include(x => x.T_L_OnvanDoreh).Where(s => s.T_L_OnvanDoreh.Titles_OnvanDoreh == search);
             }
             return result.ToList().ToPagedList(pageid, 1);
         }
@@ -61,7 +61,7 @@ namespace Request_Course.Serivces
         }
         public async Task RemoveTeacher(int modaresId)
         {
-            var modares =await GetModaresan(modaresId);
+            var modares = await GetModaresan(modaresId);
             _context.T_Modaresan.Remove(modares);
             await _context.SaveChangesAsync();
         }
@@ -97,7 +97,7 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat== search);
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat == search);
             }
             return result.ToList().ToPagedList(pageid, 1);
         }
@@ -114,7 +114,7 @@ namespace Request_Course.Serivces
         }
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehWithoutModares(string search, string sortOreder, int pageid = 0)
         {
-            IQueryable<T_Doreh_Darkhasti> result =_context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == null&&x.T_L_Vaziyat_Doreh_ID==3);
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == null && x.T_L_Vaziyat_Doreh_ID == 3);
             switch (sortOreder)
             {
                 case "Doreh":
@@ -128,9 +128,9 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat== search);
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat == search);
             }
-            return  result.ToList().ToPagedList(pageid, 1);
+            return result.ToList().ToPagedList(pageid, 1);
 
         }
         public async Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh)
@@ -242,14 +242,14 @@ namespace Request_Course.Serivces
             }
             return result.ToList().ToPagedList(paegid, 1);
         }
-        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_DarkhastisForMokhatab(int MokhatabId = 0,int pageid=0)
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_DarkhastisForMokhatab(int MokhatabId = 0, int pageid = 0)
         {
-            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Mokhatebin_ID== MokhatabId&&x.IsFinaly==true);
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Mokhatebin_ID == MokhatabId && x.IsFinaly == true);
             return result.ToList().ToPagedList(pageid, 1);
         }
         public async Task RemoveDoreh(int DoreId)
         {
-            var result =_context.T_Doreh_Darkhasti.SingleOrDefault(x => x.ID_Doreh_Darkhasti == DoreId);
+            var result = _context.T_Doreh_Darkhasti.SingleOrDefault(x => x.ID_Doreh_Darkhasti == DoreId);
             result.IsFinaly = false;
             _context.T_Doreh_Darkhasti.Update(result);
             await _context.SaveChangesAsync();
@@ -279,7 +279,7 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Where(s => s.Name_Sherkat== search);
+                result = result.Where(s => s.Name_Sherkat == search);
             }
             return result.ToList().ToPagedList(paegid, 3);
         }
@@ -306,7 +306,7 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Where(s => s.NameFamily== search);
+                result = result.Where(s => s.NameFamily == search);
             }
             return result.ToList().ToPagedList(paegid, 1);
         }
@@ -464,14 +464,20 @@ namespace Request_Course.Serivces
             await _context.SaveChangesAsync();
             return 0;
         }
-        public async Task<IPagedList<T_Modaresan>> TeacherRank(string search,int pageid=0)
+        public async Task<IPagedList<T_Modaresan>> TeacherRank(string search, int pageid = 0)
         {
-            IQueryable<T_Modaresan> result = _context.T_Modaresan.OrderBy(x=>x.Rotbe_Modares);
+            IQueryable<T_Modaresan> result = _context.T_Modaresan.OrderBy(x => x.Rotbe_Modares);
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Where(s => s.NameFamily== search);
+                result = result.Where(s => s.NameFamily == search);
             }
             return result.ToList().ToPagedList(pageid, 1);
+        }
+        public async Task<int> UpdateAllModares(List<T_Modaresan> t_Modaresans)
+        {
+            _context.T_Modaresan.UpdateRange(t_Modaresans);
+            await _context.SaveChangesAsync();
+            return 0;
         }
         #region Teacher doreh
         public async Task<List<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid)
@@ -508,7 +514,7 @@ namespace Request_Course.Serivces
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid, string search, string sortOrder, int paegid = 0)
         {
 
-            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid&& x.T_L_Vaziyat_Doreh_ID == 1);
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid && x.T_L_Vaziyat_Doreh_ID == 1);
             switch (sortOrder)
             {
                 case "Doreh":
@@ -533,7 +539,7 @@ namespace Request_Course.Serivces
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_ghabil(int teacherid, string search, string sortOrder, int paegid = 0)
         {
 
-            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid&& x.T_L_Vaziyat_Doreh_ID == 2);
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid && x.T_L_Vaziyat_Doreh_ID == 2);
             switch (sortOrder)
             {
                 case "Doreh":
@@ -630,7 +636,7 @@ namespace Request_Course.Serivces
 
         public async Task DeleteSherkat(int SherkatId)
         {
-            var result= _context.T_Mokhatebin.SingleOrDefault(x => x.ID_Mokhatebin == SherkatId);
+            var result = _context.T_Mokhatebin.SingleOrDefault(x => x.ID_Mokhatebin == SherkatId);
         }
 
         #region Doreh Mokhatbin
@@ -640,7 +646,7 @@ namespace Request_Course.Serivces
         }
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl(int userid, string search, string sortOrder, int paegid = 0)
         {
-            IQueryable<T_Doreh_Darkhasti> result= _context.T_Doreh_Darkhasti.
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.
                 Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 2);
             switch (sortOrder)
             {
@@ -731,8 +737,8 @@ namespace Request_Course.Serivces
         }
         public async Task<bool> GetModaresPishnahadiForBind(int DrehId, string phone)
         {
-            T_Modaresan Modares =_context.T_Modaresan.SingleOrDefault(d => d.Phone == phone);
-            if (Modares!=null)
+            T_Modaresan Modares = _context.T_Modaresan.SingleOrDefault(d => d.Phone == phone);
+            if (Modares != null)
             {
                 T_Doreh_Darkhasti Doreh = _context.T_Doreh_Darkhasti.SingleOrDefault(x => x.ID_Doreh_Darkhasti == DrehId);
                 Doreh.T_Modaresan_ID = Modares.ID_Modaresan;
@@ -997,7 +1003,7 @@ namespace Request_Course.Serivces
             }
             if (!string.IsNullOrEmpty(search))
             {
-                result = result.Where(s => s.UserName== search);
+                result = result.Where(s => s.UserName == search);
             }
             return result.ToList().ToPagedList(pageid, 1);
         }
@@ -1156,10 +1162,10 @@ namespace Request_Course.Serivces
         #region Chart
         public async Task<Tuple<List<string>, List<int>>> GetDorehByMonthForChart()
         {
-            
+
             var calendar = new PersianCalendar();
             var year = new DateTime(calendar.GetYear(DateTime.Now), calendar.GetMonth(DateTime.Now), calendar.GetDayOfMonth(DateTime.Now));
-            var model= _context.T_Doreh_Darkhasti.ToList(); 
+            var model = _context.T_Doreh_Darkhasti.ToList();
             List<int> dateTimes = new List<int>();
             List<string> months = new List<string>() { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
             List<int> Numbers = new List<int>();
@@ -1194,7 +1200,7 @@ namespace Request_Course.Serivces
         {
 
             var calendar = new PersianCalendar();
-            var year = new DateTime(calendar.GetYear(DateTime.Now),calendar.GetMonth(DateTime.Now),calendar.GetDayOfMonth(DateTime.Now));
+            var year = new DateTime(calendar.GetYear(DateTime.Now), calendar.GetMonth(DateTime.Now), calendar.GetDayOfMonth(DateTime.Now));
             var model = _context.T_Modaresan.ToList();
             List<int> dateTimes = new List<int>();
             List<string> months = new List<string>() { "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند" };
@@ -1203,7 +1209,7 @@ namespace Request_Course.Serivces
             {
                 dateTimes.Add(i);
             }
-            var group = model.Where(s=>s.DateCreate.Value.Year==year.Year).GroupBy(x => x.DateCreate.Value.Month);
+            var group = model.Where(s => s.DateCreate.Value.Year == year.Year).GroupBy(x => x.DateCreate.Value.Month);
 
             var joinde1 = from c in dateTimes
                           join p in @group on c equals p.Key into ps
@@ -1251,12 +1257,12 @@ namespace Request_Course.Serivces
             var convertDime = _context.T_Doreh_Darkhasti.ToList();
             foreach (var item in convertDime)
             {
-                var converting_cerate =  item.Date_Create.Value;
+                var converting_cerate = item.Date_Create.Value;
                 var convert_Az_pi = item.Date_Az_Pishnahad.Value;
                 var convert_ta_pi = item.Date_Ta_Pishnahad.Value;
                 item.Date_Create = new DateTime(calendar.GetYear(converting_cerate), calendar.GetMonth(converting_cerate), calendar.GetDayOfMonth(converting_cerate));
                 item.Date_Az_Pishnahad = new DateTime(calendar.GetYear(convert_Az_pi), calendar.GetMonth(convert_Az_pi), calendar.GetDayOfMonth(convert_Az_pi));
-                item.Date_Ta_Pishnahad= new DateTime(calendar.GetYear(convert_ta_pi), calendar.GetMonth(convert_ta_pi), calendar.GetDayOfMonth(convert_ta_pi));
+                item.Date_Ta_Pishnahad = new DateTime(calendar.GetYear(convert_ta_pi), calendar.GetMonth(convert_ta_pi), calendar.GetDayOfMonth(convert_ta_pi));
             }
             await _context.SaveChangesAsync();
         }
@@ -1265,7 +1271,7 @@ namespace Request_Course.Serivces
         {
             var calendar = new PersianCalendar();
             var converting = dateTime;
-            DateTime FinalDate= new DateTime(calendar.GetYear(converting), calendar.GetMonth(converting), calendar.GetDayOfMonth(converting));
+            DateTime FinalDate = new DateTime(calendar.GetYear(converting), calendar.GetMonth(converting), calendar.GetDayOfMonth(converting));
             return FinalDate;
         }
         #endregion

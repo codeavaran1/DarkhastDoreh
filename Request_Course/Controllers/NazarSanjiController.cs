@@ -15,6 +15,7 @@ namespace Request_Course.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Nazarsanj(string Username,int Doreh_Darkhasti_ID)
+        
         {
             ViewBag.username = Username;
             ViewBag.DorehId=Doreh_Darkhasti_ID;

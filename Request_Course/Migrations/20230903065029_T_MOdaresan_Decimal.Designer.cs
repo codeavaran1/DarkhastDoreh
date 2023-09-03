@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Request_Course.Data;
 
@@ -11,9 +12,10 @@ using Request_Course.Data;
 namespace Request_Course.Migrations
 {
     [DbContext(typeof(ReqContexts))]
-    partial class ReqContextsModelSnapshot : ModelSnapshot
+    [Migration("20230903065029_T_MOdaresan_Decimal")]
+    partial class T_MOdaresan_Decimal
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -561,9 +563,6 @@ namespace Request_Course.Migrations
                         .HasPrecision(3, 2)
                         .HasColumnType("decimal(3,2)");
 
-                    b.Property<float?>("Avg_Nomreh_Tadris_float")
-                        .HasColumnType("real");
-
                     b.Property<int?>("C_Doreh_Ejra")
                         .HasColumnType("int");
 
@@ -600,9 +599,6 @@ namespace Request_Course.Migrations
                     b.Property<decimal?>("Nomreh_Keyfi")
                         .HasPrecision(2, 2)
                         .HasColumnType("decimal(2,2)");
-
-                    b.Property<float?>("Nomreh_Keyfi_float")
-                        .HasColumnType("real");
 
                     b.Property<string>("Onvan_Shoghli")
                         .IsRequired()
