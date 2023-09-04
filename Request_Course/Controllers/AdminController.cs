@@ -347,9 +347,14 @@ namespace Request_Course.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateModares(ModaresanUpdateVM model, int modaresId, IFormFile img, string maghtaehtasili = "", string Reshte = "", string DaregElmi = "")
         {
+            bool username_Uniq = true;
             var Modares = await _services.GetModaresan(modaresId);
+            if (model.Phone!=Modares.Phone)
+            {
+                username_Uniq=await _services.UniqPhoneModares(model.Phone);
+            }
             ModelState.Remove("img");
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || username_Uniq==false)
             {
                 string DaregEml = await _services.GetDategeElmibyid(Modares.T_L_DaragehElmi_ID.Value);
                 string MaghtaeTahsili = await _services.GetMadraktahsilibyId(Modares.T_L_MaghtaeTahsili_ID.Value);
@@ -368,7 +373,7 @@ namespace Request_Course.Controllers
                 ViewBag.DaregElm_Drop = DaragehElmi1;
                 return View(model);
             }
-
+            
             Modares.Daneshgah_Sherkat = model.Daneshgah_Sherkat;
             Modares.Description = model.Description;
             Modares.T_L_DaragehElmi_ID = Convert.ToInt32(DaregElmi);

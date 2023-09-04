@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Request_Course.Serivces.Interface;
+using Request_Course.VM;
 
 namespace Request_Course.Controllers
 {
@@ -19,8 +20,44 @@ namespace Request_Course.Controllers
         public async Task<IActionResult> MokhatibProfile(string phone)
         {
             ViewBag.Phone = phone;
-            var model = await _services.GetMokhatebin(phone);
-            return View();
+            var Mokhatab = await _services.GetMokhatebin(phone);
+            MokhatabInfoVM model = new MokhatabInfoVM()
+            {
+                Name = Mokhatab.NamFamily_Rabet,
+                Name_Sherkat = Mokhatab.Name_Sherkat,
+                Email = Mokhatab.Email,
+                Phone = Mokhatab.Phone
+            };
+            return View(model);
+        }
+
+        public async Task<IActionResult> UpdateMokhatab(string phone)
+        {
+            ViewBag.Phone = phone;
+            var Mokhatab = await _services.GetMokhatebin(phone);
+            UpdateMokhatabVM model = new UpdateMokhatabVM()
+            {
+                Email = Mokhatab.Email,
+                Name = Mokhatab.NamFamily_Rabet,
+                Name_SHerkat = Mokhatab.Name_Sherkat,
+                Phone = phone
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateMokhatab(UpdateMokhatabVM update)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(update);
+            }
+            var Mokhatab = await _services.GetMokhatebin(update.Phone);
+            Mokhatab.Email = update.Email;
+            Mokhatab.Name_Sherkat = update.Name_SHerkat;
+            Mokhatab.NamFamily_Rabet = update.Name;
+            await _services.UpdateMokhatab(Mokhatab);
+            return RedirectToAction("index", new { phone = update.Phone });
         }
 
         public async Task<IActionResult> DorehMokhatbfaal(string phone,string search="",string sortOrder="",int pageid=1)
@@ -81,6 +118,7 @@ namespace Request_Course.Controllers
             ViewBag.onvandoreh = OnvanDoreh;
             return View(result);
         }
+
         public async Task<IActionResult> DorehMokhatbPygiry(string phone, string search="", string sortOrder="", int pageid = 1)
         {
             ViewBag.Phone = phone;

@@ -140,18 +140,23 @@
                             </ul>
                         </a>
                     </li>
-                    <li class="treeview">
+                    <li >
                         <a asp-controller="Mokhatab" asp-action="RequestCertificate" asp-route-phone="@ViewBag.Phone">
                             <i class="fa fa-files-o"></i>
                             صدرو گواهی نامه 
                         </a>
                     </li>
-                    <li class="treeview">
+                    <li >
                         <a  asp-controller="Mokhatab" asp-action="MokhatibProfile" asp-route-phone="@ViewBag.Phone">
                             <i class="fa fa-laptop"></i> پروفایل
                         </a>
                     </li>
-                    <li class="treeview">
+                      <li >
+                        <a  asp-controller="Mokhatab" asp-action="UpdateMokhatab" asp-route-phone="@ViewBag.Phone">
+                            <i class="fa fa-laptop"></i>ویرایش
+                        </a>
+                    </li>
+                    <li >
                         <a asp-controller="َAccount" asp-action="Logout">
                             <i class="fa fa-share"></i>
                             خروج

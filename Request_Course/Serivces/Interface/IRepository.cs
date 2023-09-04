@@ -65,6 +65,7 @@ namespace Request_Course.Serivces.Interface
         public Task<int> UpdateModaresan(T_Modaresan _Modaresan,IFormFile img);
         public Task<T_Modaresan> GetModaresan(string phone);
         public Task<T_Modaresan> GetModaresan(int id);
+        public Task<bool> UniqPhoneModares(string phone);
         public Task<List<T_Modaresan>> GetModaresan(int onvnasli, int onvandoreh);
         public Task<IPagedList<T_Modaresan>> GetModaresan(string search,string sortOrder ,int pageid=0);
         public Task<List<T_Modaresan>> GetModaresan();

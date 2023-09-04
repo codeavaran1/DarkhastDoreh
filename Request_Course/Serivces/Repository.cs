@@ -479,6 +479,15 @@ namespace Request_Course.Serivces
             await _context.SaveChangesAsync();
             return 0;
         }
+        public async Task<bool> UniqPhoneModares(string phone)
+        {
+            var Uniq = _context.T_Modaresan.FirstOrDefaultAsync(x => x.Phone == phone);
+            if (Uniq==null)
+            {
+                return true;
+            }
+            return false;
+        }
         #region Teacher doreh
         public async Task<List<T_Doreh_Darkhasti>> GetDoreh_Teacher(int Teacherid)
         {

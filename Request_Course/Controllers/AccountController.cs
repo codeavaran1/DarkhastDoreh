@@ -118,7 +118,7 @@ namespace Request_Course.Controllers
                             {
                                 return RedirectToAction("TeacherForm", "Teacher", new { phone = codeVm.Phone });
                             }
-                            return RedirectToAction("Index", "Teacher", new {teacher.ID_Modaresan});
+                            return RedirectToAction("Index", "Teacher", new { teacherId = teacher.ID_Modaresan });
                         }
                     }
                     else
@@ -177,7 +177,7 @@ namespace Request_Course.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return View("GetPhone");
+            return RedirectToAction("GetPhone","Account"); 
         }
 
         #endregion

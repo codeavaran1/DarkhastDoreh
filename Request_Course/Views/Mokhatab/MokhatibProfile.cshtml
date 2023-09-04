@@ -1,7 +1,9 @@
-﻿
+﻿@model Request_Course.VM.MokhatabInfoVM
+
 @{
-    Layout = null;
+    Layout="~/Views/Shared/_LayoutMokhatabin.cshtml";
 }
+
 
 <!DOCTYPE html>
 
@@ -11,5 +13,9 @@
     <title>MokhatibProfile</title>
 </head>
 <body>
+    <p>Name : @Model.Name</p>
+    <p>Sherkat :@Model.Name_Sherkat </p>
+    <p>Email : @Model.Email</p>
+    <p>Phone : @Model.Phone</p>
 </body>
 </html>
