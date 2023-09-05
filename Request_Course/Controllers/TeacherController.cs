@@ -12,6 +12,7 @@ namespace Request_Course.Controllers
         public TeacherController(IRepository repository)
         {
             _services = repository;
+
         }
 
         #region Teacher Schema
