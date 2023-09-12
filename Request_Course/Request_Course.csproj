@@ -1938,6 +1938,8 @@
     <None Include="wwwroot\bower_components\jvectormap\tests\assets\us\jquery-jvectormap-data-us-wi-lcc-en.js" />
     <None Include="wwwroot\bower_components\jvectormap\tests\assets\us\jquery-jvectormap-data-us-wv-lcc-en.js" />
     <None Include="wwwroot\bower_components\jvectormap\tests\assets\us\jquery-jvectormap-data-us-wy-lcc-en.js" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
 
 </Project>

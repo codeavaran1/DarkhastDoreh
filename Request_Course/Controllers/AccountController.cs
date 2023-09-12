@@ -45,9 +45,22 @@ namespace Request_Course.Controllers
             {
                 //Cerate Avtivation
                 //Send SMS Code
+
+                #region Gneret Code
+                var chars = "123456789";
+                var stringChars = new char[5];
+                var random = new Random();
+                for (int i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+                var finalString = new String(stringChars);
+                #endregion
+
                 T_Activation t_Activation = new T_Activation()
                 {
                     Phone = activation.Phone,
+                    //code = finalString,
                     code = "12345",
                     DateGenerateCode = DateTime.Now,
                     NameFamily = activation.NameFamily,
@@ -85,7 +98,7 @@ namespace Request_Course.Controllers
                 return View(codeVm);
             }
             string Code = await _servises.GetUserCode(codeVm.Phone);
-            if (Code.ToString() == codeVm.Code && Code.ToString() != "")
+            if (Code.ToString() == codeVm.Code && Code.ToString() != "" && codeVm.Code != null)
             {
                 var Activtion = await _servises.GetActivation(codeVm.Phone);
                 if (Activtion.DateGenerateCode >= DateTime.Now.AddMinutes(-5))

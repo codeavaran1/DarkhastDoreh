@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width" />
 
 
-    <title>علی Ran فرم اساتید</title>
+    <title>فرم اساتید</title>
 
 </head>
 <body>
@@ -21,7 +21,7 @@
     <!-- Main content -->
     <section class="content">
         <div class="panel panel-primary">
-            <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات استاد</p></div>
+            <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات پروفایل</p></div>
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="panel-body">
                 <form id="myForm" asp-action="TeacherForm" method="post" enctype="multipart/form-data">
@@ -133,7 +133,7 @@
                                     <label class="control-label">توضیحات</label>
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     <textarea asp-for="Description" class="form-control"></textarea>
                                     <span asp-validation-for="Description" class="text-danger"></span>
                                 </div>
@@ -145,7 +145,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <div class="col-md-6">
-                                    <label class="control-label">عکس</label>
+                                    <label class="control-label">تصویر پروفایل</label>
 
                                 </div>
                                 <div class="col-md-10">
