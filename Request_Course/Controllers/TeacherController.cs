@@ -10,6 +10,7 @@ namespace Request_Course.Controllers
     public class TeacherController : Controller
     {
         private IRepository _services;
+        public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPEG", ".PNG" };
         public TeacherController(IRepository repository)
         {
             _services = repository;
@@ -133,7 +134,7 @@ namespace Request_Course.Controllers
                 OnvanShoghly = Teacher.Onvan_Shoghli,
                 MaghtaeTahsili = teacher_MaghtaeTahsili,
                 img = Teacher.img,
-                Phone=Teacher.Phone,
+                Phone = Teacher.Phone,
                 Description = Teacher.Description,
                 NomrehTadris = Teacher.Avg_Nomreh_Tadris_float.ToString(),
                 RotbebeinModaresan = Teacher.Rotbe_Modares.ToString(),
@@ -177,7 +178,7 @@ namespace Request_Course.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateModares(ModaresanUpdateVM model, int modaresId, IFormFile img, string maghtaehtasili = "", string Reshte = "", string DaregElmi = "")
+        public async Task<IActionResult> UpdateModares(ModaresanUpdateVM model, int modaresId, IFormFile img, string Sll, string maghtaehtasili = "", string Reshte = "", string DaregElmi = "")
         {
             bool username_Uniq = true;
             var Modares = await _services.GetModaresan(modaresId);
@@ -185,8 +186,17 @@ namespace Request_Course.Controllers
             {
                 username_Uniq = await _services.UniqPhoneModares(model.Phone);
             }
+            bool ImageValid = true;
+            if (img != null)
+            {
+                if (!ImageExtensions.Contains(Path.GetExtension(img.FileName).ToUpperInvariant()))
+                {
+                    ImageValid = false;
+                }
+            }
+            model.Description = Sll;
             ModelState.Remove("img");
-            if (!ModelState.IsValid || username_Uniq==false)
+            if (!ModelState.IsValid || username_Uniq == false || ImageValid == false)
             {
                 string DaregEml = await _services.GetDategeElmibyid(Modares.T_L_DaragehElmi_ID.Value);
                 string MaghtaeTahsili = await _services.GetMadraktahsilibyId(Modares.T_L_MaghtaeTahsili_ID.Value);
@@ -220,14 +230,69 @@ namespace Request_Course.Controllers
             return View();
         }
 
-
-
         public async Task<IActionResult> TeachersRank(int teacherId, string search, int pageid = 1)
         {
             ViewBag.teacherid = teacherId;
             var Modares = await _services.TeacherRank(search, pageid);
             return View(Modares);
         }
+
+        public async Task<IActionResult> WorkedFild(int teacherid)
+        {
+            ViewBag.teacherid = teacherid;
+            T_Modaresan Teacher = new T_Modaresan();
+            if (teacherid != 0)
+            {
+                Teacher = await _services.GetModaresan(teacherid);
+            }
+
+            List<SelectListItem> FildAsli = _services.GetFildAslis().Result
+              .Select(x => new SelectListItem { Value = x.ID_FildAsli.ToString(), Text = x.Titles_FildAsli }).ToList();
+            FildAsli.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+            List<SelectListItem> OnvanDoreh = _services.GetOnvanDorehs().Result
+              .Select(x => new SelectListItem { Value = x.ID_OnvanDoreh.ToString(), Text = x.Titles_OnvanDoreh }).ToList();
+            OnvanDoreh.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+            ViewBag.FildAsli = FildAsli;
+            ViewBag.OnvanDoreh = OnvanDoreh;
+
+            var result= await _services.GetModaresanFildAsli(teacherid);
+            List<string> FildAsli_show = new List<string>();
+            List<string> OnvanDoreh_show = new List<string>();
+            foreach (var item in result)
+            {
+                FildAsli_show .Add(await _services.GetFildAslibyid(item.T_L_FildAsli_ID.Value));
+                OnvanDoreh_show.Add( await _services.GetOnvanDorehbyid(item.T_L_OnvanDoreh_ID.Value));
+            }
+            FildAslAndOnvanDreohShow model = new FildAslAndOnvanDreohShow()
+            {
+                FilAsli = FildAsli_show,
+                OnvanDoreh = OnvanDoreh_show
+            };
+            return View(model);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> WorkedFild(int teacherid, List<string> FildAsli, List<string> OnvanDoreh)
+        {
+            ViewBag.teacherid = teacherid;
+            T_Modaresan Teacher = new T_Modaresan();
+            if (teacherid != 0)
+            {
+                Teacher = await _services.GetModaresan(teacherid);
+            }
+            List<T_Modaresan_Fild_Amozeshi> t_Modaresan_Fild_Amozeshi = new List<T_Modaresan_Fild_Amozeshi>();
+            for (int i = 0; i < FildAsli.Count; i++)
+            {
+                T_Modaresan_Fild_Amozeshi t_Modaresan_Fild_Amozeshi_one = new T_Modaresan_Fild_Amozeshi();
+                t_Modaresan_Fild_Amozeshi_one.T_L_FildAsli_ID = Convert.ToInt16(FildAsli[i]);
+                t_Modaresan_Fild_Amozeshi_one.T_L_OnvanDoreh_ID = Convert.ToInt16(OnvanDoreh[i]);
+                t_Modaresan_Fild_Amozeshi_one.T_Modaresan_ID = teacherid;
+                t_Modaresan_Fild_Amozeshi.Add(t_Modaresan_Fild_Amozeshi_one);
+            }
+            await _services.AddModaresanFildAsli(t_Modaresan_Fild_Amozeshi);
+            return RedirectToAction("WorkedFild", new { teacherid = teacherid });
+        }
+
 
         #endregion
 
@@ -268,13 +333,28 @@ namespace Request_Course.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> TeacherForm(ModaresanVM model, IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili = ""
+        public async Task<IActionResult> TeacherForm(ModaresanVM model, IFormFile img, string Sll, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili = ""
             , string Reshte = "", string DaragehElmi = "")
         {
-
-            ModelState.Remove("img");
-            if (!ModelState.IsValid || Reshte == "0" || MaghtaeTahsili == "0" || DaragehElmi == "0")
+            bool ImageValid = true;
+            if (img != null)
             {
+                if (!ImageExtensions.Contains(Path.GetExtension(img.FileName).ToUpperInvariant()))
+                {
+                    ImageValid = false;
+                }
+            }
+            model.Description = Sll;
+            ModelState.Remove("img");
+            if (!ModelState.IsValid || Reshte == "0" || MaghtaeTahsili == "0" || DaragehElmi == "0" || ImageValid == false)
+            {
+                if (img != null)
+                {
+                    if (!ImageExtensions.Contains(Path.GetExtension(img.FileName).ToUpperInvariant()))
+                    {
+                        return View(model);
+                    }
+                }
                 List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs1 = new List<Modaresan_Fild_AsliVM>();
                 List<SelectListItem> Reshte1 = _services.GetReshtehTahsilis().Result
                     .Select(x => new SelectListItem { Value = x.ID_ReshtehTahsili.ToString(), Text = x.Titles_ReshtehTahsili }).ToList();
@@ -314,6 +394,13 @@ namespace Request_Course.Controllers
                 T_L_ReshtehTahsili_ID = null,
                 T_L_DaragehElmi_ID = null,
             };
+            if (img != null)
+            {
+                if (!ImageExtensions.Contains(Path.GetExtension(img.FileName).ToUpperInvariant()))
+                {
+                    return View(model);
+                }
+            }
             if (MaghtaeTahsili != "0")
             {
                 t_Modaresan.T_L_MaghtaeTahsili_ID = Convert.ToInt32(MaghtaeTahsili);
@@ -341,7 +428,7 @@ namespace Request_Course.Controllers
             await _services.AddModaresanFildAsli(t_Modaresan_Fild_Amozeshi);
             // var x = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
             // x.Add(new Claim(ClaimTypes.Version, "sk"));
-            return RedirectToAction("TeacherInfo", new { id = Modearseid });
+            return RedirectToAction("TeacherInfo", new { teacherid = Modearseid });
         }
 
         #endregion

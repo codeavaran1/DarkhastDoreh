@@ -15,7 +15,7 @@ namespace Request_Course.VM
 
         public string Phone { get; set; } = string.Empty;
         [Required(ErrorMessage = "فیلد اجباری است")]
-        public string Description { get; set; }
+        public string Description { get; set; } 
         [Required(ErrorMessage = "فیلد اجباری است")]
         public string OnvanShoghli { get; set; } 
 

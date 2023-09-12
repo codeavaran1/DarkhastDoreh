@@ -12,7 +12,7 @@ namespace Request_Course.Serivces.Interface
         #region Accsee
         public Task ConfrimDoreh(int dorehId);
         #endregion
-
+        
         #region Modaresan
         public Task<Tuple<List<T_Doreh_Darkhasti>, int>> GetDorehforBinding(int pageid=0);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehforBinding(string search,int pageid=0);
@@ -83,6 +83,7 @@ namespace Request_Course.Serivces.Interface
         #endregion
         #region Fild Asli Modaresan
         public Task<int> AddModaresanFildAsli(List<T_Modaresan_Fild_Amozeshi> t_Modaresan_Fild_Amozeshi);
+        public Task<List<T_Modaresan_Fild_Amozeshi>> GetModaresanFildAsli(int Teacherid);  
         #endregion
         #region Modaresan_Tools
         public Task<string> GetMaghtaeTahsili(int id);

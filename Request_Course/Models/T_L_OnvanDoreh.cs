@@ -2,6 +2,7 @@ namespace Request_Course.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class T_L_OnvanDoreh
     {
@@ -18,6 +19,12 @@ namespace Request_Course.Models
 
         [StringLength(50)]
         public string? Titles_OnvanDoreh { get; set; }
+
+
+        public int? ID_FildAsli { get; set; }
+
+        [ForeignKey("ID_FildAsli")]
+        public T_L_FildAsli? fildAsli { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<T_Doreh_Darkhasti> T_Doreh_Darkhasti { get; set; }

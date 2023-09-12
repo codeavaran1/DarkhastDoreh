@@ -1,0 +1,108 @@
+﻿@model Request_Course.VM.FildAslAndOnvanDreohShow
+
+<section class="content">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات استاد</p></div>
+        <div class="panel-body">
+            <form id="myForm" asp-action="WorkedFild" method="post">
+                <div class="row">
+                    @for (int i = 0; i < 2; i++)
+                    {
+                        <br />
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label">فیلد اصلی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="FildAsli" class="form-control" asp-items="@ViewBag.FildAsli"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> عنوان دوره</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="OnvanDoreh" class="form-control" asp-items="@ViewBag.OnvanDoreh"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    }
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+
+                    <div class="col-md-3">
+                    </div>
+
+                    <div class="col-md-3">
+                        <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">لیست عناوین</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                        <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                            <div class="col-sm-12">
+                                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                    <thead>
+                                        <tr role="row">
+                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">
+                                                فیلد اصلی
+                                            </th>
+
+                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
+                                                عنوان دوره
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for(int i=0;i<Model.FilAsli.Count();i++)
+                                        {
+                                              <tr role="row" class="odd">
+                                                <td>@Model.FilAsli[i]</td>
+                                                <td>@Model.OnvanDoreh[i]</td>
+                                            </tr>  
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><div class="row">
+                            <div class="col-sm-5">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+

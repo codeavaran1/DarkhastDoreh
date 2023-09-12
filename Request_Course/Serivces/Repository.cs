@@ -589,6 +589,10 @@ namespace Request_Course.Serivces
             await _context.SaveChangesAsync();
             return 0;
         }
+        public async Task<List<T_Modaresan_Fild_Amozeshi>> GetModaresanFildAsli(int Teacherid)
+        {
+            return _context.T_Modaresan_Fild_Amozeshi.Where(x=>x.T_Modaresan_ID==Teacherid).ToList();
+        }
 
         #endregion
         #region Modaresan Tools
