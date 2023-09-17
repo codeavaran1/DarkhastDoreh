@@ -21,6 +21,8 @@ namespace Request_Course.Models
 
         public bool Student { get; set; } = false;
 
+        public bool Activation { get; set; } = false;
+
         public DateTime? DateGenerateCode { get; set; }
 
         public int? T_Modaresan_ID { get; set; }

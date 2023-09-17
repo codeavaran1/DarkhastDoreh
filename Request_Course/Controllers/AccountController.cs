@@ -34,10 +34,20 @@ namespace Request_Course.Controllers
             var user = await _servises.GetActivation(activation.Phone);
             if (user != null)
             {
+                if (user.Activation == true)
+                {
+                    // privent Arrive two times
+                    if (user.DateGenerateCode >= DateTime.Now.AddMinutes(-5))
+                    {
+                        return RedirectToAction("GetPhone");
+                    }                    
+                }
+                
                 //Re generate Code
                 //send SMS Code
                 user.DateGenerateCode = DateTime.Now;
                 user.code = "98751";
+                user.Activation=true;
                 await _servises.UpdateActivation(user);
 
             }
@@ -45,7 +55,6 @@ namespace Request_Course.Controllers
             {
                 //Cerate Avtivation
                 //Send SMS Code
-
                 #region Gneret Code
                 var chars = "123456789";
                 var stringChars = new char[5];
@@ -62,6 +71,7 @@ namespace Request_Course.Controllers
                     Phone = activation.Phone,
                     //code = finalString,
                     code = "12345",
+                    Activation=true,
                     DateGenerateCode = DateTime.Now,
                     NameFamily = "User",
                 };
@@ -93,6 +103,7 @@ namespace Request_Course.Controllers
         [HttpPost]
         public async Task<IActionResult> GetCode(CodeVm codeVm)
         {
+            ViewBag.ViewBag.Error = "";
             if (!ModelState.IsValid)
             {
                 return View(codeVm);
@@ -117,9 +128,11 @@ namespace Request_Course.Controllers
                     await HttpContext.SignInAsync(principle, properties);
                     Activtion.code = "";
                     await _servises.UpdateActivation(Activtion);
+                    Activtion.Activation = false;
+                    await _servises.UpdateActivation(Activtion);
                     //Execept Code
                     if (Activtion.Teacher == true)
-                    {
+                    {                        
                         var teacher = await _servises.GetModaresan(codeVm.Phone);
                         if (teacher == null)
                         {
@@ -127,6 +140,8 @@ namespace Request_Course.Controllers
                         }
                         else
                         {
+                            teacher.LastTimeArrive = await _servises.ConvertDateToShamsi(DateTime.Now); 
+                            await _servises.UpdateModaresan(teacher);
                             if (string.IsNullOrEmpty(teacher.Email))
                             {
                                 return RedirectToAction("TeacherForm", "Teacher", new { phone = codeVm.Phone });
@@ -143,6 +158,8 @@ namespace Request_Course.Controllers
                         }
                         else
                         {
+                            Mokhatab.LastTimeArrive = await _servises.ConvertDateToShamsi(DateTime.Now);
+                            await _servises.UpdateMokhatab(Mokhatab);
                             if (string.IsNullOrEmpty(Mokhatab.Email))
                             {
                                 return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone});
@@ -161,7 +178,9 @@ namespace Request_Course.Controllers
                 }
             }
             //wrong Code
-            return RedirectToAction("ReCode", new { phone = codeVm.Phone });
+            ViewBag.Error = "کد اشتتباه است";
+            return View(codeVm);
+            
 
         }
 

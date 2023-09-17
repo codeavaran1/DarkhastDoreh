@@ -30,6 +30,8 @@ namespace Request_Course.Models
         [StringLength(50)]
         public string ?Phone { get; set; }
 
+        public DateTime? LastTimeArrive { get; set; }
+
         [StringLength(150)]
         public string ?Email { get; set; }
 

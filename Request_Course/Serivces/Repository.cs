@@ -287,6 +287,22 @@ namespace Request_Course.Serivces
         {
             return _context.T_Mokhatebin.SingleOrDefault(x => x.ID_Mokhatebin == MokhatabId);
         }
+        public async Task<bool> SetSatehSherkat(int satehId,int sherkatId)
+        {
+            var result =await _context.T_Mokhatebin.SingleOrDefaultAsync(x => x.ID_Mokhatebin == sherkatId);
+            result.T_L_Sathe_Sherkat_ID=satehId;
+            _context.T_Mokhatebin.Update(result);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        public async Task<List<T_L_Sathe_Sherkat>> GetSathe_Sherkat()
+        {
+            return _context.T_L_Sathe_Sherkat.ToList();
+        }
+        public async Task<int> GetSatehsherkatByName(string sathe)
+        {
+            return _context.T_L_Sathe_Sherkat.SingleOrDefault(x => x.Titles_Sathe_Sherkat == sathe).ID_Sathe_Sherkat;
+        }
         #endregion
         #region User
         public async Task<List<T_Activation>> GetActivations()

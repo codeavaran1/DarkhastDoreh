@@ -1942,4 +1942,8 @@
     <None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\SatehSherkat\" />
+  </ItemGroup>
+
 </Project>

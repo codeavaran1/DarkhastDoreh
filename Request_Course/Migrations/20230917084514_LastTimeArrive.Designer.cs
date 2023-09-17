@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Request_Course.Data;
 
@@ -11,9 +12,10 @@ using Request_Course.Data;
 namespace Request_Course.Migrations
 {
     [DbContext(typeof(ReqContexts))]
-    partial class ReqContextsModelSnapshot : ModelSnapshot
+    [Migration("20230917084514_LastTimeArrive")]
+    partial class LastTimeArrive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,6 @@ namespace Request_Course.Migrations
                         .HasColumnType("bigint");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("ID_Activation"), 1L, 1);
-
-                    b.Property<bool>("Activation")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("DateGenerateCode")
                         .HasColumnType("datetime2");

@@ -38,6 +38,9 @@ namespace Request_Course.Serivces.Interface
         public Task<Tuple<List<T_Mokhatebin>, int>> GetSherkatha(int pageid = 0);
         public Task<IPagedList<T_Mokhatebin>> GetSherkatha(string search, string sortOrder, int paegid = 0);
         public Task<T_Mokhatebin> GetMokhatebinById(int MokhatabId);
+        public Task<bool> SetSatehSherkat(int satehId, int sherkatId);
+        public Task<List<T_L_Sathe_Sherkat>> GetSathe_Sherkat();
+        public Task<int> GetSatehsherkatByName(string sathe);
         #endregion
         #region User
         public Task<List<T_Activation>> GetActivations();
@@ -134,6 +137,7 @@ namespace Request_Course.Serivces.Interface
         public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid, string search, string sortOrder, int paegid = 0);
         public Task DeleteSherkat(int SherkatId);
+        
         #endregion
 
         #region Sar Fasl Doreh

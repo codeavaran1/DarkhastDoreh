@@ -798,6 +798,27 @@ namespace Request_Course.Controllers
             return RedirectToAction("Sherkatha");
         }
 
+        public async Task<IActionResult> SetSatehSherkat(int sherkatId)
+        {
+            var sherkat =await _services.GetMokhatebinById(sherkatId);
+            if (sherkat.T_L_Sathe_Sherkat_ID!=null)
+            {
+                ViewBag.image=sherkat.T_L_Sathe_Sherkat_ID;
+            }
+            List<SelectListItem> sateh = _services.GetSathe_Sherkat().Result
+                    .Select(x => new SelectListItem { Value = x.ID_Sathe_Sherkat.ToString(), Text = x.Titles_Sathe_Sherkat}).ToList();
+            sateh.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+            ViewBag.SatehSherkat = sateh;
+            ViewBag.SherkatId = sherkatId;
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SetSatehSherkat(string sateh,int sherkatId)
+        {
+            int SatehSherkatId =await _services.GetSatehsherkatByName(sateh);
+            await _services.SetSatehSherkat(SatehSherkatId, sherkatId);
+            return RedirectToAction("Sherkatha");
+        }
 
 
         #endregion

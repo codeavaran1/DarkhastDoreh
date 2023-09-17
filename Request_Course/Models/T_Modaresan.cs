@@ -70,6 +70,8 @@ namespace Request_Course.Models
 
         public DateTime? DateCreate { get; set; }
 
+        public DateTime? LastTimeArrive { get; set; }
+
         public bool? Active { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

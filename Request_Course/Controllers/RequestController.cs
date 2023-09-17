@@ -320,13 +320,15 @@ namespace Request_Course.Controllers
         {
             var Teachers = await _serivecs.GetModaresan(onvanAsli, OnvanDoreh);
             List<string> FamilyName = new List<string>();
+            List<string> image = new List<string>();
             List<string> Stars = new List<string>();
             foreach (var item in Teachers)
             {
+                image.Add(item.img);
                 FamilyName.Add(_serivecs.GetActivation(item.Phone).Result.NameFamily);
                 if (item.Sathe_Keyfi == null)
                 {
-                    Stars.Add("don't have");
+                    Stars.Add("0");
                 }
                 else
                 {
@@ -337,7 +339,7 @@ namespace Request_Course.Controllers
                     }
                     else
                     {
-                        Stars.Add("don't have");
+                        Stars.Add("0");
                     }
                 }
             }
@@ -346,6 +348,7 @@ namespace Request_Course.Controllers
             Teacher.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "اتخاب کنید" });
             ViewBag.stars = Stars;
             ViewBag.Teacher = Teacher;
+            ViewBag.image = image;
             ViewBag.Family = FamilyName;
             ViewBag.onvanAsli = onvanAsli;
             ViewBag.OnvanDoreh = OnvanDoreh;
