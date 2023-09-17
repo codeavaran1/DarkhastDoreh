@@ -1,0 +1,87 @@
+﻿@model Request_Course.VM.TeacherInfoVM
+
+@{
+     Layout = "~/Views/Shared/_LayoutIntialingMokhatab.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TeacherInfo</title>
+</head>
+<body>
+
+<div>
+    <h4>TeacherInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OnvanShoghly)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OnvanShoghly)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MadrakTahsili)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MadrakTahsili)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MaghtaeTahsili)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MaghtaeTahsili)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RotbebeinModaresan)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RotbebeinModaresan)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NomrehTadris)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NomrehTadris)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.img)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.img)
+        </dd>
+         <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+   
+    <h3><a asp-controller="Request" asp-action="TeacherOfDoreh" asp-route-onvanAsli="@ViewBag.onvanAsli" asp-route-OnvanDoreh="@ViewBag.OnvanDoreh" asp-route-DorehDarkhasti_ID="ViewBag.DorehDarkhasti_ID" >بازگشت</a></h3>
+
+</div>
+</body>
+</html>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}

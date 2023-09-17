@@ -6,7 +6,7 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 
-<div class="content-wrapper">
+<div >
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
@@ -18,7 +18,8 @@
                     <div class="box-body">
                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
-                            <form class="form-inline">
+                            <form class="form-inline" style="margin:2%">
+                                <input type="hidden" value="@ViewBag.teacherid" data="@ViewBag.teacherid" name="teacherId" />
                                 <div class="form-group">
                                     <input type="text" name="search" class="search-text form-control" placeholder="Search..." />
                                 </div>
@@ -59,7 +60,7 @@
                             <div class="col-sm-7">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
                                 </div>
-                                @Html.PagedListPager(Model, page => Url.Action("TeachersRank", new { pageid=page }))
+                                @Html.PagedListPager(Model, page => Url.Action("TeachersRank", new {teacherId=@ViewBag.teacherid, pageid=page }))
 
                             </div>
                         </div>

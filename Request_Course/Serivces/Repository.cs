@@ -376,6 +376,20 @@ namespace Request_Course.Serivces
             }
             return result;
         }
+
+        public async Task<List<T_Modaresan>> GetModaresanByOnvanasli(int onvnasli)
+        {
+            var OnvanAsli = _context.T_Modaresan_Fild_Amozeshi
+            .Where(x => x.T_L_FildAsli_ID == onvnasli).Select(x => x.T_Modaresan_ID).ToList();
+            OnvanAsli = OnvanAsli.Distinct().ToList();
+            List<T_Modaresan> result = new List<T_Modaresan>();
+            foreach (var item in OnvanAsli)
+            {
+                T_Modaresan t_Modaresan = _context.T_Modaresan.SingleOrDefault(d => d.ID_Modaresan == item);
+                result.Add(t_Modaresan);
+            }
+            return result;
+        }
         public async Task<T_Modaresan> GetModaresan(int id)
         {
             return _context.T_Modaresan.SingleOrDefault(x => x.ID_Modaresan == id);
@@ -419,7 +433,7 @@ namespace Request_Course.Serivces
         {
             if (img != null)
             {
-                t_Modaresan.img = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(img.FileName);
+                t_Modaresan.img = t_Modaresan.Phone + Path.GetExtension(img.FileName);
                 string ImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", t_Modaresan.img);
                 using (var Stream = new FileStream(ImgPath, FileMode.Create))
                 {
@@ -452,7 +466,7 @@ namespace Request_Course.Serivces
                         File.Delete(Deletimg);
                     }
                 }
-                _Modaresan.img = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(img.FileName);
+                _Modaresan.img = _Modaresan.Phone + Path.GetExtension(img.FileName);
 
                 string ImgPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", _Modaresan.img);
                 using (var Stream = new FileStream(ImgPath, FileMode.Create))
@@ -811,6 +825,10 @@ namespace Request_Course.Serivces
         public async Task<List<string>> GetT_Fasl_Dorehs_Pishnahadi(int Dorehid)
         {
             return _context.T_Fasl_Doreh_Pishnahadi.Where(x => x.T_Doreh_Darkhasti_ID == Dorehid).Select(x => x.Mohtava).ToList();
+        }
+        public async Task<List<T_Fasl_Doreh_Pishnahadi>> GetT_Fasl_Dorehs_PishnahadiByDoreh(int Dorehid)
+        {
+            return _context.T_Fasl_Doreh_Pishnahadi.Where(x => x.T_Doreh_Darkhasti_ID == Dorehid).ToList();
         }
         public async Task<int> AddSarFasl(List<T_Fasl_Doreh> t_Fasl_Dorehs)
         {

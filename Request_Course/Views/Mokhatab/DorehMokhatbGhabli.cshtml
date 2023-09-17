@@ -7,7 +7,7 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 
-<div class="content-wrapper">
+<div>
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
@@ -20,6 +20,7 @@
                        <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
                             <form class="form-inline">
+                                <input type="hidden" value="@ViewBag.Phone" data="@ViewBag.Phone" name="phone" />
                                 <div class="form-group">
                                     <input type="text" name="search" class="search-text form-control" placeholder="Search..." />
                                 </div>
@@ -30,7 +31,7 @@
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">
-                                                @Html.ActionLink("دوره", "DorehMokhatbGhabli",new {sortOrder="Doreh"})
+                                                @Html.ActionLink("دوره", "DorehMokhatbGhabli",new {phone=@ViewBag.Phone,sortOrder="Doreh"})
                                             </th>
 
                                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
@@ -58,7 +59,7 @@
                             <div class="col-sm-7">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
                                 </div>
-                                @Html.PagedListPager(Model, page => Url.Action("DorehMokhatbGhabli", new { pageid=page }))
+                                @Html.PagedListPager(Model, page => Url.Action("DorehMokhatbGhabli", new {phone=@ViewBag.Phone, pageid=page }))
 
                             </div>
                         </div>

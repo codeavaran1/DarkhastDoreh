@@ -1,12 +1,11 @@
-﻿@model List<Request_Course.Models.T_Fasl_Doreh>
+﻿@model List<Request_Course.Models.T_Fasl_Doreh_Pishnahadi>
 
 @{
     Layout = "~/Views/Shared/_LayoutIntialing.cshtml";
 
 
-    int DorehDarkhasti_ID = (int)ViewBag.DorehDarkhasti_ID;
-    int onvandoreh = (int)ViewBag.onvandoreh;
-    int onvanasli = (int)ViewBag.onvandoreh;
+    int DorehDarkhasti_ID = @ViewBag.DorehDarkhasti_ID;
+    int onvanasli = @ViewBag.onvanasli;
 
 }
 
@@ -25,10 +24,9 @@
             <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات </p></div>
 
             <div class="panel-body">
-                <form id="myForm" asp-action="SarFasliPishnahadi" method="post">
+                <form id="myForm" asp-action="SarFaslDoreh_NewDoreh_Pishnahadi" method="post">
                     <input type="hidden" name="DorehDarkhasti_ID" value="@ViewBag.DorehDarkhasti_ID" data="@ViewBag.DorehDarkhasti_ID" />
                     <input type="hidden" name="onvanasli" value="@ViewBag.onvanasli" data="@ViewBag.onvanasli" />
-                    <input type="hidden" name="onvandoreh" value="@ViewBag.onvandoreh" data="@ViewBag.onvandoreh" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -162,7 +160,7 @@
                                                         @for (int i = 0; i < Model.Count(); i++)
                                                         {
                                                             <tr role="row" class="odd">
-                                                                <td class="sorting_1">@Model[i].Mohtav</td>
+                                                                <td class="sorting_1">@Model[i].Mohtava</td>
                                                                 <td>@Model[i].Modate_Ejra</td>
                                                                 <td>@Model[i].Shekle_Ejra</td>
                                                             </tr>
@@ -180,92 +178,6 @@
                         </div>
                         <!-- /.col -->
                     </div>
-
-
-
-                 @*   <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-8">
-                                    <div class="titrfild">
-                                        <p style="font-family:WYekan;font-size:large">
-                                            <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
-                                            <strong>اطلاعات سرفصل:</strong>
-                                        </p>
-                                    </div>
-                                </div> <div class="col-4"></div>
-                                <div class="col-md-10">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                        </div>
-                    </div>
-                    @for (int i = 0; i < Model.Count; i++)
-                    {
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="col-md-6">
-                                        <label class="control-label">محتوا</label>
-                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input readonly data="@Model[i].Mohtav" value="@Model[i].Mohtav" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="col-md-6">
-                                        <label class="control-label">مدت اجرا</label>
-                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input readonly data="@Model[i].Modate_Ejra" value="@Model[i].Modate_Ejra" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <div class="col-md-6">
-                                        <label class="control-label">نوع اجرا</label>
-                                        <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <input readonly data="@Model[i].Shekle_Ejra" value="@Model[i].Shekle_Ejra" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="col-md-6">
-                                    </div>
-                                    <div class="col-md-10">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }*@
-                    @* @Html.RenderPartialFromController("/Episod/SarFasliPishnahadi")
-                    @await Html.Action("SarFasliPishnahaditest", modeling)
-                    @Html.Action("GetMenu", "Home")
-                    *@
-                    @*<partial name="SarFasliPishnahadi" model=modeling />
-                    <partial name="SarFasliPishnahadi" model=modeling />*@
-
-                    @* @(await Component.InvokeAsync("SarFasle",new{DorehDarkhasti_ID=DorehDarkhasti_ID
-                    ,onvandoreh=onvandoreh,onvanasli=onvanasli}))*@
-                    <a class="btn btn-success btn-block" asp-controller="Request" asp-action="TeacherOfDoreh" asp-route-onvanAsli="@ViewBag.onvanasli" asp-route-DorehDarkhasti_ID="@ViewBag.DorehDarkhasti_ID" asp-route-OnvanDoreh="@ViewBag.onvandoreh">
-                        تایید
-                    </a>
-                    <br />
-                  @*  <form asp-action="SarFasliPishnahadi" method="get">
-                        <input type="hidden" name="DorehDarkhasti_ID" value="@ViewBag.DorehDarkhasti_ID" data="@ViewBag.DorehDarkhasti_ID" />
-                        <input type="hidden" name="onvanasli" value="@ViewBag.onvanasli" data="@ViewBag.onvanasli" />
-                        <input type="hidden" name="onvandoreh" value="@ViewBag.onvandoreh" data="@ViewBag.onvandoreh" />
-                        <input type="submit" style="background:#337ab7" class="btn btn-warnnig btn-block" value="سر فصل جدید" />
-                    </form>*@
                 </dl>
 
 

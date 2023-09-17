@@ -2,7 +2,7 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 
-<div class="content-wrapper">
+<div>
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
@@ -12,56 +12,64 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                       <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                        <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <input type="text" name="search" class="search-text form-control" placeholder="Search..." />
-                                </div>
-                                <button type="submit" class="btn btn-info">جستوجو</button>
-                            </form>
-                            <div class="col-sm-12">
-                                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-                                    <thead>
-                                        <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">
-                                                @Html.ActionLink("نام کاربری", "Users",new {sortOrder="username"})
-                                            </th>
+                        @if (Model.Count() == 0)
+                        {
+                            <h2>خالی است</h2>
+                        }
+                        else
+                        {
+                            <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                                <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
+                                    <form class="form-inline" style="margin:2%">
+                                        <div class="form-group">
+                                            <input type="text" name="search" class="search-text form-control" placeholder="Search..." />
+                                        </div>
+                                        <button type="submit" class="btn btn-info">جستوجو</button>
+                                    </form>
+                                    <div class="col-sm-12">
+                                        <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">
+                                                        @Html.ActionLink("نام کاربری", "Users",new {sortOrder="username"})
+                                                    </th>
 
-                                            <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
-                                                @Html.ActionLink("شماره", "Users",new {sortOrder="phone"})
-                                            </th>
-                                              <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
-                                                @Html.ActionLink("نام", "Users",new {sortOrder="name"})
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                          @foreach (var item in Model)
-                                            {
-                                                <tr role="row" class="odd">
-                                                    <td class="sorting_1">@item.UserName</td>
-                                                    <td>@item.Phone</td>
-                                                    <td>@item.Name</td>
-                                                      <td class="btn btn-warning" ><a asp-controller="Admin" asp-action="UpdateUser" asp-route-username="@item.UserName">ویرایش</a></td>
-                                                    <td class="btn btn-danger" ><a asp-controller="Admin" asp-action="RmoveAdmin"  asp-route-username="@item.UserName">حذف</a> </td>
+                                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
+                                                        @Html.ActionLink("شماره", "Users",new {sortOrder="phone"})
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
+                                                        @Html.ActionLink("نام", "Users",new {sortOrder="name"})
+                                                    </th>
                                                 </tr>
-                                            }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div><div class="row">
-                            <div class="col-sm-5">
-                            </div>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr role="row" class="odd">
+                                                        <td class="sorting_1">@item.UserName</td>
+                                                        <td>@item.Phone</td>
+                                                        <td>@item.Name</td>
+                                                        <td class="btn btn-warning"><a asp-controller="Admin" asp-action="UpdateUser" asp-route-username="@item.UserName">ویرایش</a></td>
+                                                        <td class="btn btn-danger"><a asp-controller="Admin" asp-action="RmoveAdmin" asp-route-username="@item.UserName">حذف</a> </td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div><div class="row">
+                                    <div class="col-sm-5">
+                                    </div>
 
-                            <div class="col-sm-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                    <div class="col-sm-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
+                                        </div>
+                                        @Html.PagedListPager(Model, page => Url.Action("Users", new { pageid=page }))
+
+                                    </div>
                                 </div>
-                                @Html.PagedListPager(Model, page => Url.Action("Users", new { pageid=page }))
-
                             </div>
-                        </div>
-                    </div>
+                        }
+
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -73,4 +81,3 @@
         <!-- /.row -->
     </section>
 </div>
- 

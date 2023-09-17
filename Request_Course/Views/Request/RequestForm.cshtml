@@ -1,7 +1,7 @@
 ﻿@model Request_Course.VM.RequesterVM
 
 @{
-    Layout = "~/Views/Shared/_LayoutIntialing.cshtml";
+    Layout = "~/Views/Shared/_LayoutIntialingMokhatab.cshtml";
 }
 
 <!DOCTYPE html>
@@ -20,7 +20,6 @@
             <div class="panel-body">
                 <form id="myForm" asp-action="RequestForm" method="post">
                     <input type="hidden" asp-for="Phone" value="@ViewBag.phone" data="@ViewBag.phones" />
-                    <input type="hidden" asp-for="Family" value="@ViewBag.family" data="@ViewBag.family" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -41,27 +40,28 @@
                     </div>
                     <br />
                     <div class="row">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-6">
-                                    <label class="control-label">نام</label>
-                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                </div>
-                                <div class="col-md-10">
-                                    <input value="@ViewBag.family" data="@ViewBag.family" readonly class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">تلفن</label>
+                                    <label class="control-label">موبایل</label>
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
                                 <div class="col-md-10">
                                     <input asp-for="Phone" readonly class="form-control" />
                                     <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">نام و نام خانوادگی</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Family" class="form-control" />
+                                    <span asp-validation-for="Family" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -146,49 +146,7 @@
 
 
     @*
-    <br />
-    <br />
-    <h4>RequesterVM</h4>
-    <hr />
-    <div class="row">
-    <div class="col-md-4">
-    <form asp-action="RequestForm">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-    <label asp-for="Name_Sherkat" class="control-label"></label>
-    <input asp-for="Name_Sherkat" class="form-control" />
-    <span asp-validation-for="Name_Sherkat" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Phone" class="control-label"></label>
-    <input asp-for="Phone" class="form-control" />
-    <span asp-validation-for="Phone" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Email" class="control-label"></label>
-    <input asp-for="Email" class="form-control" />
-    <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label class="control-label"> Ostan</label>
-    <select name="Ostan" class="form-control" asp-items="@ViewBag.ostany"></select>
-    </div>
-    <div class="form-group">
-    <label class="control-label"> Semat</label>
-    <select name="Semat" class="form-control" asp-items="@ViewBag.Semat"></select>
-    </div>
-    <input type="hidden" asp-for="Phone" value="@ViewBag.phone" data="@ViewBag.phones" />
-    <input type="hidden" asp-for="Family" value="@ViewBag.family" data="@ViewBag.family" />
-    <div class="form-group">
-    <input type="submit" value="Create" class="btn btn-default" />
-    </div>
-    </form>
-    </div>
-    </div>
 
-    <div>
-    <a asp-action="Index">Back to List</a>
-    </div>
     *@
     @section Scripts {
         @{

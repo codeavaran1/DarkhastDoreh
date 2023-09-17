@@ -67,6 +67,7 @@ namespace Request_Course.Serivces.Interface
         public Task<T_Modaresan> GetModaresan(int id);
         public Task<bool> UniqPhoneModares(string phone);
         public Task<List<T_Modaresan>> GetModaresan(int onvnasli, int onvandoreh);
+        public Task<List<T_Modaresan>> GetModaresanByOnvanasli(int onvnasli);
         public Task<IPagedList<T_Modaresan>> GetModaresan(string search,string sortOrder ,int pageid=0);
         public Task<List<T_Modaresan>> GetModaresan();
         public Task<int> GetModaresanPage();
@@ -139,6 +140,7 @@ namespace Request_Course.Serivces.Interface
         public Task<List<string>> GetT_Fasl_Dorehs(int onvanasli,int onvandoreh);
         public Task<List<T_Fasl_Doreh>> GetT_Fasl_Dore(int onvanasli, int onvandoreh);
         public Task<List<string>> GetT_Fasl_Dorehs_Pishnahadi(int Dorehid);
+        public Task<List<T_Fasl_Doreh_Pishnahadi>> GetT_Fasl_Dorehs_PishnahadiByDoreh(int Dorehid);
         public Task<int> Add_sar_Fasle_Doreh_Pishnahadi(List<T_Fasl_Doreh_Pishnahadi> t_Fasl_Doreh_Pishnahadi);
         public Task<int> AddSarFasl(List<T_Fasl_Doreh> t_Fasl_Dorehs);
         public Task<IPagedList<T_Fasl_Doreh>> GetT_Fasle_Dorehs(int pageid);

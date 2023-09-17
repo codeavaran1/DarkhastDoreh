@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="~/bower_components/jvectormap/jquery-jvectormap.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/dist/css/AdminLTE.css">
+    <link rel="stylesheet" href="~/Font" />
+    <link href="~/Content/font.css" rel="stylesheet" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="~/dist/css/skins/_all-skins.min.css">
@@ -35,7 +37,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 
 
-    <div class="wrapper">
+     <div class="wrapper">
 
         <header class="main-header">
             <!-- Logo -->
@@ -43,7 +45,7 @@
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">پنل</span>
                 <!-- logo for regular state and mobile devices -->
-                <span class="logo-lg"><b>پنل مدرس</b></span>
+                <span class="logo-lg"><b>پنل شرکت</b></span>
             </a>
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
@@ -55,12 +57,6 @@
                 <!-- End Delete-->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
-                        <!-- Messages: style can be found in dropdown.less-->
-                        <!-- User Account: style can be found in dropdown.less -->
-                        <!--   ...............................................Strat Minimum Profile.........................................        -->
-                        <!--   .................................................Endk Minimum Profile.........................................        -->
-                        <!-- Control Sidebar Toggle Button -->
-
                     </ul>
                 </div>
             </nav>
@@ -70,63 +66,54 @@
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
                 <!-- Sidebar user panel -->
-                 <div class="pull-right image">
-                        <img src="~/images/@(User.Identity.Name).jpg class="img-circle" alt="User Image">
-                    </div>
                 <div class="user-panel">
-                    <div class="pull-right info" style="display:contents;">
-                        <p>@(User.Identity.Name)</p>
+                    <div class="pull-right image">
+                        <img src="~/images/defalut.jpg" class="img-circle" alt="User Image">
+                    </div>
+                    <div class="pull-right info">
+                        <p>@User.Identity.Name</p>
+                        <a href="#"><i class="fa fa-circle text-success"></i> آنلاین</a>
                     </div>
                 </div>
                 <!-- search form -->
                 <!-- /.search form -->
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 <ul class="sidebar-menu" data-widget="tree">
-                    <li class="header" style="color:ghostwhite;font-size:larger;">
-                        <b>ناوبری اصلی</b>
-                    </li>
-                    <li>
-                        <a asp-controller="Teacher" asp-action="DorehTadrisShodeh" asp-route-teacherId="@ViewBag.teacherid">
+                    <li class="header">منو</li>
+                    <li class="treeview">
+                        <a href="#">
                             <i class="fa fa fa-book"></i>
-                            <span> دوره های تدریس شده</span>
+                            <span> دوره های من</span>
+                            <span class="pull-left-container">
+                                <i class="fa fa-angle-right pull-left"></i>
+                            </span>
+                            <ul class="treeview-menu">
+                                <li><a><i class="fa fa-circle-o"></i>برگزار شده ها</a></li>
+                                <li><a><i class="fa fa-circle-o"></i>در حال برگزاری</a></li>
+                                <li><a></i>در حال پیگیری</a></li>
+                            </ul>
                         </a>
                     </li>
-                    <li>
-                        <a asp-controller="Teacher" asp-action="DorehFaal" asp-route-TeacherId="@ViewBag.teacherid">
-                            <i class="fa fa-book"></i>
-                            <span>دروه های فعال</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Teacher" asp-action="DorehGhabil" asp-route-teacherid="@ViewBag.teacherid">
+                    <li >
+                        <a >
                             <i class="fa fa-files-o"></i>
-                            <span>سوابق دروه های برگذار شده</span>
+                            صدرو گواهی نامه 
                         </a>
                     </li>
-                    <li>
-                        <a asp-controller="Teacher" asp-action="TeachersRank" asp-route-teacherId="@ViewBag.teacherid">
-                            <i class="fa fa-dashboard"></i> <span>رتبه بین مدرسان </span>
+                    <li >
+                        <a >
+                            <i class="fa fa-laptop"></i> پروفایل
                         </a>
                     </li>
-                    <li>
-                        <a asp-controller="Teacher" asp-action="UpdateModares" asp-route-teacherid="@ViewBag.teacherid">
-                            <i class="fa fa-laptop"></i> <span>ویرایش اطلاعات</span>
+                      <li  >
+                        <a >
+                            <i class="fa fa-laptop"></i>ویرایش
                         </a>
                     </li>
-                    <li>
-                        <a asp-controller="Teacher" asp-action="WorkedFild" asp-route-teacherid="@ViewBag.teacherid">
-                            <i class="fa fa-laptop"></i> <span>فیلد کاری</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a asp-controller="Teacher" asp-action="TeacherInfo" asp-route-teacherid="@ViewBag.teacherid" asp-route-phone="@ViewBag.Phone">
-                            <i class="fa fa-laptop"></i> <span>پروفایل</span>
-                        </a>
-                    </li>
-                    <li>
+                    <li >
                         <a asp-controller="َAccount" asp-action="Logout">
                             <i class="fa fa-share"></i>
-                            <span>خروج</span>
+                            خروج
                         </a>
                     </li>
                 </ul>

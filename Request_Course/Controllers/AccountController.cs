@@ -63,7 +63,7 @@ namespace Request_Course.Controllers
                     //code = finalString,
                     code = "12345",
                     DateGenerateCode = DateTime.Now,
-                    NameFamily = activation.NameFamily,
+                    NameFamily = "User",
                 };
                 if (Persontype == "Teacher")
                 {
@@ -106,7 +106,7 @@ namespace Request_Course.Controllers
                     var clm = new List<Claim>
                     {
                         new Claim(ClaimTypes.NameIdentifier,Activtion.Phone),
-                        new Claim(ClaimTypes.Name,Activtion.NameFamily),
+                        new Claim(ClaimTypes.Name,Activtion.Phone)
                     };
                     var identity = new ClaimsIdentity(clm, CookieAuthenticationDefaults.AuthenticationScheme);
                     var principle = new ClaimsPrincipal(identity);
@@ -139,13 +139,13 @@ namespace Request_Course.Controllers
                         var Mokhatab = await _servises.GetMokhatebin(codeVm.Phone);
                         if (Mokhatab == null)
                         {
-                            return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone, Family = Activtion.NameFamily });
+                            return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone});
                         }
                         else
                         {
                             if (string.IsNullOrEmpty(Mokhatab.Email))
                             {
-                                return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone, Family = Activtion.NameFamily });
+                                return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone});
                             }
                             return RedirectToAction("Index", "Mokhatab", new { phone =Mokhatab.Phone});
                         }
@@ -186,7 +186,7 @@ namespace Request_Course.Controllers
             return RedirectToAction("GetCode", new { phone = phone });
         }
 
-
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

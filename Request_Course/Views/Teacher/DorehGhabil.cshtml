@@ -5,7 +5,7 @@
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
 
-<div class="content-wrapper">
+<div >
     <section class="content">
         <div class="row">
             <div class="col-xs-12">
@@ -15,9 +15,16 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                       <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                      @if (Model.Count()==0)
+                        {
+                            <h2>خالی است</h2>
+                        }
+                        else
+                        {
+                             <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                         <div class="row"><div class="col-sm-6"></div><div class="col-sm-6"></div></div><div class="row">
-                            <form class="form-inline">
+                            <form class="form-inline" style="margin:2%">
+                                   <input type="hidden" value="@ViewBag.teacherid" data="@ViewBag.teacherid" name="teacherid" />
                                 <div class="form-group">
                                     <input type="text" name="search" class="search-text form-control" placeholder="Search..." />
                                 </div>
@@ -28,11 +35,11 @@
                                     <thead>
                                         <tr role="row">
                                             <th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="نام کاربری: activate to sort column descending">
-                                                @Html.ActionLink("دوره", "DorehGhabil",new {sortOrder="Doreh"})
+                                                @Html.ActionLink("دوره", "DorehGhabil",new {teacherid=@ViewBag.teacherid,sortOrder="Doreh"})
                                             </th>
 
                                             <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="شماره: activate to sort column ascending">
-                                                @Html.ActionLink("شرکت", "DorehGhabil",new {sortOrder="Mokhatb"})
+                                                @Html.ActionLink("شرکت", "DorehGhabil",new {teacherid=@ViewBag.teacherid,sortOrder="Mokhatb"})
                                             </th>
                                         </tr>
                                     </thead>
@@ -54,11 +61,12 @@
                             <div class="col-sm-7">
                                 <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
                                 </div>
-                                @Html.PagedListPager(Model, page => Url.Action("DorehGhabil", new { pageid=page }))
+                                @Html.PagedListPager(Model, page => Url.Action("DorehGhabil", new {teacherid=@ViewBag.teacherid, pageid=page }))
 
                             </div>
                         </div>
                     </div>
+                        }
                     </div>
                     <!-- /.box-body -->
                 </div>

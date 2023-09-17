@@ -21,7 +21,7 @@ namespace Request_Course.Controllers
 
         #region Mokhatabin jadid
         [HttpGet]
-        public async Task<IActionResult> RequestForm(string phone = "", string Family = "")
+        public async Task<IActionResult> RequestForm(string phone = "")
         {
             var Mokhatab = await _serivecs.GetMokhatebin(phone);
             if (Mokhatab!=null)
@@ -37,7 +37,6 @@ namespace Request_Course.Controllers
             ViewBag.ostany = Ostan;
             ViewBag.Semat = Semat;
             ViewBag.phone = phone;
-            ViewBag.family = Family;
             return View();
         }
         [HttpPost]
@@ -52,7 +51,6 @@ namespace Request_Course.Controllers
                     .Select(x => new SelectListItem { Value = x.ID_Semat.ToString(), Text = x.Titles_Semat }).ToList();
                 Semat1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتحاب کنید" });
                 ViewBag.phone = model.Phone;
-                ViewBag.family = model.Family;
                 ViewBag.ostany = Ostan1;
                 ViewBag.Semat = Semat1;
                 return View(model);
@@ -310,7 +308,7 @@ namespace Request_Course.Controllers
             int Userid = _serivecs.GetMokhatebin(model.Phone).Result.ID_Mokhatebin;
             t_Doreh_Darkhasti.T_Mokhatebin_ID = Userid;
             await _serivecs.AddDorehJadid(t_Doreh_Darkhasti);
-            return RedirectToAction("SarFaslDoreh", "Episod", new { onvanasli = Convert.ToInt16(OnvanAsli), DorehDarkhasti_ID = t_Doreh_Darkhasti.ID_Doreh_Darkhasti });
+            return RedirectToAction("SarFaslDoreh_NewDoreh_Pishnahadi", "Episod", new { onvanasli = Convert.ToInt16(OnvanAsli), DorehDarkhasti_ID = t_Doreh_Darkhasti.ID_Doreh_Darkhasti });
 
         }
 
@@ -392,6 +390,43 @@ namespace Request_Course.Controllers
             return RedirectToAction("AllAboutDorehMethod", new { DorehId = DorehDarkhasti_ID });
         }
 
+        public async Task<IActionResult> TeacherOfDoreh_NewDoreh(int onvanAsli, int DorehDarkhasti_ID = 0)
+        {
+            var Teachers = await _serivecs.GetModaresanByOnvanasli(onvanAsli);
+            List<string> FamilyName = new List<string>();
+            List<string> Stars = new List<string>();
+            foreach (var item in Teachers)
+            {
+                FamilyName.Add(_serivecs.GetActivation(item.Phone).Result.NameFamily);
+                if (item.Sathe_Keyfi == null)
+                {
+                    Stars.Add("don't have");
+                }
+                else
+                {
+                    var star = await _serivecs.GetSatheKeyfi(Convert.ToInt32(item.Sathe_Keyfi));
+                    if (star != null)
+                    {
+                        Stars.Add(star);
+                    }
+                    else
+                    {
+                        Stars.Add("don't have");
+                    }
+                }
+            }
+            List<SelectListItem> Teacher = Teachers
+               .Select(x => new SelectListItem { Value = x.ID_Modaresan.ToString(), Text = x.NameFamily }).ToList();
+            Teacher.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "اتخاب کنید" });
+            ViewBag.stars = Stars;
+            ViewBag.Teacher = Teacher;
+            ViewBag.Family = FamilyName;
+            ViewBag.onvanAsli = onvanAsli;
+            ViewBag.DorehDarkhasti_ID = DorehDarkhasti_ID;
+            return View(Teachers);
+        }
+
+       
 
         #endregion
 
@@ -460,8 +495,9 @@ namespace Request_Course.Controllers
 
         public async Task<IActionResult> ConfrimDoreh(int DorehId)
         {
+            var user = User.Identity.Name;
             await _serivecs.ConfrimDoreh(DorehId);
-            return RedirectToAction("Index");
+            return RedirectToAction("index", "Mokhatab", new { phone =User.Identity.Name});
         }
 
 

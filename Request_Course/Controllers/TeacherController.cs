@@ -10,7 +10,7 @@ namespace Request_Course.Controllers
     public class TeacherController : Controller
     {
         private IRepository _services;
-        public static readonly List<string> ImageExtensions = new List<string> { ".JPG", ".JPEG", ".PNG" };
+        public static readonly List<string> ImageExtensions = new List<string> { ".JPG"};
         public TeacherController(IRepository repository)
         {
             _services = repository;
@@ -142,6 +142,39 @@ namespace Request_Course.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> TeacherInfoForMokhatab(int teacherid = 0, int onvanAsli=0, int OnvanDoreh=0, int DorehDarkhasti_ID = 0)
+        {
+            ViewBag.teacherid = teacherid;
+            ViewBag.onvanAsli = onvanAsli;
+            ViewBag.OnvanDoreh = OnvanDoreh;
+            ViewBag.DorehDarkhasti_ID = DorehDarkhasti_ID;
+            T_Modaresan Teacher = new T_Modaresan();
+            if (teacherid != 0)
+            {
+                Teacher = await _services.GetModaresan(teacherid);
+            }
+            else
+            {
+                return NotFound();
+            }
+            var teacher_name = _services.GetActivation(Teacher.Phone).Result.NameFamily;
+            var teacher_MaghtaeTahsili = Teacher.MadrakTahsili;
+            TeacherInfoVM model = new TeacherInfoVM()
+            {
+                Name = teacher_name,
+                MadrakTahsili = Teacher.MadrakTahsili,
+                OnvanShoghly = Teacher.Onvan_Shoghli,
+                MaghtaeTahsili = teacher_MaghtaeTahsili,
+                img = Teacher.img,
+                Phone = Teacher.Phone,
+                Description = Teacher.Description,
+                NomrehTadris = Teacher.Avg_Nomreh_Tadris_float.ToString(),
+                RotbebeinModaresan = Teacher.Rotbe_Modares.ToString(),
+            };
+            return View(model);
+        }
+
         public async Task<IActionResult> UpdateModares(int teacherid = 0)
         {
             ViewBag.teacherid = teacherid;
@@ -181,6 +214,7 @@ namespace Request_Course.Controllers
         public async Task<IActionResult> UpdateModares(ModaresanUpdateVM model, int modaresId, IFormFile img, string Sll, string maghtaehtasili = "", string Reshte = "", string DaregElmi = "")
         {
             bool username_Uniq = true;
+            ViewBag.teacherid = modaresId;
             var Modares = await _services.GetModaresan(modaresId);
             if (model.Phone != Modares.Phone)
             {
@@ -227,7 +261,7 @@ namespace Request_Course.Controllers
             Modares.Onvan_Shoghli = model.Onvan_Shoghli;
             Modares.Phone = model.Phone;
             await _services.UpdateModaresan(Modares, img);
-            return View();
+            return RedirectToAction("Index", new { teacherId = modaresId });
         }
 
         public async Task<IActionResult> TeachersRank(int teacherId, string search, int pageid = 1)
@@ -348,13 +382,6 @@ namespace Request_Course.Controllers
             ModelState.Remove("img");
             if (!ModelState.IsValid || Reshte == "0" || MaghtaeTahsili == "0" || DaragehElmi == "0" || ImageValid == false)
             {
-                if (img != null)
-                {
-                    if (!ImageExtensions.Contains(Path.GetExtension(img.FileName).ToUpperInvariant()))
-                    {
-                        return View(model);
-                    }
-                }
                 List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs1 = new List<Modaresan_Fild_AsliVM>();
                 List<SelectListItem> Reshte1 = _services.GetReshtehTahsilis().Result
                     .Select(x => new SelectListItem { Value = x.ID_ReshtehTahsili.ToString(), Text = x.Titles_ReshtehTahsili }).ToList();
@@ -384,6 +411,7 @@ namespace Request_Course.Controllers
             T_Modaresan t_Modaresan = new T_Modaresan()
             {
                 Email = model.Email,
+                NameFamily = model.Name,
                 DateCreate = await _services.ConvertDateToShamsi(DateTime.Now),
                 Daneshgah_Sherkat = model.Daneshgah_Reshteh,
                 Mobile = model.Phone,
@@ -394,13 +422,6 @@ namespace Request_Course.Controllers
                 T_L_ReshtehTahsili_ID = null,
                 T_L_DaragehElmi_ID = null,
             };
-            if (img != null)
-            {
-                if (!ImageExtensions.Contains(Path.GetExtension(img.FileName).ToUpperInvariant()))
-                {
-                    return View(model);
-                }
-            }
             if (MaghtaeTahsili != "0")
             {
                 t_Modaresan.T_L_MaghtaeTahsili_ID = Convert.ToInt32(MaghtaeTahsili);
