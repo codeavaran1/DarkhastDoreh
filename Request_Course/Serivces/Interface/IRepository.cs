@@ -83,6 +83,8 @@ namespace Request_Course.Serivces.Interface
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_Faal_Teacher(int teacherid, string search, string sortOrder, int paegid = 0);
         public Task<List<T_Doreh_Darkhasti>> GetDoreh_ghabil(int teacherid);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_ghabil(int teacherid, string search, string sortOrder, int paegid = 0);
+        public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_Entezar(int teacherid, string search, string sortOrder, int paegid = 0);
+        public Task<bool> SetMOdaresToDoreh(int Dorehid);
         public Task<List<int>> GetDorehID_Teacher(int Teacherid);
         #endregion
         #region Fild Asli Modaresan
@@ -137,6 +139,8 @@ namespace Request_Course.Serivces.Interface
         public Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid);
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid, string search, string sortOrder, int paegid = 0);
         public Task DeleteSherkat(int SherkatId);
+
+
         
         #endregion
 

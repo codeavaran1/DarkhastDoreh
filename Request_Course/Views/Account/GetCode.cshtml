@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <input asp-for="Phone" name="Phone" type="hidden" value="@ViewBag.Phone" data="@ViewBag.Phone" class="form-control" />
-                          <div ><span id="time">05:00 <p>زمان باقی مانده:</p></span></div>
+                          <div ><span id="time">@ViewBag.min:@ViewBag.sec <p>زمان باقی مانده:</p></span></div>
                         <div class="col-12 col-m-12" style=" padding: 5px;"></div><!--space-->
                         <h5>@ViewBag.Error</h5>  
                         
@@ -98,7 +98,7 @@
             
 
             window.onload = function() {
-                var fiveMinutes = 60 * 5,
+                var fiveMinutes = @ViewBag.during,
                     display = document.querySelector('#time');
                 startTimer(fiveMinutes, display);
             };

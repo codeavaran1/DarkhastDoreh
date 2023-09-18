@@ -40,14 +40,14 @@ namespace Request_Course.Controllers
                     if (user.DateGenerateCode >= DateTime.Now.AddMinutes(-5))
                     {
                         return RedirectToAction("GetPhone");
-                    }                    
+                    }
                 }
-                
+
                 //Re generate Code
                 //send SMS Code
                 user.DateGenerateCode = DateTime.Now;
                 user.code = "98751";
-                user.Activation=true;
+                user.Activation = true;
                 await _servises.UpdateActivation(user);
 
             }
@@ -71,7 +71,7 @@ namespace Request_Course.Controllers
                     Phone = activation.Phone,
                     //code = finalString,
                     code = "12345",
-                    Activation=true,
+                    Activation = true,
                     DateGenerateCode = DateTime.Now,
                     NameFamily = "User",
                 };
@@ -95,15 +95,29 @@ namespace Request_Course.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetCode(string phone = "")
+        public async Task<IActionResult> GetCode(string phone = "", bool Error = false)
         {
+            ViewBag.Error = "";
             ViewBag.Phone = phone;
+            if (Error == true)
+            {
+                ViewBag.Error = "کد اشتیاه است";
+            }
+            var Activtion = await _servises.GetActivation(phone);
+
+            var time = Activtion.DateGenerateCode - DateTime.Now.AddMinutes(-5);
+
+            //Timer 
+            ViewBag.sec = time.Value.Seconds;
+            ViewBag.min = time.Value.Minutes;
+            ViewBag.during = (((ViewBag.min-1)*100)+ ViewBag.sec)-60;
+
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> GetCode(CodeVm codeVm)
         {
-            ViewBag.ViewBag.Error = "";
+            ViewBag.Error = "";
             if (!ModelState.IsValid)
             {
                 return View(codeVm);
@@ -132,7 +146,7 @@ namespace Request_Course.Controllers
                     await _servises.UpdateActivation(Activtion);
                     //Execept Code
                     if (Activtion.Teacher == true)
-                    {                        
+                    {
                         var teacher = await _servises.GetModaresan(codeVm.Phone);
                         if (teacher == null)
                         {
@@ -140,7 +154,7 @@ namespace Request_Course.Controllers
                         }
                         else
                         {
-                            teacher.LastTimeArrive = await _servises.ConvertDateToShamsi(DateTime.Now); 
+                            teacher.LastTimeArrive = await _servises.ConvertDateToShamsi(DateTime.Now);
                             await _servises.UpdateModaresan(teacher);
                             if (string.IsNullOrEmpty(teacher.Email))
                             {
@@ -154,7 +168,7 @@ namespace Request_Course.Controllers
                         var Mokhatab = await _servises.GetMokhatebin(codeVm.Phone);
                         if (Mokhatab == null)
                         {
-                            return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone});
+                            return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone });
                         }
                         else
                         {
@@ -162,9 +176,9 @@ namespace Request_Course.Controllers
                             await _servises.UpdateMokhatab(Mokhatab);
                             if (string.IsNullOrEmpty(Mokhatab.Email))
                             {
-                                return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone});
+                                return RedirectToAction("RequestForm", "Request", new { phone = codeVm.Phone });
                             }
-                            return RedirectToAction("Index", "Mokhatab", new { phone =Mokhatab.Phone});
+                            return RedirectToAction("Index", "Mokhatab", new { phone = Mokhatab.Phone });
                         }
 
                     }
@@ -179,8 +193,8 @@ namespace Request_Course.Controllers
             }
             //wrong Code
             ViewBag.Error = "کد اشتتباه است";
-            return View(codeVm);
-            
+            return RedirectToAction("GetCode", new { phone = codeVm.Phone, Error = true });
+
 
         }
 
@@ -209,7 +223,7 @@ namespace Request_Course.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("GetPhone","Account"); 
+            return RedirectToAction("GetPhone", "Account");
         }
 
         #endregion

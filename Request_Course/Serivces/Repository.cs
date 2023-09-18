@@ -130,7 +130,7 @@ namespace Request_Course.Serivces
             {
                 result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat == search);
             }
-            return result.ToList().ToPagedList(pageid, 1);
+            return result.ToList().ToPagedList(pageid, 8);
 
         }
         public async Task<int> AddOnvanAsliAndOnvanDoreh(string onvanAsli, string onvanDoreh)
@@ -287,10 +287,10 @@ namespace Request_Course.Serivces
         {
             return _context.T_Mokhatebin.SingleOrDefault(x => x.ID_Mokhatebin == MokhatabId);
         }
-        public async Task<bool> SetSatehSherkat(int satehId,int sherkatId)
+        public async Task<bool> SetSatehSherkat(int satehId, int sherkatId)
         {
-            var result =await _context.T_Mokhatebin.SingleOrDefaultAsync(x => x.ID_Mokhatebin == sherkatId);
-            result.T_L_Sathe_Sherkat_ID=satehId;
+            var result = await _context.T_Mokhatebin.SingleOrDefaultAsync(x => x.ID_Mokhatebin == sherkatId);
+            result.T_L_Sathe_Sherkat_ID = satehId;
             _context.T_Mokhatebin.Update(result);
             await _context.SaveChangesAsync();
             return true;
@@ -512,7 +512,7 @@ namespace Request_Course.Serivces
         public async Task<bool> UniqPhoneModares(string phone)
         {
             var Uniq = _context.T_Modaresan.FirstOrDefaultAsync(x => x.Phone == phone);
-            if (Uniq==null)
+            if (Uniq == null)
             {
                 return true;
             }
@@ -596,6 +596,34 @@ namespace Request_Course.Serivces
             }
             return result.ToList().ToPagedList(paegid, 1);
         }
+        public async Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_Entezar(int teacherid, string search, string sortOrder, int paegid = 0)
+        {
+            IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.Where(x => x.T_Modaresan_ID == teacherid && x.T_L_Vaziyat_Doreh_ID == 5);
+            switch (sortOrder)
+            {
+                case "Doreh":
+                    result = result.OrderBy(o => o.T_L_OnvanDoreh.Titles_OnvanDoreh);
+                    break;
+                case "Mokhatb":
+                    result = result.OrderBy(o => o.Date_Create);
+                    break;
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(search))
+            {
+                result = result.Include(x => x.T_Mokhatebin).Where(s => s.T_Mokhatebin.Name_Sherkat == search);
+            }
+            return result.ToList().ToPagedList(paegid, 1);
+
+        }
+        public async Task<bool> SetMOdaresToDoreh(int Dorehid)
+        {
+            var result = _context.T_Doreh_Darkhasti.SingleOrDefault(x => x.ID_Doreh_Darkhasti == Dorehid);
+            result.T_L_Vaziyat_Doreh_ID = 1;
+            await UpdateDoreh(result);
+            return true;
+        }
 
         public async Task<List<int>> GetDorehID_Teacher(int Teacherid)
         {
@@ -621,7 +649,7 @@ namespace Request_Course.Serivces
         }
         public async Task<List<T_Modaresan_Fild_Amozeshi>> GetModaresanFildAsli(int Teacherid)
         {
-            return _context.T_Modaresan_Fild_Amozeshi.Where(x=>x.T_Modaresan_ID==Teacherid).ToList();
+            return _context.T_Modaresan_Fild_Amozeshi.Where(x => x.T_Modaresan_ID == Teacherid).ToList();
         }
 
         #endregion
@@ -685,12 +713,12 @@ namespace Request_Course.Serivces
         #region Doreh Mokhatbin
         public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl(int userid)
         {
-            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 2).ToList();
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_Mokhatebin_ID == userid && x.T_L_Vaziyat_Doreh_ID == 2).ToList();
         }
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabGhabl(int userid, string search, string sortOrder, int paegid = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.
-                Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 2);
+                Where(x => x.T_Mokhatebin_ID == userid && x.T_L_Vaziyat_Doreh_ID == 2);
             switch (sortOrder)
             {
                 case "Doreh":
@@ -707,12 +735,12 @@ namespace Request_Course.Serivces
         }
         public async Task<List<T_Doreh_Darkhasti>> GetDorehMokhatabFaal(int userid)
         {
-            return _context.T_Doreh_Darkhasti.Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 1).ToList();
+            return _context.T_Doreh_Darkhasti.Where(x => x.T_Mokhatebin_ID == userid && x.T_L_Vaziyat_Doreh_ID == 1).ToList();
         }
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabFaal(int userid, string search, string sortOrder, int paegid = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.
-               Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 1);
+               Where(x => x.T_Mokhatebin_ID == userid && x.T_L_Vaziyat_Doreh_ID == 1);
             switch (sortOrder)
             {
                 case "Doreh":
@@ -734,7 +762,7 @@ namespace Request_Course.Serivces
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid, string search, string sortOrder, int paegid = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.
-              Where(x => x.T_L_MokhatabanDoreh_ID == userid && x.T_L_Vaziyat_Doreh_ID == 3);
+              Where(x => x.T_Mokhatebin_ID == userid && x.T_L_Vaziyat_Doreh_ID == 3||x.T_L_Vaziyat_Doreh_ID==5);
             switch (sortOrder)
             {
                 case "Doreh":

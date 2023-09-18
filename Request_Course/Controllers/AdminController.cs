@@ -304,9 +304,6 @@ namespace Request_Course.Controllers
             return RedirectToAction("Index");
         }
 
-
-
-
         public async Task<IActionResult> UpdateModares(int modaresId)
         {
             //if (await _services.GetAdmin(User.Identity.Name) == null)
@@ -394,6 +391,8 @@ namespace Request_Course.Controllers
             return RedirectToAction("Modaresan");
 
         }
+
+
 
         public async Task<IActionResult> BindModaresToDoreh(string search = "", string sortOrder = "", int pageid = 1)
         {
@@ -815,8 +814,7 @@ namespace Request_Course.Controllers
         [HttpPost]
         public async Task<IActionResult> SetSatehSherkat(string sateh,int sherkatId)
         {
-            int SatehSherkatId =await _services.GetSatehsherkatByName(sateh);
-            await _services.SetSatehSherkat(SatehSherkatId, sherkatId);
+            await _services.SetSatehSherkat(int.Parse(sateh), sherkatId);
             return RedirectToAction("Sherkatha");
         }
 

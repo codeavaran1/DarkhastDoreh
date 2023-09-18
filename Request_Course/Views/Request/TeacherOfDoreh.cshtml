@@ -79,7 +79,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a asp-controller="Teacher" asp-action="TeacherInfo" asp-route-teacherid="@Model[i].ID_Modaresan">
+                                <a asp-controller="Teacher" asp-action="TeacherInfoForMokhatab" asp-route-teacherid="@Model[i].ID_Modaresan">
                                     بیشتر
                                 </a>
                             </div>
@@ -245,7 +245,7 @@
 
                                 <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
                                 <button class="btn btn-success btn-block">
-                                    <a asp-controller="Episod" asp-action="SarFaslDoreh" asp-route-onvanasli="@ViewBag.onvanAsli" asp-route-onvandoreh="@ViewBag.OnvanDoreh">
+                                    <a asp-controller="Episod" asp-action="SarFaslDoreh" asp-route-DorehDarkhasti_ID="@ViewBag.DorehDarkhasti_ID"  asp-route-onvanasli="@ViewBag.onvanAsli" asp-route-onvandoreh="@ViewBag.OnvanDoreh">
                                          سرفصل
                                     </a>
                                 </button>

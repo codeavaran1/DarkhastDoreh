@@ -21,7 +21,7 @@
                                             <div>
                                                 <p>
                                                     Teahcername1:@Model.Teahcername1
-                                                    @if (!string.IsNullOrEmpty(@Model.Teahcername3))
+                                                    @if (!string.IsNullOrEmpty(@Model.Teahcername1))
                                                     {
                                                         <a asp-controller="Admin" asp-action="FinalBindModares" asp-route-dorehid="@ViewBag.DorehId" asp-route-modaresid="@Model.ID_Teahcername1">انتخاب</a>
                                                     }
@@ -30,7 +30,7 @@
                                             <div>
                                                 <p>
                                                     Teahcername2:@Model.Teahcername2
-                                                    @if (!string.IsNullOrEmpty(@Model.Teahcername3))
+                                                    @if (!string.IsNullOrEmpty(Model.Teahcername2))
                                                     {
                                                         <a asp-controller="Admin" asp-action="FinalBindModares" asp-route-dorehid="@ViewBag.DorehId" asp-route-modaresid="@Model.ID_Teahcername2">انتخاب</a>
                                                     }
@@ -38,7 +38,8 @@
                                             </div>
                                             <div>
                                                 <p>
-                                                    Teahcername3: @Model.Teahcername3 @if (!string.IsNullOrEmpty(@Model.Teahcername3))
+                                                    Teahcername3: @Model.Teahcername3 
+                                                    @if (!string.IsNullOrEmpty(@Model.Teahcername3))
                                                     {
                                                         <a asp-controller="Admin" asp-action="FinalBindModares" asp-route-dorehid="@ViewBag.DorehId" asp-route-modaresid="@Model.ID_Teahcername3">انتخاب</a>
                                                     }

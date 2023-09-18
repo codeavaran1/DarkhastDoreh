@@ -150,7 +150,7 @@
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea asp-for="Description" name="Sll" class="form-control"></textarea>
+                                    <textarea  name="Sll" class="form-control"></textarea>
                                     <span asp-validation-for="Description" class="text-danger"></span>
                                 </div>
                             </div>
@@ -255,7 +255,7 @@
             //CKEDITOR.config.defaultLanguage = 'pr';
             //CKEDITOR.config.language = 'pr';
             CKEDITOR.replace('Sll', {
-                
+                 customConfig: '/js/Config.js'
             });
            
 

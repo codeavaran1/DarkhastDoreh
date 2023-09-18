@@ -72,6 +72,7 @@
                 <!-- Sidebar user panel -->
                  <div class="pull-right image">
                         <img src="~/images/@(User.Identity.Name).jpg class="img-circle" alt="User Image">
+                        
                     </div>
                 <div class="user-panel">
                     <div class="pull-right info" style="display:contents;">
@@ -95,6 +96,12 @@
                         <a asp-controller="Teacher" asp-action="DorehFaal" asp-route-TeacherId="@ViewBag.teacherid">
                             <i class="fa fa-book"></i>
                             <span>دروه های فعال</span>
+                        </a>
+                    </li>
+                      <li>
+                        <a asp-controller="Teacher" asp-action="DorehEntezary" asp-route-TeacherId="@ViewBag.teacherid">
+                            <i class="fa fa-book"></i>
+                            <span>دروه های انتظار</span>
                         </a>
                     </li>
                     <li>

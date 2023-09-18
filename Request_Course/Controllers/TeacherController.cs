@@ -112,6 +112,45 @@ namespace Request_Course.Controllers
             return View(result);
         }
 
+        public async Task<IActionResult> DorehEntezary(int teacherid, string search = "", string sortOrder = "", int paegid = 1)
+        {
+            ViewBag.teacherid = teacherid;
+            var result = await _services.GetDoreh_Entezar(teacherid, search, sortOrder, paegid);
+            List<int> DorehId = new List<int>();
+            List<string> OnvanDoreh = new List<string>();
+            List<string> Mokhatab = new List<string>();
+            foreach (var item in result)
+            {
+
+                string onvandoreh = "";
+                if (item.T_L_OnvanDoreh_ID != null)
+                {
+                    onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
+                }
+                else
+                {
+                    onvandoreh = item.OnvanDoreh_Jadid;
+                }
+                string mokhatab = await _services.GetMokhatabinDoreh(item.T_Mokhatebin_ID.Value);
+                DorehId.Add(item.ID_Doreh_Darkhasti);
+                OnvanDoreh.Add(onvandoreh);
+                Mokhatab.Add(mokhatab);
+            }
+            ViewBag.mokhatab = Mokhatab;
+            ViewBag.onvandoreh = OnvanDoreh;
+            ViewBag.dorehId = DorehId;
+            return View(result);
+        }
+
+        public async Task<IActionResult> GhabolDoreh(int Dorehid, int teacherid)
+        {
+            ViewBag.teacherid = teacherid;
+            await _services.SetMOdaresToDoreh(Dorehid);
+            return RedirectToAction("Index");
+            
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> TeacherInfo(int teacherid = 0)
         {
@@ -380,6 +419,7 @@ namespace Request_Course.Controllers
             }
             model.Description = Sll;
             ModelState.Remove("img");
+            ModelState.Remove("Description");
             if (!ModelState.IsValid || Reshte == "0" || MaghtaeTahsili == "0" || DaragehElmi == "0" || ImageValid == false)
             {
                 List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs1 = new List<Modaresan_Fild_AsliVM>();

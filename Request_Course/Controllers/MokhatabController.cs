@@ -71,6 +71,7 @@ namespace Request_Course.Controllers
             foreach (var item in result)
             {
                 string onvandoreh = "";
+                string Mmodares = "";
                 if (item.T_L_OnvanDoreh_ID != null)
                 {
                     onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
@@ -79,8 +80,10 @@ namespace Request_Course.Controllers
                 {
                     onvandoreh = item.OnvanDoreh_Jadid;
                 }
-                string Mmodares =_services.GetModaresan(item.T_Modaresan_ID.Value).Result.NameFamily;
-
+                if (item.T_Modaresan_ID!=null)
+                {
+                    Mmodares = _services.GetModaresan(item.T_Modaresan_ID.Value).Result.NameFamily;
+                }
                 OnvanDoreh.Add(onvandoreh);
                 Modares.Add(Mmodares);
             }
@@ -100,6 +103,7 @@ namespace Request_Course.Controllers
             foreach (var item in result)
             {
                 string onvandoreh = "";
+                string Mmodares = "";
                 if (item.T_L_OnvanDoreh_ID != null)
                 {
                     onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
@@ -108,8 +112,10 @@ namespace Request_Course.Controllers
                 {
                     onvandoreh = item.OnvanDoreh_Jadid;
                 }
-                string Mmodares = _services.GetModaresan(item.T_Modaresan_ID.Value).Result.NameFamily;
-
+                if (item.T_Modaresan_ID!=null)
+                {
+                    Mmodares = _services.GetModaresan(item.T_Modaresan_ID.Value).Result.NameFamily;
+                }
                 OnvanDoreh.Add(onvandoreh);
                 Modares.Add(Mmodares);
                 DoreId.Add(item.ID_Doreh_Darkhasti);
@@ -130,6 +136,7 @@ namespace Request_Course.Controllers
             foreach (var item in result)
             {
                 string onvandoreh = "";
+                string Mmodares = "";
                 if (item.T_L_OnvanDoreh_ID != null)
                 {
                     onvandoreh = await _services.GetOnvanDoreh(item.T_L_OnvanDoreh_ID.Value);
@@ -138,7 +145,10 @@ namespace Request_Course.Controllers
                 {
                     onvandoreh = item.OnvanDoreh_Jadid;
                 }
-                string Mmodares = _services.GetModaresan(item.T_Modaresan_ID.Value).Result.NameFamily;
+                if (item.T_Modaresan_ID!=null)
+                {
+                   Mmodares  = _services.GetModaresan(item.T_Modaresan_ID.Value).Result.NameFamily;
+                }
 
                 OnvanDoreh.Add(onvandoreh);
                 Modares.Add(Mmodares);
