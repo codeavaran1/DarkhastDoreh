@@ -86,6 +86,7 @@ namespace Request_Course.Serivces.Interface
         public Task<IPagedList<T_Doreh_Darkhasti>> GetDoreh_Entezar(int teacherid, string search, string sortOrder, int paegid = 0);
         public Task<bool> SetMOdaresToDoreh(int Dorehid);
         public Task<List<int>> GetDorehID_Teacher(int Teacherid);
+        public Task<bool> FinishedDoreh(int dorehid);
         #endregion
         #region Fild Asli Modaresan
         public Task<int> AddModaresanFildAsli(List<T_Modaresan_Fild_Amozeshi> t_Modaresan_Fild_Amozeshi);

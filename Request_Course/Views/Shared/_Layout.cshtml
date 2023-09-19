@@ -47,20 +47,20 @@
             <!-- Header Navbar: style can be found in header.less -->
             <nav class="navbar navbar-static-top">
                 <!-- Sidebar toggle button-->
-                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                @*<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">Toggle navigation</span>
-                </a>
+                </a>*@
                 <!-- End Delete-->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <!-- Messages: style can be found in dropdown.less-->
                         <li class="dropdown messages-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                           @* <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-envelope-o"></i>
                                 <span class="label label-success">4</span>
-                            </a>
+                            </a>*@
                             <ul class="dropdown-menu">
-                                <li class="header">۴ پیام خوانده نشده</li>
+                             @*   <li class="header">۴ پیام خوانده نشده</li>
                                 <li>
                                     <!-- inner menu: contains the actual data -->
                                     <ul class="menu">
@@ -128,12 +128,12 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="footer"><a href="#">نمایش تمام پیام ها</a></li>
+                                <li class="footer"><a href="#">نمایش تمام پیام ها</a></li>*@
                             </ul>
                         </li>
                         <!-- Notifications: style can be found in dropdown.less -->
                         <li class="dropdown notifications-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          @*  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
                                 <span class="label label-warning">۱۰</span>
                             </a>
@@ -170,11 +170,11 @@
                                     </ul>
                                 </li>
                                 <li class="footer"><a href="#">نمایش همه</a></li>
-                            </ul>
+                            </ul>*@
                         </li>
                         <!-- Tasks: style can be found in dropdown.less -->
                         <li class="dropdown tasks-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                     @*       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-flag-o"></i>
                                 <span class="label label-danger">۹</span>
                             </a>
@@ -252,11 +252,11 @@
                                 <li class="footer">
                                     <a href="#">نمایش همه</a>
                                 </li>
-                            </ul>
+                            </ul>*@
                         </li>
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          @*  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                                 <span class="hidden-xs">علیرضا حسینی زاده</span>
                             </a>
@@ -280,12 +280,12 @@
                                         <a href="#" class="btn btn-default btn-flat">خروج</a>
                                     </div>
                                 </li>
-                            </ul>
+                            </ul>*@
                         </li>
                         <!-- Control Sidebar Toggle Button -->
-                        <li>
+                       @* <li>
                             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                        </li>
+                        </li>*@
                     </ul>
                 </div>
             </nav>
@@ -342,10 +342,10 @@
                             </span>
                             <ul class="treeview-menu">
                                 <li><a asp-controller="Admin" asp-action="Doreh"><i class="fa fa-circle-o"></i>دوره ها</a></li>
-                                <li><a asp-controller="Admin" asp-action="DefineOnvanAsliAndOnvanDoreh"><i class="fa fa-circle-o"></i>تعریف عنوان اصلی و دوره</a></li>
                                 <li><a asp-controller="Admin" asp-action="DorehPygiry"><i class="fa fa-circle-o"></i>دوره های در حال بررسی</a></li>
                                 <li><a asp-controller="Admin" asp-action="DorehFaal"><i class="fa fa-circle-o"></i>دوره های فعال</a></li>
                                 <li><a asp-controller="Admin" asp-action="DorehGhabl"><i class="fa fa-circle-o"></i>دوره های برگزارشده</a></li>
+                                 <li><a asp-controller="Admin" asp-action="DefineOnvanAsliAndOnvanDoreh"><i class="fa fa-circle-o"></i>تعریف عنوان اصلی و دوره</a></li>
                             </ul>
                         </a>
                     </li>

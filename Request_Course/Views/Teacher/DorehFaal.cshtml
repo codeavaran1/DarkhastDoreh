@@ -49,6 +49,7 @@
                                                     <tr role="row" class="odd">
                                                         <td class="sorting_1">@ViewBag.OnvanDoreh[i]</td>
                                                         <td>@ViewBag.mokhatab[i]</td>
+                                                        <td class="btn btn-danger"><a asp-controller="Teacher" asp-action="FinishedDoreh" asp-route-dorehid="@ViewBag.DorehId[i]" asp-route-teacherid="@ViewBag.teacherid">اتمام دوره</a></td>
                                                     </tr>
                                                 }
                                             </tbody>

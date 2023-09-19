@@ -92,6 +92,12 @@ namespace Request_Course.Controllers
         [HttpGet]
         public async Task<IActionResult> Request_DorehAmozeshi(string Family = "", string Name_Sherkat = "", string Phone = "")
         {
+            var mokhatab = await _serivecs.GetMokhatebin(phone:Phone);
+            if (mokhatab!=null)
+            {
+                Family = mokhatab.NamFamily_Rabet;
+                Name_Sherkat = mokhatab.Name_Sherkat;
+            }
             List<SelectListItem> OnvanAsli = _serivecs.GetOnvanAslis().Result
               .Select(x => new SelectListItem { Value = x.ID_L_OnvanAsli.ToString(), Text = x.Titles_OnvanAsli }).ToList();
             OnvanAsli.Insert(0, new SelectListItem { Value = "0", Text = "انتخاب کنید" });
@@ -500,7 +506,9 @@ namespace Request_Course.Controllers
         {
             var user = User.Identity.Name;
             await _serivecs.ConfrimDoreh(DorehId);
-            return RedirectToAction("index", "Mokhatab", new { phone =User.Identity.Name});
+            var doreh= await _serivecs.GetDoreh_Darkhasti(DorehId);
+            var mokhatab = await _serivecs.GetMokhatebinById(doreh.T_Mokhatebin_ID.Value);
+            return RedirectToAction("index", "Mokhatab", new { phone =mokhatab.Phone});
         }
 
 

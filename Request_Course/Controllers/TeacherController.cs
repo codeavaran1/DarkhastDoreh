@@ -59,10 +59,12 @@ namespace Request_Course.Controllers
         {
             ViewBag.teacherid = teacherid;
             var result = await _services.GetDoreh_Faal_Teacher(teacherid, search, sortOrder, paegid);
+            List<int> doreh = new List<int>();
             List<string> OnvanDoreh = new List<string>();
             List<string> Mokhatab = new List<string>();
             foreach (var item in result)
             {
+                doreh.Add(item.ID_Doreh_Darkhasti);
                 string onvandoreh = "";
                 if (item.T_L_OnvanDoreh_ID != null)
                 {
@@ -79,7 +81,7 @@ namespace Request_Course.Controllers
             }
             ViewBag.mokhatab = Mokhatab;
             ViewBag.onvandoreh = OnvanDoreh;
-
+            ViewBag.DorehId = doreh;
             return View(result);
         }
 
@@ -146,8 +148,15 @@ namespace Request_Course.Controllers
         {
             ViewBag.teacherid = teacherid;
             await _services.SetMOdaresToDoreh(Dorehid);
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { teacherId =teacherid});
             
+        }
+
+        public async Task<IActionResult> FinishedDoreh(int dorehid, int teacherid)
+        {
+            ViewBag.teacherid = teacherid;
+            bool result=await _services.FinishedDoreh(dorehid);
+            return RedirectToAction("Index", new { teacherId= teacherid });
         }
 
 

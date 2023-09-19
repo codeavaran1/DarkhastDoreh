@@ -624,10 +624,16 @@ namespace Request_Course.Serivces
             await UpdateDoreh(result);
             return true;
         }
-
         public async Task<List<int>> GetDorehID_Teacher(int Teacherid)
         {
             return _context.T_Doreh_Darkhasti.Where(x => x.T_L_ModateDoreh_ID == Teacherid).Select(x => x.ID_Doreh_Darkhasti).ToList();
+        }
+        public async Task<bool> FinishedDoreh(int dorehid)
+        {
+            var result = _context.T_Doreh_Darkhasti.SingleOrDefault(x => x.ID_Doreh_Darkhasti == dorehid);
+            result.T_L_Vaziyat_Doreh_ID = 2;
+            await UpdateDoreh(result);
+            return true;
         }
         #endregion
         #region Modaresan Sar Fasl
@@ -762,7 +768,7 @@ namespace Request_Course.Serivces
         public async Task<IPagedList<T_Doreh_Darkhasti>> GetDorehMokhatabPygiry(int userid, string search, string sortOrder, int paegid = 0)
         {
             IQueryable<T_Doreh_Darkhasti> result = _context.T_Doreh_Darkhasti.
-              Where(x => x.T_Mokhatebin_ID == userid && x.T_L_Vaziyat_Doreh_ID == 3||x.T_L_Vaziyat_Doreh_ID==5);
+              Where(x => x.T_Mokhatebin_ID == userid && (x.T_L_Vaziyat_Doreh_ID == 3||x.T_L_Vaziyat_Doreh_ID==5));
             switch (sortOrder)
             {
                 case "Doreh":

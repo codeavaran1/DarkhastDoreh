@@ -8,7 +8,7 @@ namespace Request_Course.Models
         [Key]
         public long ID_Activation { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
         public string? Phone { get; set; }
 
         [StringLength(5)]

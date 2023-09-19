@@ -134,6 +134,7 @@ namespace Request_Course.Controllers
         public async Task<IActionResult> CreateModares(ModaresanVM model, IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili = ""
             , string Reshte = "", string DaragehElmi = "", string NameFamilyr = "")
         {
+            ModelState.Remove("Name");
             ModelState.Remove("img");
             if (!ModelState.IsValid || Reshte == "0" || MaghtaeTahsili == "0" || DaragehElmi == "0")
             {
@@ -167,7 +168,7 @@ namespace Request_Course.Controllers
             T_Modaresan t_Modaresan = new T_Modaresan()
             {
                 Email = model.Email,
-                DateCreate = DateTime.Now,
+                DateCreate = await _services.ConvertDateToShamsi(DateTime.Now),
                 Daneshgah_Sherkat = model.Daneshgah_Reshteh,
                 Mobile = model.Phone,
                 Phone = model.Phone,
@@ -204,14 +205,17 @@ namespace Request_Course.Controllers
             await _services.AddModaresanFildAsli(t_Modaresan_Fild_Amozeshi);
             T_Activation t_Activation = new T_Activation()
             {
-                Phone = model.Phone,
+                Phone = t_Modaresan.Phone,
                 code = "12345",
-                DateGenerateCode = DateTime.Now,
+                Activation = false,
+                DateGenerateCode = await _services.ConvertDateToShamsi(DateTime.Now),
                 NameFamily = NameFamilyr,
                 Teacher = true,
                 Student = false,
+                T_Modaresan_ID = Modearseid
             };
             await _services.AddActivation(t_Activation);
+
 
             return RedirectToAction("Index");
         }
@@ -255,7 +259,7 @@ namespace Request_Course.Controllers
             T_Modaresan t_Modaresan = new T_Modaresan()
             {
                 Email = Email,
-                DateCreate = DateTime.Now,
+                DateCreate =await _services.ConvertDateToShamsi(DateTime.Now),
                 Daneshgah_Sherkat = Daneshgah_Reshteh,
                 Mobile = Phone,
                 Phone = Phone,
@@ -294,10 +298,12 @@ namespace Request_Course.Controllers
             {
                 Phone = Phone,
                 code = "12345",
-                DateGenerateCode = DateTime.Now,
+                Activation = true,
+                DateGenerateCode = await _services.ConvertDateToShamsi(DateTime.Now),
                 NameFamily = NameFamilyr,
                 Teacher = true,
                 Student = false,
+                T_Modaresan_ID = Modearseid
             };
             await _services.AddActivation(t_Activation);
 

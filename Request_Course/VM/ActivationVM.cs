@@ -4,8 +4,7 @@ namespace Request_Course.VM
 {
     public class ActivationVM
     {
-        [MaxLength(11, ErrorMessage = "شماره تلفن 11 رقم است")]
-        [MinLength(11,ErrorMessage ="شماره تلفن 11 رقم است")]
+        [MaxLength(12, ErrorMessage = "شماره تلفن12 رقم است")]
         [Required(ErrorMessage = "فیلد اجباری است")]
         public string Phone { get; set; } = string.Empty;
 
