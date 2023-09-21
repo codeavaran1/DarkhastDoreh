@@ -39,23 +39,28 @@
                             </div>
                         </div>
                         <input asp-for="Phone" name="Phone" type="hidden" value="@ViewBag.Phone" data="@ViewBag.Phone" class="form-control" />
-                          <div ><span id="time">@ViewBag.min:@ViewBag.sec <p>زمان باقی مانده:</p></span></div>
+                        <div><span id="time">@ViewBag.min:@ViewBag.sec <p>زمان باقی مانده:</p></span></div>
                         <div class="col-12 col-m-12" style=" padding: 5px;"></div><!--space-->
-                        <h5>@ViewBag.Error</h5>  
-                        
+                        <h5>@ViewBag.Error</h5>
 
-                      
+
+
 
                         <input type="submit" class="logregbtn" value="تایید">
                         <div class="col-12 col-m-12" style="padding: 5px;"></div><!--space-->
                         <div class="col-12 col-m-12" style="padding: 5px;"></div><!--space-->
-                        <div style="font-size: 14px;">
+                        <div id="mybutton" style="font-size: 14px;">
                             <a href="#" onclick="location.href='@Url.Action("ReCode", "Account")'" style="color: #692db7;font-size: 13px;">
                                 <p>
                                     @Html.ActionLink("ارسال مجدد کد", "ReCode","Account",new{phone=@ViewBag.Phone})
                                 </p>
 
                             </a>
+                        </div>
+                        <div id="textbutton" style="font-size: 14px;">
+                            <p style="color:#a09595">
+                                ارسال مجدد کد
+                            </p>
                         </div>
                         <div class="col-12 col-m-12" style="padding: 20px;"></div><!--space-->
                     </div>
@@ -78,6 +83,9 @@
         }
     }
         <script>
+
+
+
             function startTimer(duration, display) {
                 var timer = duration, minutes, seconds;
                 setInterval(function() {
@@ -95,13 +103,30 @@
                 }, 1000);
             }
 
-            
+
+            var button = document.getElementById("mybutton");
+            var textonly = document.getElementById("textbutton");
+            function Aviabel() {
+                textonly.style.display = "none";
+                button.style.display = "block";
+            }
+            setTimeout(Aviabel, (@ViewBag.during* 1000 - 120000));
 
             window.onload = function() {
                 var fiveMinutes = @ViewBag.during,
                     display = document.querySelector('#time');
                 startTimer(fiveMinutes, display);
+                if (@ViewBag.during*1000> 120000) {
+                    button.style.display = "none";
+                    textonly.style.display = "block";
+                }
+                else {
+                     button.style.display = "block";
+                    textonly.style.display = "none";
+                }
+
             };
+
 
         </script>
     </body>

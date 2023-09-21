@@ -46,7 +46,7 @@
                                                 <td class="sorting_1">@ViewBag.OnvanDoreh[i]</td>
                                                 <td>@ViewBag.Modares[i]</td>
                                                 <td><a asp-controller="Mokhatab" asp-action="Certificate" >صدور گواهی</a></td>
-                                                <td><a asp-controller="NazarSanji" asp-action="Nazarsanj" asp-route-Username="@ViewBag.Phone" asp-route-Doreh_Darkhasti_ID="@ViewBag.DoreId" >نظرسنجی</a></td>
+                                                <td><a asp-controller="NazarSanji" asp-action="Nazarsanj" asp-route-Username="@ViewBag.Phone" asp-route-Doreh_Darkhasti_ID="@ViewBag.DoreId[i]" >نظرسنجی</a></td>
                                             </tr>
                                         }
                                     </tbody>

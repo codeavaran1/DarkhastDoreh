@@ -1,0 +1,89 @@
+﻿@model Request_Course.VM.UpdateMokhatabVM
+
+<section class="content">
+    <div class="panel panel-primary">
+        <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">ویرایش اطلاعات</p></div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="panel-body">
+            <form id="myForm" asp-action="UpdateSherkat" method="post">
+                <input type="hidden" asp-for="Phone" value="@ViewBag.Phone" data="@ViewBag.Phone" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-8">
+                                <div class="titrfild">
+                                    <p style="font-family:WYekan;font-size:large">
+                                        <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
+                                        <strong>اطلاعات کلی:</strong>
+                                    </p>
+                                </div>
+                            </div> <div class="col-4"></div>
+                            <div class="col-md-10">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label">نام</label>
+                                <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                            </div>
+                            <div class="col-md-10">
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="control-label">نام شرکت </label>
+                                <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                            </div>
+                            <div class="col-md-10">
+                                <input asp-for="Name_SHerkat" class="form-control" />
+                                <span asp-validation-for="Name_SHerkat" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                <label class="control-label">ایمیل</label>
+                                <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                            </div>
+                            <div class="col-md-10">
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-3">
+                    </div>
+                    <div class="col-md-3">
+                        <button onclick="myFunction()" class="btn btn-success btn-block">ویرایش </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+

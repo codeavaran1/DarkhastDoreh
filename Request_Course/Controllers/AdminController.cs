@@ -10,6 +10,7 @@ using Request_Course.VM;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using System.Globalization;
 
 namespace Request_Course.Controllers
 {
@@ -131,9 +132,10 @@ namespace Request_Course.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateModares(ModaresanVM model, IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili = ""
+        public async Task<IActionResult> CreateModares(ModaresanVM model,string Sll, IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili = ""
             , string Reshte = "", string DaragehElmi = "", string NameFamilyr = "")
         {
+            ModelState.Remove("Description");
             ModelState.Remove("Name");
             ModelState.Remove("img");
             if (!ModelState.IsValid || Reshte == "0" || MaghtaeTahsili == "0" || DaragehElmi == "0")
@@ -164,7 +166,7 @@ namespace Request_Course.Controllers
 
                 return View(model);
             }
-
+            model.Description = Sll;
             T_Modaresan t_Modaresan = new T_Modaresan()
             {
                 Email = model.Email,
@@ -222,7 +224,7 @@ namespace Request_Course.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateModaresAdmin(string Phone, string Email, string Daneshgah_Reshteh
-            , string Description, string OnvanShoghli
+            , string Sll, string OnvanShoghli
             , IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili = ""
            , string Reshte = "", string DaragehElmi = "", string NameFamilyr = "")
         {
@@ -264,7 +266,7 @@ namespace Request_Course.Controllers
                 Mobile = Phone,
                 Phone = Phone,
                 Onvan_Shoghli = OnvanShoghli,
-                Description = Description,
+                Description = Sll,
                 T_L_MaghtaeTahsili_ID = null,
                 T_L_ReshtehTahsili_ID = null,
                 T_L_DaragehElmi_ID = null,
@@ -298,7 +300,7 @@ namespace Request_Course.Controllers
             {
                 Phone = Phone,
                 code = "12345",
-                Activation = true,
+                Activation = false,
                 DateGenerateCode = await _services.ConvertDateToShamsi(DateTime.Now),
                 NameFamily = NameFamilyr,
                 Teacher = true,
@@ -348,7 +350,7 @@ namespace Request_Course.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateModares(ModaresanUpdateVM model, int modaresId, IFormFile img, string maghtaehtasili = "", string Reshte = "", string DaregElmi = "")
+        public async Task<IActionResult> UpdateModares(ModaresanUpdateVM model,string Sll, int modaresId, IFormFile img, string maghtaehtasili = "", string Reshte = "", string DaregElmi = "")
         {
             bool username_Uniq = true;
             var Modares = await _services.GetModaresan(modaresId);
@@ -356,7 +358,9 @@ namespace Request_Course.Controllers
             {
                 username_Uniq=await _services.UniqPhoneModares(model.Phone);
             }
+            model.Description = Sll;
             ModelState.Remove("img");
+            ModelState.Remove("Description");
             if (!ModelState.IsValid || username_Uniq==false)
             {
                 string DaregEml = await _services.GetDategeElmibyid(Modares.T_L_DaragehElmi_ID.Value);
@@ -388,7 +392,7 @@ namespace Request_Course.Controllers
             Modares.Onvan_Shoghli = model.Onvan_Shoghli;
             Modares.Phone = model.Phone;
             await _services.UpdateModaresan(Modares, img);
-            return View();
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> DeleteModares(int modaresId)
@@ -656,6 +660,77 @@ namespace Request_Course.Controllers
             return View(result);
         }
 
+        public async Task<IActionResult> UpdateDoreh(int dorehid)
+        {
+            PersianCalendar persianCalendar = new PersianCalendar();
+
+            var doreh=await _services.GetDoreh_Darkhasti(dorehid);
+            var onvanasli = await _services.GetOnvanAsli(doreh.T_L_OnvanAsli_ID.Value);
+            var MediaAmozeshi =await _services.GetMediaAmozeshi(doreh.T_L_MediaAmozeshi_ID.Value);
+            var RaveshAmozeshis = await _services.GetRaveshAmozeshisbyid(doreh.T_L_RaveshAmozeshi_ID.Value);
+            var ModateDorehs = await _services.GetModateDorehsbyid(doreh.T_L_ModateDoreh_ID.Value);
+            var SatheKeyfi_Modares = await _services.GetSatehkeyfi(doreh.T_L_SatheKeyfi_Modares_ID.Value);
+            var MohkatbinDoreh = await _services.GetMokhatabanDorehsbyid(doreh.T_L_MokhatabanDoreh_ID.Value);
+            List<SelectListItem> OnvanAsli1 = _services.GetOnvanAslis().Result
+            .Select(x => new SelectListItem { Value = x.ID_L_OnvanAsli.ToString(), Text = x.Titles_OnvanAsli }).ToList();
+            OnvanAsli1.Insert(0, new SelectListItem { Value = doreh.T_L_OnvanAsli_ID.ToString(), Text = onvanasli.ToString() });
+
+            List<SelectListItem> MediaAmozeshis1 = _services.GetMediaAmozeshis().Result
+              .Select(x => new SelectListItem { Value = x.ID_MediaAmozeshi.ToString(), Text = x.Titles_MediaAmozeshi }).ToList();
+            MediaAmozeshis1.Insert(0, new SelectListItem { Value = doreh.T_L_MediaAmozeshi_ID.ToString(), Text =MediaAmozeshi });
+
+            List<SelectListItem> RaveshAmozeshis1 = _services.GetRaveshAmozeshis().Result
+              .Select(x => new SelectListItem { Value = x.ID_L_RaveshAmozeshi.ToString(), Text = x.Titles_RaveshAmozeshi }).ToList();
+            RaveshAmozeshis1.Insert(0, new SelectListItem { Value = doreh.T_L_RaveshAmozeshi_ID.ToString(), Text = RaveshAmozeshis.ToString()});
+
+            List<SelectListItem> ModateDorehs1 = _services.GetModateDorehs().Result
+              .Select(x => new SelectListItem { Value = x.ID_ModateDoreh.ToString(), Text = x.Titles_ModateDoreh }).ToList();
+            ModateDorehs1.Insert(0, new SelectListItem { Value = doreh.T_L_ModateDoreh_ID.ToString(), Text = ModateDorehs });
+
+            List<SelectListItem> MokhatabanDorehs1 = _services.GetMokhatabanDorehs().Result
+               .Select(x => new SelectListItem { Value = x.ID_MokhatabanDoreh.ToString(), Text = x.Titles_MokhatabanDoreh }).ToList();
+            MokhatabanDorehs1.Insert(0, new SelectListItem { Value = doreh.T_L_MokhatabanDoreh_ID.ToString(), Text = MohkatbinDoreh });
+
+            List<SelectListItem> SatheKeyfi_Modares1 = _services.GetSatheKeyfi_Modares().Result
+              .Select(x => new SelectListItem { Value = x.ID_L_SatheKeyfi_Modares.ToString(), Text = x.Titles_SatheKeyfi_Modares }).ToList();
+            SatheKeyfi_Modares1.Insert(0, new SelectListItem { Value = doreh.T_L_SatheKeyfi_Modares_ID.ToString(), Text = SatheKeyfi_Modares });
+
+            ViewBag.onvanasli = OnvanAsli1;
+            ViewBag.MediaAmozeshi = MediaAmozeshis1;
+            ViewBag.RaveshAmozeshis = RaveshAmozeshis1;
+            ViewBag.ModateDorehs = ModateDorehs1;
+            ViewBag.SatheKeyfi_Modares = SatheKeyfi_Modares1;
+            ViewBag.MohkatbinDoreh = MokhatabanDorehs1;
+            ViewBag.startDate = persianCalendar.ToDateTime(doreh.Date_Az_Pishnahad.Value.Year, doreh.Date_Az_Pishnahad.Value.Month, doreh.Date_Az_Pishnahad.Value.Day, 0, 0, 0, 0);
+            ViewBag.enddate = persianCalendar.ToDateTime(doreh.Date_Ta_Pishnahad.Value.Year, doreh.Date_Ta_Pishnahad.Value.Month, doreh.Date_Ta_Pishnahad.Value.Day, 0, 0, 0, 0);
+            ViewBag.dorehid = dorehid;
+
+            DarkhastDorehAmozeshiVM model = new DarkhastDorehAmozeshiVM()
+            {
+                DateStart = ViewBag.startDate,
+                DateEnd = ViewBag.enddate
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateDoreh(DarkhastDorehAmozeshiVM model, string OnvanAsli = ""
+            , string MediaAmozeshis = "", string RaveshAmozeshis = "", string ModateDorehs = ""
+            , string MokhatabanDorehs = "", string SatheKeyfi_Modares = "",int dorehid=0)
+        {
+            var doreh=await _services.GetDoreh_Darkhasti(dorehid);
+            doreh.Date_Az_Pishnahad = await _services.ConvertDateToShamsi(model.DateStart);
+            doreh.Date_Ta_Pishnahad = await _services.ConvertDateToShamsi(model.DateEnd);
+            doreh.T_L_OnvanAsli_ID= Convert.ToInt16(OnvanAsli);
+            doreh.T_L_MediaAmozeshi_ID = Convert.ToInt16(MediaAmozeshis);
+            doreh.T_L_RaveshAmozeshi_ID = Convert.ToInt16(RaveshAmozeshis);
+            doreh.T_L_ModateDoreh_ID = Convert.ToInt16(ModateDorehs);
+            doreh.T_L_MokhatabanDoreh_ID = Convert.ToInt16(MokhatabanDorehs);
+            doreh.T_L_SatheKeyfi_Modares_ID = Convert.ToInt16(SatheKeyfi_Modares);
+            await _services.UpdateDoreh(doreh);
+            return RedirectToAction("Doreh");
+        }
+
         public async Task<IActionResult> DefineOnvanAsliAndOnvanDoreh(int pageid = 1)
         {
             //if (await _services.GetAdmin(User.Identity.Name) == null)
@@ -824,6 +899,33 @@ namespace Request_Course.Controllers
             return RedirectToAction("Sherkatha");
         }
 
+        public async Task<IActionResult> UpdateSherkat(string phone)
+        {
+            var Mokhatab = await _services.GetMokhatebin(phone);
+            UpdateMokhatabVM model = new UpdateMokhatabVM()
+            {
+                Email = Mokhatab.Email,
+                Name = Mokhatab.NamFamily_Rabet,
+                Name_SHerkat = Mokhatab.Name_Sherkat,
+                Phone = phone
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateSherkat(UpdateMokhatabVM update)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(update);
+            }
+            var Mokhatab = await _services.GetMokhatebin(update.Phone);
+            Mokhatab.Email = update.Email;
+            Mokhatab.Name_Sherkat = update.Name_SHerkat;
+            Mokhatab.NamFamily_Rabet = update.Name;
+            await _services.UpdateMokhatab(Mokhatab);
+            return RedirectToAction("index", new { phone = update.Phone });
+        }
 
         #endregion
 

@@ -169,6 +169,11 @@ namespace Request_Course.Controllers
             return View();
         }
 
+        public async Task<IActionResult> ok(string phone)
+        {
+            ViewBag.Phone = phone;
+            return View();
+        }
 
 
     }

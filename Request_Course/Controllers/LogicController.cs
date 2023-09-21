@@ -115,9 +115,10 @@ namespace Request_Course.Controllers
             {
                 Modares.Sathe_Keyfi = 1;
             }
+            var phone =_services.GetMokhatebinById(doreh.T_Mokhatebin_ID.Value).Result.Phone;
              await _services.UpdateModaresan(Modares);
              await  ComputeRetbe();
-            return View();
+            return RedirectToAction("ok", "Mokhatab", new { phone =phone});
 
         }
 
@@ -151,7 +152,7 @@ namespace Request_Course.Controllers
 
             }
            await _services.UpdateAllModares(ModaresOreder);
-            return View();
+            return null;
         }
 
 

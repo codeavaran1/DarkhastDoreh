@@ -135,8 +135,7 @@
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
                                 <div class="col-md-10">
-                                    <textarea asp-for="Description" class="form-control"></textarea>
-                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                    <textarea name="Sll" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -243,6 +242,21 @@
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
     }
+
+    <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
+        <script>
+            
+            //CKEDITOR.config.language_list = [ 'he:Hebrew:rtl', 'pt:Portuguese', 'de:German','pr:Persian:rtl','fr:Farsi:rtl' ];
+            //CKEDITOR.config.defaultLanguage = 'pr';
+            //CKEDITOR.config.language = 'pr';
+            CKEDITOR.replace('Sll', {
+                 customConfig: '/js/Config.js',
+                 contentsLangDirection: 'rtl',
+                 language: 'fa'
+            });
+
+        </script>
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <script>

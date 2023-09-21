@@ -41,6 +41,7 @@
                                                 <td>@item.Email</td>
                                                 <td class="btn btn-warning" style="margin-right:5%;margin-left:2%"><a asp-controller="Admin" asp-action="GetDorehOfSherkat" asp-route-MokhatabId="@item.ID_Mokhatebin">دوره ها</a></td>
                                                 <td class="btn btn-warning" style="margin-right:5%;margin-left:2%"><a asp-controller="Admin" asp-action="SetSatehSherkat" asp-route-sherkatId="@item.ID_Mokhatebin">سطح شرکت</a></td>
+                                                <td class="btn btn-warning" style="margin-right:5%;margin-left:2%"><a asp-controller="Admin" asp-action="UpdateSherkat" asp-route-phone="@item.Phone">ویرایش</a></td>
                                             </tr>
                                         }
                                     </tbody>

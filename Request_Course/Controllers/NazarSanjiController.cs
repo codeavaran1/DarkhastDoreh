@@ -16,7 +16,7 @@ namespace Request_Course.Controllers
         [HttpGet]
         public async Task<IActionResult> Nazarsanj(string Username,int Doreh_Darkhasti_ID)
         {
-            var Uniq_Nazarsanji=_services.GetNazarsanji(Doreh_Darkhasti_ID);
+            var Uniq_Nazarsanji=await _services.GetNazarsanji(Doreh_Darkhasti_ID);
             if (Uniq_Nazarsanji!=null)
             {
                 return BadRequest();

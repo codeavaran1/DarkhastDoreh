@@ -110,7 +110,7 @@ namespace Request_Course.Controllers
             //Timer 
             ViewBag.sec = time.Value.Seconds;
             ViewBag.min = time.Value.Minutes;
-            ViewBag.during = (((ViewBag.min-1)*100)+ ViewBag.sec)-60;
+            ViewBag.during = (((ViewBag.min - 1) * 100) + ViewBag.sec) - 60;
 
             return View();
         }

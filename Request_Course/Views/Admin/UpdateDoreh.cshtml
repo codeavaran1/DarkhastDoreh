@@ -1,20 +1,23 @@
-﻿@model Request_Course.VM.ModaresanUpdateVM
+﻿@model Request_Course.VM.DarkhastDorehAmozeshiVM
 
-@{
-    Layout = "~/Views/Shared/_LayoutTeacher.cshtml";
-}
 
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Request_DorehAmozeshi</title>
+</head>
 <body>
-    <section class="content-header">
-    </section>
 
-    <!-- Main content -->
+
     <section class="content">
         <div class="panel panel-primary">
-            <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">ویرایش اطلاعات استاد</p></div>
+            <div class="panel-heading" style="font-family:'WYekan';"><p style="font-family:'WYekan';font-size:medium">تکمیل اطلاعات دوره</p></div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="panel-body">
-                <form id="myForm" asp-action="UpdateModares" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="modaresId" value="@ViewBag.ID" data="@ViewBag.ID" />
+                <form id="myForm" asp-action="UpdateDoreh" method="post">
+                    <input type="hidden" value="@ViewBag.dorehid" data="@ViewBag.dorehid" name="dorehid" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -22,7 +25,7 @@
                                     <div class="titrfild">
                                         <p style="font-family:WYekan;font-size:large">
                                             <i class="fa fa-square" style="color: #FFA503;"></i>&nbsp;&nbsp;
-                                            <strong>اطلاعات کلی:</strong>
+                                            <strong>اطلاعات کلی دوره</strong>
                                         </p>
                                     </div>
                                 </div> <div class="col-4"></div>
@@ -35,125 +38,39 @@
                     </div>
                     <br />
                     <div class="row">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">نام نام خانوادگی</label>
+                                <div class="col-md-10">
+                                    <label class="control-label"> عنوان اصلی</label>
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
                                 <div class="col-md-10">
-                                    <input asp-for="NameFamily" class="form-control" />
-                                    <span asp-validation-for="NameFamily" class="text-danger"></span>
+                                    <select name="OnvanAsli" class="form-control" asp-items="@ViewBag.onvanasli"></select>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
                     <br />
                     <div class="row">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">موبایل</label>
+                                <div class="col-md-10">
+                                    <label class="control-label"> مدیا آموزشی</label>
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
                                 <div class="col-md-10">
-                                    <input asp-for="Phone" class="form-control" />
-                                    <span asp-validation-for="Phone" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">ایمیل</label>
-                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                </div>
-                                <div class="col-md-10">
-                                    <input asp-for="Email" type="email" class="form-control" />
-                                    <span asp-validation-for="Email" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">دانشگاه</label>
-                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                </div>
-                                <div class="col-md-10">
-                                    <input asp-for="Daneshgah_Sherkat" class="form-control" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">عنوان شغلی</label>
-                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                </div>
-                                <div class="col-md-10">
-                                    <input asp-for="Onvan_Shoghli " class="form-control" />
-                                    <span asp-validation-for="Onvan_Shoghli " class="text-danger"></span>
+                                    <select name="MediaAmozeshis" class="form-control" asp-items="@ViewBag.MediaAmozeshi"></select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <div class="col-md-10">
-                                    <label class="control-label"> مقطع تحصیلی</label>
+                                    <label class="control-label"> روش آموزش</label>
                                     <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
                                 <div class="col-md-10">
-                                    <select name="maghtaehtasili" class="form-control" asp-items="@ViewBag.Maghta"></select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">رشته تحصیلی</label>
-                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                </div>
-                                <div class="col-md-10">
-                                    <select name="Reshte" class="form-control" asp-items="@ViewBag.Reshte_Drop"></select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="col-md-10">
-                                    <label class="control-label"> درجه علمی</label>
-                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                </div>
-                                <div class="col-md-10">
-                                    <select name="DaregElmi" class="form-control" asp-items="@ViewBag.DaregElm_Drop"></select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">معرفی اجمالی استاد</label>
-                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
-                                </div>
-                                <div class="col-md-10">
-                                    <textarea asp-for="Description" name="Sll" class="form-control"></textarea>
-                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                    <select name="RaveshAmozeshis" class="form-control" asp-items="@ViewBag.RaveshAmozeshis"></select>
                                 </div>
                             </div>
                         </div>
@@ -162,18 +79,74 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <div class="col-md-6">
-                                    <label class="control-label">عکس</label>
+                                <div class="col-md-10">
+                                    <label class="control-label"> مدت دوره</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
                                 </div>
                                 <div class="col-md-10">
-                                    <input name="img" type="file" class="form-control" />
+                                    <select name="ModateDorehs" class="form-control" asp-items="@ViewBag.ModateDorehs"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> مخاطبین دوره</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="MokhatabanDorehs" class="form-control" asp-items="@ViewBag.MohkatbinDoreh"></select>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <br />
+                      <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">زمان شروع</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="DateStart" class="form-control" />
+                                    <span asp-validation-for="DateStart" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label class="control-label">زمان اتمام</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="DateEnd" class="form-control" />
+                                    <span asp-validation-for="DateEnd" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    <label class="control-label"> سطح کیفی مدرس</label>
+                                    <i class="fa fa-asterisk" style="color: #ff4d4d;font-size:9px;"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <select name="SatheKeyfi_Modares" class="form-control" asp-items="@ViewBag.SatheKeyfi_Modares"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                        </div>
+                    </div>
+                    <br />
                     <br />
                     <hr />
-                    <br />
                     <div class="row">
                         <div class="col-md-6">
                         </div>
@@ -182,7 +155,11 @@
                         </div>
 
                         <div class="col-md-3">
-                            <button onclick="myFunction()" class="btn btn-success btn-block">ویرایش</button>
+
+                            <button onclick="myFunction()" class="btn btn-success btn-block">ادامه و تکمیل اطلاعات</button>
+                            <a asp-action="Request_New_DorehAmozeshi" asp-route-phone="@ViewBag.Phone " class="btn btn-primery btn-block">
+                                تعریف دوره جدید
+                            </a>
                         </div>
 
                     </div>
@@ -191,23 +168,13 @@
         </div>
     </section>
 
+
     @section Scripts {
         @{
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
     }
-        <script src="https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js"></script>
-        <script>
-
-            CKEDITOR.replace('Sll', {
-                customConfig: '/js/Config.js',
-                contentsLangDirection: 'rtl',
-                language: 'fa'
-            });
-
-        </script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
         <script>
             function myFunction() {
                 event.preventDefault();
@@ -240,4 +207,5 @@
         </script>
 
     </body>
-                    </html>
+    </html>
+
