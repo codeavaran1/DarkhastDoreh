@@ -1276,7 +1276,6 @@ namespace Request_Course.Serivces
 
         }
 
-
         public async Task<Tuple<List<string>, List<int>>> GetUserByMonthForChart()
         {
 
@@ -1352,7 +1351,14 @@ namespace Request_Course.Serivces
         {
             var calendar = new PersianCalendar();
             var converting = dateTime;
-            DateTime FinalDate = new DateTime(calendar.GetYear(converting), calendar.GetMonth(converting), calendar.GetDayOfMonth(converting));
+            var year = calendar.GetYear(converting);
+            var month = calendar.GetMonth(converting);
+            var day = calendar.GetDayOfMonth(converting);
+            if (day==31)
+            {
+                day--;
+            }
+            DateTime FinalDate = new DateTime(year,month,day);
             return FinalDate;
         }
         #endregion

@@ -222,6 +222,137 @@ namespace Request_Course.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> CreateModaresPishnahadi(string name="",string phone="",int dorehid=0)
+        {
+            //if (await _services.GetAdmin(User.Identity.Name) == null)
+            //{
+            //    return BadRequest();
+            //}
+            if (await _services.GetModaresPishnahadiForBind(dorehid,phone)==true)
+            {
+                return RedirectToAction("Index");
+            }
+
+            List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs = new List<Modaresan_Fild_AsliVM>();
+            List<SelectListItem> Reshte = _services.GetReshtehTahsilis().Result
+                .Select(x => new SelectListItem { Value = x.ID_ReshtehTahsili.ToString(), Text = x.Titles_ReshtehTahsili }).ToList();
+            Reshte.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+            List<SelectListItem> MaghtaeTahsili_Drop = _services.GetMaghtaeTahsili().Result
+                .Select(x => new SelectListItem { Value = x.ID_MaghtaeTahsili.ToString(), Text = x.Titles_MaghtaeTahsili }).ToList();
+            MaghtaeTahsili_Drop.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+            List<SelectListItem> DaragehElmi = _services.GetDaragehElmis().Result
+                .Select(x => new SelectListItem { Value = x.ID_DaragehElmi.ToString(), Text = x.Titles_DaragehElmi }).ToList();
+            DaragehElmi.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+            List<SelectListItem> FildAsli = _services.GetFildAslis().Result
+                .Select(x => new SelectListItem { Value = x.ID_FildAsli.ToString(), Text = x.Titles_FildAsli }).ToList();
+            FildAsli.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+            List<SelectListItem> OnvanDoreh = _services.GetOnvanDorehs().Result
+                .Select(x => new SelectListItem { Value = x.ID_OnvanDoreh.ToString(), Text = x.Titles_OnvanDoreh }).ToList();
+            OnvanDoreh.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+            ViewBag.MaghtaeTahsili_Drop = MaghtaeTahsili_Drop;
+            ViewBag.Reshte = Reshte;
+            ViewBag.FildAsli = FildAsli;
+            ViewBag.DaragehElmi = DaragehElmi;
+            ViewBag.OnvanDoreh = OnvanDoreh;
+            ViewBag.Fild_Asli = modaresan_Fild_AsliVMs;
+            ViewBag.name = name;
+            ViewBag.phone = phone;
+            ViewBag.dorehid = dorehid;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateModaresPishnahadi(ModaresanVM model, string Sll, IFormFile img, List<string> FildAsli, List<string> OnvanDoreh, string MaghtaeTahsili = ""
+           , string Reshte = "", string DaragehElmi = "", string NameFamilyr = "",int dorehid=0)
+        {
+            ModelState.Remove("Description");
+            ModelState.Remove("Name");
+            ModelState.Remove("img");
+            if (!ModelState.IsValid || Reshte == "0" || MaghtaeTahsili == "0" || DaragehElmi == "0")
+            {
+                List<Modaresan_Fild_AsliVM> modaresan_Fild_AsliVMs1 = new List<Modaresan_Fild_AsliVM>();
+                List<SelectListItem> Reshte1 = _services.GetReshtehTahsilis().Result
+                    .Select(x => new SelectListItem { Value = x.ID_ReshtehTahsili.ToString(), Text = x.Titles_ReshtehTahsili }).ToList();
+                Reshte1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> MaghtaeTahsili_Drop1 = _services.GetMaghtaeTahsili().Result
+                    .Select(x => new SelectListItem { Value = x.ID_MaghtaeTahsili.ToString(), Text = x.Titles_MaghtaeTahsili }).ToList();
+                MaghtaeTahsili_Drop1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> DaragehElmi1 = _services.GetDaragehElmis().Result
+                    .Select(x => new SelectListItem { Value = x.ID_DaragehElmi.ToString(), Text = x.Titles_DaragehElmi }).ToList();
+                DaragehElmi1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> FildAsli1 = _services.GetFildAslis().Result
+                    .Select(x => new SelectListItem { Value = x.ID_FildAsli.ToString(), Text = x.Titles_FildAsli }).ToList();
+                FildAsli1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+                List<SelectListItem> OnvanDoreh1 = _services.GetOnvanDorehs().Result
+                    .Select(x => new SelectListItem { Value = x.ID_OnvanDoreh.ToString(), Text = x.Titles_OnvanDoreh }).ToList();
+                OnvanDoreh1.Insert(0, new SelectListItem { Value = 0.ToString(), Text = "انتخاب کنید" });
+
+                ViewBag.MaghtaeTahsili_Drop = MaghtaeTahsili_Drop1;
+                ViewBag.Reshte = Reshte1;
+                ViewBag.FildAsli = FildAsli1;
+                ViewBag.DaragehElmi = DaragehElmi1;
+                ViewBag.OnvanDoreh = OnvanDoreh1;
+                ViewBag.Fild_Asli = modaresan_Fild_AsliVMs1;
+
+                return View(model);
+            }
+            model.Description = Sll;
+            T_Modaresan t_Modaresan = new T_Modaresan()
+            {
+                Email = model.Email,
+                DateCreate = await _services.ConvertDateToShamsi(DateTime.Now),
+                Daneshgah_Sherkat = model.Daneshgah_Reshteh,
+                Mobile = model.Phone,
+                Phone = model.Phone,
+                Onvan_Shoghli = model.OnvanShoghli,
+                Description = model.Description,
+                T_L_MaghtaeTahsili_ID = null,
+                T_L_ReshtehTahsili_ID = null,
+                T_L_DaragehElmi_ID = null,
+                NameFamily = NameFamilyr,
+            };
+            if (MaghtaeTahsili != "0")
+            {
+                t_Modaresan.T_L_MaghtaeTahsili_ID = Convert.ToInt32(MaghtaeTahsili);
+                t_Modaresan.MadrakTahsili = await _services.GetMadraktahsilibyId(Convert.ToInt32(MaghtaeTahsili));
+            }
+            if (Reshte != "0")
+            {
+                t_Modaresan.T_L_ReshtehTahsili_ID = Convert.ToInt32(Reshte);
+            }
+            if (DaragehElmi != "0")
+            {
+                t_Modaresan.T_L_DaragehElmi_ID = Convert.ToInt32(DaragehElmi);
+            }
+            var Modearseid = await _services.AddModares(t_Modaresan, img);
+            List<T_Modaresan_Fild_Amozeshi> t_Modaresan_Fild_Amozeshi = new List<T_Modaresan_Fild_Amozeshi>();
+            for (int i = 0; i < FildAsli.Count; i++)
+            {
+                T_Modaresan_Fild_Amozeshi t_Modaresan_Fild_Amozeshi_one = new T_Modaresan_Fild_Amozeshi();
+                t_Modaresan_Fild_Amozeshi_one.T_L_FildAsli_ID = Convert.ToInt16(FildAsli[i]);
+                t_Modaresan_Fild_Amozeshi_one.T_L_OnvanDoreh_ID = Convert.ToInt16(OnvanDoreh[i]);
+                t_Modaresan_Fild_Amozeshi_one.T_Modaresan_ID = Modearseid;
+                t_Modaresan_Fild_Amozeshi.Add(t_Modaresan_Fild_Amozeshi_one);
+            }
+            await _services.AddModaresanFildAsli(t_Modaresan_Fild_Amozeshi);
+            T_Activation t_Activation = new T_Activation()
+            {
+                Phone = t_Modaresan.Phone,
+                code = "12345",
+                Activation = false,
+                DateGenerateCode = await _services.ConvertDateToShamsi(DateTime.Now),
+                NameFamily = NameFamilyr,
+                Teacher = true,
+                Student = false,
+                T_Modaresan_ID = Modearseid
+            };
+            await _services.AddActivation(t_Activation);
+            await FinalBindModares(dorehid,Modearseid);
+            return RedirectToAction("Index");
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> CreateModaresAdmin(string Phone, string Email, string Daneshgah_Reshteh
             , string Sll, string OnvanShoghli

@@ -20,6 +20,7 @@ namespace Request_Course.Controllers
             foreach (var item in TeacherOfDoreh)
             {
                 var nazar = await _services.GetNazarsanji(item);
+                
                 if (nazar != null)
                 {
                     Counter += 1;

@@ -24,7 +24,7 @@ namespace Request_Course.Controllers
         public async Task<IActionResult> RequestForm(string phone = "")
         {
             var Mokhatab = await _serivecs.GetMokhatebin(phone);
-            if (Mokhatab!=null)
+            if (Mokhatab != null)
             {
                 return RedirectToAction("Index");
             }
@@ -42,7 +42,7 @@ namespace Request_Course.Controllers
         [HttpPost]
         public async Task<IActionResult> RequestForm(RequesterVM model, string Ostan = "", string Semat = "")
         {
-            if (ModelState.IsValid==false || Ostan=="0"||Semat=="0")
+            if (ModelState.IsValid == false || Ostan == "0" || Semat == "0")
             {
                 List<SelectListItem> Ostan1 = _serivecs.GetOstans().Result
                .Select(x => new SelectListItem { Value = x.ID_Ostan.ToString(), Text = x.Titles_Ostan }).ToList();
@@ -92,8 +92,8 @@ namespace Request_Course.Controllers
         [HttpGet]
         public async Task<IActionResult> Request_DorehAmozeshi(string Family = "", string Name_Sherkat = "", string Phone = "")
         {
-            var mokhatab = await _serivecs.GetMokhatebin(phone:Phone);
-            if (mokhatab!=null)
+            var mokhatab = await _serivecs.GetMokhatebin(phone: Phone);
+            if (mokhatab != null)
             {
                 Family = mokhatab.NamFamily_Rabet;
                 Name_Sherkat = mokhatab.Name_Sherkat;
@@ -136,7 +136,7 @@ namespace Request_Course.Controllers
             , string MediaAmozeshis = "", string RaveshAmozeshis = "", string ModateDorehs = ""
             , string MokhatabanDorehs = "", string SatheKeyfi_Modares = "", string Phoneing = "")
         {
-            if (ModelState.IsValid==false|| OnvanAsli == "0" || OnvanDoreh == "0" || MediaAmozeshis == "0" || RaveshAmozeshis == "0" || ModateDorehs == "0" || MokhatabanDorehs == "0" || SatheKeyfi_Modares == "0")
+            if (ModelState.IsValid == false || OnvanAsli == "0" || OnvanDoreh == "0" || MediaAmozeshis == "0" || RaveshAmozeshis == "0" || ModateDorehs == "0" || MokhatabanDorehs == "0" || SatheKeyfi_Modares == "0")
             {
                 List<SelectListItem> OnvanAsli1 = _serivecs.GetOnvanAslis().Result
               .Select(x => new SelectListItem { Value = x.ID_L_OnvanAsli.ToString(), Text = x.Titles_OnvanAsli }).ToList();
@@ -168,12 +168,10 @@ namespace Request_Course.Controllers
                 ViewBag.SatheKeyfi_Modares = SatheKeyfi_Modares1;
                 return View(model);
             }
-           
+
             T_Doreh_Darkhasti t_Doreh_Darkhasti = new T_Doreh_Darkhasti()
             {
-                Date_Az_Pishnahad = await _serivecs.ConvertDateToShamsi(model.DateStart),
-                Date_Ta_Pishnahad = await _serivecs.ConvertDateToShamsi(model.DateEnd),
-                Date_Create=await _serivecs.ConvertDateToShamsi(DateTime.Now), 
+
                 T_L_OnvanAsli_ID = null,
                 T_L_OnvanDoreh_ID = null,
                 T_L_MediaAmozeshi_ID = null,
@@ -182,8 +180,13 @@ namespace Request_Course.Controllers
                 T_L_MokhatabanDoreh_ID = null,
                 T_L_SatheKeyfi_Modares_ID = null,
                 T_L_Vaziyat_Doreh_ID = 3
-                
+
             };
+            DateTime DatetimeUTC = DateTime.Now;
+            t_Doreh_Darkhasti.Date_Az_Pishnahad = await _serivecs.ConvertDateToShamsi(model.DateStart);
+            t_Doreh_Darkhasti.Date_Ta_Pishnahad = await _serivecs.ConvertDateToShamsi(model.DateEnd);
+            t_Doreh_Darkhasti.Date_Create = await _serivecs.ConvertDateToShamsi(DatetimeUTC);
+
             if (OnvanAsli != "0")
             {
                 t_Doreh_Darkhasti.T_L_OnvanAsli_ID = Convert.ToInt16(OnvanAsli);
@@ -277,13 +280,13 @@ namespace Request_Course.Controllers
                 ViewBag.MokhatabanDorehs = MokhatabanDorehs;
                 return View(model);
             }
-           
+
             T_Doreh_Darkhasti t_Doreh_Darkhasti = new T_Doreh_Darkhasti()
             {
                 OnvanDoreh_Jadid = model.OnvanDoreh,
                 Date_Az_Pishnahad = await _serivecs.ConvertDateToShamsi(model.DateStart),
                 Date_Ta_Pishnahad = await _serivecs.ConvertDateToShamsi(model.DateEnd),
-                Date_Create=await _serivecs.ConvertDateToShamsi(DateTime.Now),
+                Date_Create = await _serivecs.ConvertDateToShamsi(DateTime.Now),
                 T_L_OnvanAsli_ID = null,
                 T_L_MediaAmozeshi_ID = null,
                 T_L_ModateDoreh_ID = null,
@@ -331,7 +334,7 @@ namespace Request_Course.Controllers
             foreach (var item in Teachers)
             {
                 image.Add(item.img);
-                FamilyName.Add(_serivecs.GetActivation(item.Phone).Result.NameFamily);
+                FamilyName.Add(item.NameFamily);
                 if (item.Sathe_Keyfi == null)
                 {
                     Stars.Add("0");
@@ -435,7 +438,7 @@ namespace Request_Course.Controllers
             return View(Teachers);
         }
 
-       
+
 
         #endregion
 
@@ -506,9 +509,9 @@ namespace Request_Course.Controllers
         {
             var user = User.Identity.Name;
             await _serivecs.ConfrimDoreh(DorehId);
-            var doreh= await _serivecs.GetDoreh_Darkhasti(DorehId);
+            var doreh = await _serivecs.GetDoreh_Darkhasti(DorehId);
             var mokhatab = await _serivecs.GetMokhatebinById(doreh.T_Mokhatebin_ID.Value);
-            return RedirectToAction("index", "Mokhatab", new { phone =mokhatab.Phone});
+            return RedirectToAction("index", "Mokhatab", new { phone = mokhatab.Phone });
         }
 
 

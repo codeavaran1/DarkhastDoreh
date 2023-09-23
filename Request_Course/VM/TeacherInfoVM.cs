@@ -1,4 +1,6 @@
-﻿namespace Request_Course.VM
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Request_Course.VM
 {
     public class TeacherInfoVM
     {
